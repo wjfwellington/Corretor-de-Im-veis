@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1a2744">
+<meta name="description" content="Guia Completo do Corretor de Locação de Imóveis">
+<title>Guia do Corretor de Locação</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1a2744;--navy2:#253461;--gold:#c8973a;--gold2:#e8b660;
+  --cream:#f9f5ef;--white:#fff;--g100:#f4f4f4;--g200:#e8e8e8;
+  --g400:#a0a0a0;--g700:#444;--text:#1e1e1e;
+  --green:#2a7a4b;--red:#b83232;--blue:#3a6fdc;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);display:flex;flex-direction:column}
+
+/* ══ BOTTOM NAV ══ */
+#sidebar{display:none}
+#mob-overlay{display:none}
+
+#bottom-nav{
+  position:fixed;bottom:0;left:0;right:0;z-index:200;
+  background:var(--navy);border-top:1px solid rgba(255,255,255,.12);
+  display:flex;align-items:stretch;height:58px;
+  box-shadow:0 -4px 20px rgba(0,0,0,.18);
+}
+.bn-item{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;cursor:pointer;border:none;background:none;
+  padding:6px 4px;transition:background .15s;
+  border-top:2px solid transparent;
+}
+.bn-item:hover{background:rgba(255,255,255,.07)}
+.bn-item.active{border-top-color:var(--gold);background:rgba(200,151,58,.12)}
+.bn-ic{font-size:1.2rem;line-height:1}
+.bn-lbl{font-size:.65rem;color:rgba(255,255,255,.6);font-family:'DM Sans',sans-serif;font-weight:500;letter-spacing:.02em}
+.bn-item.active .bn-lbl{color:var(--gold2)}
+
+/* ══ MAIN ══ */
+#main{
+  flex:1;display:flex;flex-direction:column;
+  height:100vh;overflow:hidden;
+}
+
+/* ══ TOPBAR ══ */
+#topbar{
+  display:flex;align-items:center;gap:8px;padding:0 16px;
+  height:50px;background:white;border-bottom:1px solid var(--g200);
+  flex-shrink:0;z-index:50;
+}
+#back-btn{
+  display:none;background:none;border:none;cursor:pointer;
+  width:32px;height:32px;border-radius:7px;align-items:center;justify-content:center;
+  color:var(--navy);font-size:1.05rem;transition:background .15s;flex-shrink:0;
+}
+#back-btn:hover{background:var(--g100)}
+#back-btn.visible{display:flex}
+.topbar-title{
+  font-family:'Playfair Display',serif;font-size:.95rem;color:var(--navy);
+  flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.tb-actions{display:flex;align-items:center;gap:6px;flex-shrink:0}
+
+#read-btn{
+  display:none;align-items:center;gap:5px;
+  background:var(--g100);border:1.5px solid var(--g200);
+  border-radius:20px;padding:4px 12px;cursor:pointer;
+  font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;
+  color:var(--g700);transition:all .2s;white-space:nowrap;
+}
+#read-btn:hover{border-color:var(--green);color:var(--green)}
+#read-btn.read{background:#edfaf3;border-color:var(--green);color:var(--green)}
+#read-btn.visible{display:flex}
+
+#open-search-btn{
+  background:var(--g100);border:1.5px solid var(--g200);border-radius:7px;
+  padding:5px 11px;cursor:pointer;display:flex;align-items:center;gap:5px;
+  font-size:.76rem;color:var(--g400);font-family:'DM Sans',sans-serif;
+  transition:border-color .2s;
+}
+#open-search-btn:hover{border-color:var(--gold);color:var(--g700)}
+
+/* ══ CONTENT ══ */
+#content{flex:1;overflow-y:auto;overflow-x:hidden;padding:20px 16px 80px}
+
+.page{display:none;animation:fadeUp .22s ease}
+.page.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══ HOME ══ */
+.hero{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 55%,#2a3f6e 100%);
+  border-radius:14px;padding:28px 24px;color:white;margin-bottom:20px;
+  position:relative;overflow:hidden;
+}
+.hero::after{
+  content:'';position:absolute;right:-30px;top:-30px;width:160px;height:160px;
+  border-radius:50%;background:radial-gradient(circle,rgba(200,151,58,.28),transparent 70%);
+}
+.hero-tag{
+  display:inline-block;background:var(--gold);color:var(--navy);
+  font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 9px;border-radius:4px;margin-bottom:8px;
+}
+.hero h2{font-family:'Playfair Display',serif;font-size:1.5rem;line-height:1.25;margin-bottom:6px}
+.hero p{color:rgba(255,255,255,.62);font-size:.82rem;line-height:1.6;max-width:500px}
+.prog-wrap{background:rgba(255,255,255,.14);border-radius:20px;height:5px;margin-top:14px;max-width:300px}
+.prog-fill{height:5px;border-radius:20px;background:var(--gold);transition:width .4s}
+.prog-lbl{font-size:.7rem;color:rgba(255,255,255,.5);margin-top:5px}
+
+.ch-head{
+  font-family:'Playfair Display',serif;font-size:1rem;color:var(--navy);
+  margin:16px 0 10px;display:flex;align-items:center;gap:8px;
+}
+.ch-head::after{content:'';flex:1;height:1px;background:var(--g200)}
+
+.ch-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(175px,1fr));
+  gap:9px;
+}
+.ch-card{
+  background:white;border:1.5px solid var(--g200);border-radius:11px;
+  padding:12px 14px;cursor:pointer;transition:all .18s;
+  display:flex;flex-direction:column;gap:4px;position:relative;
+}
+.ch-card:hover{border-color:var(--gold);box-shadow:0 4px 14px rgba(0,0,0,.08);transform:translateY(-1px)}
+.ch-card.ch-read{border-color:#b6e4c8;background:#f5fdf8}
+.ch-num{font-size:.64rem;color:var(--gold);font-weight:700;letter-spacing:.07em;text-transform:uppercase}
+.ch-ico{font-size:1.2rem}
+.ch-title{font-weight:600;font-size:.83rem;color:var(--navy);line-height:1.3}
+.ch-desc{font-size:.72rem;color:var(--g400);line-height:1.4}
+.ch-badge{
+  position:absolute;top:8px;right:9px;width:16px;height:16px;
+  border-radius:50%;background:var(--green);display:none;
+  align-items:center;justify-content:center;font-size:.58rem;color:white;
+}
+.ch-card.ch-read .ch-badge{display:flex}
+
+/* ══ SECTION ══ */
+.sec-hdr{
+  margin-bottom:16px;padding-bottom:14px;border-bottom:2px solid var(--g200);
+}
+.sec-hdr h2{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--navy);line-height:1.2}
+.sec-hdr p{font-size:.82rem;color:var(--g400);margin-top:4px;line-height:1.5}
+
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
+.cols.one{grid-template-columns:1fr}
+.cols.three{grid-template-columns:1fr 1fr 1fr}
+.cols.four{grid-template-columns:1fr 1fr 1fr 1fr}
+@media(max-width:680px){.cols,.cols.three,.cols.four{grid-template-columns:1fr}}
+@media(max-width:860px){.cols{grid-template-columns:1fr}}
+
+.card{
+  background:white;border-radius:11px;padding:16px 18px;
+  border:1px solid var(--g200);transition:box-shadow .18s;
+}
+.card:hover{box-shadow:0 3px 12px rgba(0,0,0,.06)}
+.card h3{
+  font-family:'Playfair Display',serif;font-size:.93rem;color:var(--navy);
+  margin-bottom:9px;display:flex;align-items:center;gap:6px;
+}
+.card p{font-size:.82rem;line-height:1.7;color:var(--g700)}
+.card ul,.card ol{padding-left:15px;margin-top:5px}
+.card li{font-size:.82rem;line-height:1.75;color:var(--g700)}
+.card li strong{color:var(--navy)}
+
+.tip{border-radius:9px;padding:11px 15px;display:flex;gap:10px;font-size:.82rem;line-height:1.65}
+.tip .ti{font-size:1.05rem;flex-shrink:0;margin-top:1px}
+.tip strong{display:block;margin-bottom:3px;font-weight:600}
+.tip-gold{background:#fdf6e8;border-left:4px solid var(--gold);color:#6b4e1a}
+.tip-blue{background:#edf2ff;border-left:4px solid var(--blue);color:#1e3a72}
+.tip-red{background:#fff0f0;border-left:4px solid var(--red);color:#7a1f1f}
+.tip-green{background:#edfaf3;border-left:4px solid var(--green);color:#1a4f32}
+
+.tbl-wrap{overflow-x:auto;border-radius:7px;border:1px solid var(--g200);max-width:100%}
+table{width:100%;min-width:360px;border-collapse:collapse;font-size:.8rem}
+thead th{background:var(--navy);color:white;padding:8px 10px;text-align:left;
+  font-weight:600;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;white-space:normal;word-break:break-word}
+tbody tr{border-bottom:1px solid var(--g200)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:nth-child(even){background:#fafafa}
+tbody td{padding:8px 10px;color:var(--g700);vertical-align:top;word-break:break-word}
+tbody td:first-child{font-weight:500;color:var(--navy)}
+
+.script{
+  background:var(--navy);color:#c8e6ff;border-radius:9px;
+  padding:12px 16px;font-size:.82rem;line-height:1.7;position:relative;margin-top:4px;
+}
+.script-lbl{
+  position:absolute;top:-9px;left:12px;background:var(--gold);color:var(--navy);
+  font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;
+  padding:2px 9px;border-radius:20px;
+}
+
+.steps{display:flex;flex-direction:column;gap:8px}
+.step{display:flex;gap:10px;align-items:flex-start}
+.step-n{
+  width:26px;height:26px;background:var(--navy);color:white;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.73rem;font-weight:700;flex-shrink:0;margin-top:1px;
+}
+.step-b{font-size:.82rem;line-height:1.7;color:var(--g700)}
+.step-b strong{color:var(--navy)}
+
+/* ══ GLOSSARY ══ */
+.gloss-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:9px;
+}
+.gi{
+  background:white;border:1px solid var(--g200);border-radius:11px;
+  padding:13px 15px;display:flex;gap:12px;align-items:flex-start;
+  transition:box-shadow .18s;
+}
+.gi:hover{box-shadow:0 3px 12px rgba(0,0,0,.07)}
+.gi-ic{
+  width:38px;height:38px;border-radius:9px;background:var(--navy);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;flex-shrink:0;
+}
+.gi .term{font-weight:600;font-size:.85rem;color:var(--navy);margin-bottom:4px}
+.gi .def{font-size:.78rem;line-height:1.6;color:var(--g700)}
+
+/* ══ SEARCH ══ */
+#search-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.48);
+  z-index:400;align-items:flex-start;justify-content:center;padding-top:60px;
+}
+#search-overlay.open{display:flex}
+.sp{
+  background:white;border-radius:13px;width:100%;max-width:560px;
+  max-height:72vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+.sp-hd{
+  padding:12px 16px;border-bottom:1px solid var(--g200);
+  display:flex;align-items:center;gap:9px;
+  position:sticky;top:0;background:white;border-radius:13px 13px 0 0;
+}
+.sp-hd input{
+  flex:1;border:none;outline:none;font-family:'DM Sans',sans-serif;
+  font-size:.93rem;color:var(--text);
+}
+.sp-close{background:none;border:none;cursor:pointer;font-size:1.1rem;color:var(--g400);padding:2px 6px;border-radius:5px}
+.sp-close:hover{background:var(--g100);color:var(--navy)}
+.sr-item{padding:10px 16px;cursor:pointer;border-bottom:1px solid #f0f0f0;transition:background .12s}
+.sr-item:last-child{border-bottom:none}
+.sr-item:hover{background:var(--g100)}
+.sr-sec{font-size:.66rem;color:var(--gold);font-weight:600;text-transform:uppercase;margin-bottom:1px}
+.sr-title{font-size:.86rem;font-weight:600;color:var(--navy);margin-bottom:2px}
+.sr-excerpt{font-size:.76rem;color:var(--g400);line-height:1.4}
+mark{background:#fff3c4;border-radius:2px;padding:0 1px}
+.sr-empty{padding:26px 16px;text-align:center;color:var(--g400);font-size:.86rem}
+
+/* Mobile overlay for sidebar */
+#mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:190}
+#mob-overlay.open{display:block}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:580px){
+  #content{padding:14px 12px 80px}
+  .hero{padding:20px 16px}
+  .hero h2{font-size:1.25rem}
+  .ch-grid{grid-template-columns:1fr 1fr}
+  #open-search-btn span{display:none}
+  .gloss-grid{grid-template-columns:1fr}
+}
+@media(max-width:360px){.ch-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div id="search-overlay">
+  <div class="sp">
+    <div class="sp-hd">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="si" type="text" placeholder="Pesquisar no guia… (Ctrl+K)" autocomplete="off">
+      <button class="sp-close" id="close-search">✕</button>
+    </div>
+    <div id="sr"></div>
+  </div>
+</div>
+
+<div id="mob-overlay"></div>
+
+<!-- BOTTOM NAV -->
+<nav id="bottom-nav">
+  <button class="bn-item active" data-s="home" onclick="navigate('home')">
+    <span class="bn-ic">🏛️</span>
+    <span class="bn-lbl">Início</span>
+  </button>
+  <button class="bn-item" data-s="glossario" onclick="navigate('glossario')">
+    <span class="bn-ic">📖</span>
+    <span class="bn-lbl">Glossário</span>
+  </button>
+</nav>
+
+<aside id="sidebar"></aside>
+
+<div id="main">
+  <header id="topbar">
+    <button id="back-btn" aria-label="Voltar">←</button>
+    <div class="topbar-title" id="topbar-title">Visão Geral</div>
+    <div class="tb-actions">
+      <button id="read-btn"><span id="rb-ico">○</span> <span id="rb-txt">Marcar como lido</span></button>
+      <button id="open-search-btn">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <span>Pesquisar</span>
+      </button>
+    </div>
+  </header>
+
+  <div id="content">
+
+    <!-- HOME -->
+    <div class="page active" id="home">
+      <div class="hero">
+        <div class="hero-tag">Guia Completo</div>
+        <h2>Do Primeiro Contato ao<br>Contrato Assinado</h2>
+        <p>Rotinas · Linguagem · Regras · Documentação para corretores iniciantes. 15 capítulos + glossário.</p>
+        <div class="prog-wrap"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+        <div class="prog-lbl" id="prog-lbl">0 de 15 capítulos lidos</div>
+      </div>
+      <div class="ch-head">Capítulos do Guia</div>
+      <div class="ch-grid">
+        <div class="ch-card" data-goto="s1"><div class="ch-num">Cap. 01</div><div class="ch-ico">📊</div><div class="ch-title">Mercado de Locação</div><div class="ch-desc">Por que trabalhar com locação e como ganhar dinheiro</div><div class="ch-badge">✓</div></div>
+        <div class="ch-card" data-goto="s2"><div class="ch-num">Cap. 02</div><div class="ch-ico">🏛️</div><div class="ch-title">Registro e Habilitação</div><div class="ch-desc">CRECI, modalidades e requisitos legais</div><div class="ch-badge">✓</div></div>
+        <div class="ch-card" data-goto="s3"><div class="ch-num">Cap. 03</div><div class="ch-ico">🔍</div><div class="ch-title">Captação de Imóveis</div><div class="ch-desc">Métodos ativos e abordagem com o proprietário</div><div class="ch-badge">✓</div></div>
+        <div class="ch-card" data-goto="s4"><div class="ch-num">Cap. 04</div><div class="ch-ico">📢</div><div class="ch-title">Captação de Clientes</div><div class="ch-desc">Portais, anúncios eficientes e presença digital</div><div class="ch-badge">✓</div></div>
+        <div class="ch-card" data-goto="s5"><div class="ch-num">Cap. 05</div><div class="ch-ico">✅</div><div class="ch-title">Qualificação</div><div class="ch-desc">As 4 perguntas essenciais e critério de renda</div><div class="ch-badge">✓</div></div>
+        <div class="ch-card" data-goto="s6"><div class="ch-num">Cap. 06</div><div class="ch-ico">🚪</div><div class="ch-title">Visitas e Apresentação</div><div class="ch-desc">Postura, linguagem e follow-up</div><div class="ch-badge">✓</div></div>
+        <div class="ch-card" data-goto="s7"><div class="ch-num">Cap. 07</div><div class="ch-ico">📁</div><div class="ch-title">Documentação Exigida</div><div class="ch-desc">Inquilino, fiador, imóvel e proprietário</div><div class="ch-badge">✓</div></div>
+        <div class="ch-card" data-goto="s8"><div class="ch-num">Cap. 08</div><div class="ch-ico">🛡️</div><div class="ch-title">Garantias Locatícias</div><div class="ch-desc">Fiador, caução, seguro-fiança, capitalização</div><div class="ch-badge">✓</div></div>
+        <div class="ch-card" data-goto="s9"><div class="ch-num">Cap. 09</div><div class="ch-ico">📜</div><div class="ch-title">Contrato de Locação</div><div class="ch-desc">Cláusulas obrigatórias, reajuste e assinatura</div><div class="ch-badge">✓</div></div>
+        <div class="ch-card" data-goto="s10"><div class="ch-num">Cap. 10</div><div class="ch-ico">🤝</div><div class="ch-title">Negociação e Fechamento</div><div class="ch-desc">Os 5 pilares, objeções e frases de fechamento</div><div class="ch-badge">✓</div></div>
+        <div class="ch-card" data-goto="s11"><div class="ch-num">Cap. 11</div><div class="ch-ico">📅</div><div class="ch-title">Rotinas Diárias</div><div class="ch-desc">Agenda, metas e controle de carteira</div><div class="ch-badge">✓</div></div>
+        <div class="ch-card" data-goto="s12"><div class="ch-num">Cap. 12</div><div class="ch-ico">💬</div><div class="ch-title">Linguagem Profissional</div><div class="ch-desc">WhatsApp, e-mail e vocabulário do mercado</div><div class="ch-badge">✓</div></div>
+        <div class="ch-card" data-goto="s13"><div class="ch-num">Cap. 13</div><div class="ch-ico">🚫</div><div class="ch-title">Erros Comuns</div><div class="ch-desc">Os erros mais frequentes e como evitá-los</div><div class="ch-badge">✓</div></div>
+        <div class="ch-card" data-goto="s14"><div class="ch-num">Cap. 14</div><div class="ch-ico">⚖️</div><div class="ch-title">Lei do Inquilinato</div><div class="ch-desc">Direitos, obrigações e multas (Lei 8.245/91)</div><div class="ch-badge">✓</div></div>
+        <div class="ch-card" data-goto="s15"><div class="ch-num">Cap. 15</div><div class="ch-ico">🛠️</div><div class="ch-title">Ferramentas e Tecnologia</div><div class="ch-desc">Apps, CRM, Instagram e precificação</div><div class="ch-badge">✓</div></div>
+        <div class="ch-card" data-goto="glossario" style="border-color:#d4b896;background:#fffbf5"><div class="ch-num" style="color:#a06820">Glossário</div><div class="ch-ico">📖</div><div class="ch-title">Termos do Mercado</div><div class="ch-desc">25 termos essenciais explicados</div></div>
+      </div>
+    </div>
+
+    <!-- S1 -->
+    <div class="page" id="s1">
+      <div class="sec-hdr"><h2>1. O Mercado de Locação</h2><p>Entenda o segmento, perfis de clientes e como o corretor ganha dinheiro</p></div>
+      <div class="cols" style="margin-bottom:12px">
+        <div class="card"><h3>📊 Por que trabalhar com locação?</h3><ul><li>Demanda constante e previsível ao longo do ano</li><li>Ciclo de fechamento mais rápido que na venda (dias vs. meses)</li><li>Comissão recorrente se você administrar o imóvel</li><li>Menor ticket de entrada — menos objeções financeiras</li><li>Excelente porta de entrada para iniciantes</li></ul></div>
+        <div class="card"><h3>👥 Perfis de Clientes</h3><ul><li><strong>Proprietário (locador):</strong> quer segurança, pontualidade e cuidado</li><li><strong>Inquilino (locatário):</strong> quer praticidade, preço justo e rapidez</li><li><strong>Fiador:</strong> precisa de respeito — é um facilitador importante</li><li><strong>Administradora:</strong> pode ser parceira ou empregadora</li></ul></div>
+      </div>
+      <div class="tip tip-gold" style="margin-bottom:12px"><div class="ti">💡</div><div><strong>Dica de Ouro</strong>Sempre busque também a administração do imóvel. A comissão de locação é única, mas a taxa de administração é recorrente e constrói renda passiva mensal.</div></div>
+      <div class="card"><h3>💰 Como o Corretor Ganha Dinheiro</h3><div class="tbl-wrap"><table><thead><tr><th>Tipo de Ganho</th><th>Quando Ocorre</th><th>Valor Típico</th></tr></thead><tbody><tr><td>Comissão de Locação</td><td>Na assinatura do contrato</td><td>1 aluguel (do proprietário)</td></tr><tr><td>Taxa de Administração</td><td>Todo mês (se administrar)</td><td>8% a 12% do aluguel</td></tr><tr><td>Honorário de Vistoria</td><td>Entrada e saída do inquilino</td><td>Varia por imobiliária</td></tr><tr><td>Renovação de Contrato</td><td>Após 30 meses</td><td>Negociável</td></tr></tbody></table></div></div>
+    </div>
+
+    <!-- S2 -->
+    <div class="page" id="s2">
+      <div class="sec-hdr"><h2>2. Registro e Habilitação Profissional</h2><p>Requisitos legais para exercer a corretagem no Brasil</p></div>
+      <div class="tip tip-red" style="margin-bottom:12px"><div class="ti">⚠️</div><div><strong>Atenção Legal</strong>Trabalhar sem registro é crime de exercício ilegal de profissão. Anuncie sempre com seu CRECI. Corretores sem CRECI não podem cobrar comissão judicialmente.</div></div>
+      <div class="cols">
+        <div class="card"><h3>🏛️ Como Obter o CRECI</h3><div class="steps"><div class="step"><div class="step-n">1</div><div class="step-b"><strong>Faça o curso TTI</strong> em instituição credenciada</div></div><div class="step"><div class="step-n">2</div><div class="step-b"><strong>Solicite o CRECI-J</strong> (registro de estagiário)</div></div><div class="step"><div class="step-n">3</div><div class="step-b"><strong>Cumpra o estágio</strong> supervisionado (mín. 6 meses)</div></div><div class="step"><div class="step-n">4</div><div class="step-b"><strong>Solicite o CRECI-F</strong> (registro definitivo)</div></div><div class="step"><div class="step-n">5</div><div class="step-b"><strong>Pague a anuidade</strong> anual para manter ativo</div></div></div></div>
+        <div class="card"><h3>⚡ Modalidades de Atuação</h3><div class="tbl-wrap"><table><thead><tr><th>Modalidade</th><th>Vantagens</th><th>Desvantagens</th></tr></thead><tbody><tr><td>Autônomo</td><td>100% da comissão</td><td>Sem suporte</td></tr><tr><td>Parceiro Imobiliária</td><td>Suporte, marca, leads</td><td>Divisão de comissão</td></tr><tr><td>Funcionário CLT</td><td>Salário fixo</td><td>Menor comissão</td></tr><tr><td>Franquia</td><td>Marca forte</td><td>Alto investimento</td></tr></tbody></table></div><div class="tip tip-blue" style="margin-top:10px"><div class="ti">💡</div><div>Para iniciantes: ser parceiro de imobiliária oferece suporte jurídico e aprendizado com experientes.</div></div></div>
+      </div>
+    </div>
+
+    <!-- S3 -->
+    <div class="page" id="s3">
+      <div class="sec-hdr"><h2>3. Captação de Imóveis</h2><p>Métodos, abordagens e documentos para captar com sucesso</p></div>
+      <div class="tip tip-gold" style="margin-bottom:12px"><div class="ti">🎯</div><div><strong>A Regra dos 3 Nãos</strong>Todo proprietário que diz NÃO para o primeiro contato pode dizer SIM na terceira abordagem. Persistência qualificada é a chave.</div></div>
+      <div class="cols" style="margin-bottom:12px">
+        <div class="card"><h3>🔍 Prospecção por Placas</h3><p>Percorra bairros identificando imóveis com placas de aluguel direto — esses ainda não têm representação.</p><ul style="margin-top:8px"><li>Anote endereço e telefone</li><li>Aborde pessoalmente sempre que possível</li><li>Leve cartão de visitas profissional</li></ul><div class="script" style="margin-top:10px"><div class="script-lbl">Frase de Abordagem</div><p>"Bom dia! Sou corretor especializado nessa região e tenho clientes procurando exatamente esse tipo de imóvel. Posso te apresentar meu trabalho?"</p></div></div>
+        <div class="card"><h3>📱 Portais e Redes Sociais</h3><ul><li>OLX, Zap Imóveis, Viva Real, Imóvel Web</li><li>Facebook Marketplace e grupos locais</li><li>Instagram com hashtags do bairro</li></ul><div style="margin-top:12px"></div><h3 style="margin-top:12px">🤝 Síndicos e Zeladores</h3><p>Eles sabem antes de todos quando uma unidade vai desocupar. Visite condomínios mensalmente e cultive essas parcerias.</p></div>
+      </div>
+      <div class="card" style="margin-bottom:12px"><h3>📋 O que o Proprietário Quer Ouvir</h3><div class="tbl-wrap"><table><thead><tr><th>O que ele quer</th><th>O que enfatizar</th></tr></thead><tbody><tr><td>Imóvel bem anunciado</td><td>Fotos profissionais e anúncio em vários portais</td></tr><tr><td>Receber pontualmente</td><td>Seleção rigorosa de inquilino</td></tr><tr><td>Imóvel cuidado</td><td>Vistorias de entrada e saída</td></tr><tr><td>Sem dor de cabeça</td><td>Você cuida de tudo</td></tr></tbody></table></div></div>
+      <div class="tip tip-gold"><div class="ti">📸</div><div><strong>Foto vende imóvel</strong>Imóveis com fotos profissionais recebem até 3× mais contatos. Fotografe com luz natural e faça fotos amplas.</div></div>
+    </div>
+
+    <!-- S4 -->
+    <div class="page" id="s4">
+      <div class="sec-hdr"><h2>4. Captação de Clientes (Inquilinos)</h2><p>Portais, anúncios eficientes e como construir presença digital</p></div>
+      <div class="cols" style="margin-bottom:12px">
+        <div class="card"><h3>🌐 Onde Anunciar</h3><div class="tbl-wrap"><table><thead><tr><th>Portal</th><th>Perfil</th><th>Custo</th></tr></thead><tbody><tr><td>Zap Imóveis</td><td>Classe média-alta</td><td>Pago</td></tr><tr><td>Viva Real</td><td>Amplo público</td><td>Grátis/Pago</td></tr><tr><td>OLX</td><td>Várias classes</td><td>Grátis/Pago</td></tr><tr><td>Instagram</td><td>Jovens digitais</td><td>Grátis/Impuls.</td></tr><tr><td>Facebook Mkt</td><td>Amplo/local</td><td>Gratuito</td></tr></tbody></table></div></div>
+        <div class="card"><h3>✍️ Anúncio Eficiente</h3><div class="tip tip-blue" style="margin-bottom:10px"><div class="ti">📌</div><div><strong>Fórmula do título:</strong> [Tipo] [Quartos] para alugar em [Bairro] — [Diferencial]</div></div><ul><li>Metragem e área útil</li><li>Quartos, banheiros, vagas</li><li>Diferenciais: varanda, armários, AC</li><li>Aluguel + condomínio + IPTU</li><li>Condições: pets, fumantes, garantia</li></ul></div>
+      </div>
+      <div class="tip tip-green" style="margin-bottom:12px"><div class="ti">📱</div><div><strong>A Velocidade Decide o Negócio</strong>Responda em até 15 minutos nos horários comerciais. Clientes consultam vários imóveis ao mesmo tempo.</div></div>
+      <div class="card"><h3>💬 Script de Primeiro Contato</h3><div class="script"><div class="script-lbl">WhatsApp — Modelo Inicial</div><p>Olá [Nome]! Que bom que se interessou pelo imóvel. Para te ajudar melhor, me diz: qual é a sua data prevista de mudança? Quantas pessoas vão morar? E você já tem a documentação básica (comprovante de renda e RG)? Assim preparo tudo para sua visita!</p></div></div>
+    </div>
+
+    <!-- S5 -->
+    <div class="page" id="s5">
+      <div class="sec-hdr"><h2>5. Qualificação de Clientes</h2><p>Evite visitas desnecessárias e aumente sua taxa de fechamento</p></div>
+      <div class="cols" style="margin-bottom:12px">
+        <div class="card"><h3>❓ 4 Perguntas Essenciais</h3><div class="tbl-wrap"><table><thead><tr><th>Pergunta</th><th>Por que importa</th></tr></thead><tbody><tr><td>Qual o seu orçamento mensal?</td><td>Define quais imóveis mostrar</td></tr><tr><td>Quando precisa se mudar?</td><td>Define urgência</td></tr><tr><td>Qual a sua renda comprovada?</td><td>Critério dos 3×</td></tr><tr><td>Você tem garantia disponível?</td><td>Fiador, seguro ou caução?</td></tr></tbody></table></div></div>
+        <div class="card"><h3>💵 Critério de Renda</h3><p>A maioria exige renda de pelo menos <strong>3× o valor total</strong> (aluguel + condomínio + IPTU).</p><div class="tip tip-blue" style="margin-top:10px"><div class="ti">🧮</div><div><strong>Exemplo</strong>Aluguel R$2.000 + Cond. R$600 + IPTU R$200 = R$2.800<br>Renda mínima: <strong>R$8.400/mês</strong></div></div></div>
+      </div>
+      <div class="card"><h3>🧩 Perfis e Como Tratar Cada Um</h3><div class="cols"><ul><li><strong>Urgente:</strong> priorize, facilite a documentação</li><li><strong>Indeciso:</strong> seja paciente, elimine medos</li></ul><ul><li><strong>Exigente:</strong> ouça muito antes de falar</li><li><strong>Econômico:</strong> apresente custo total com honestidade</li></ul></div></div>
+    </div>
+
+    <!-- S6 -->
+    <div class="page" id="s6">
+      <div class="sec-hdr"><h2>6. Visitas e Apresentação de Imóveis</h2><p>Postura, linguagem e o que fazer antes, durante e após a visita</p></div>
+      <div class="cols" style="margin-bottom:12px">
+        <div class="card"><h3>🕐 Antes da Visita</h3><ul><li>Releia o anúncio e especificações</li><li>Verifique disponibilidade das chaves</li><li>Confirme a visita no dia anterior e no dia</li><li>Pesquise transporte, comércio e escolas da região</li><li>Leve cartão de visitas, ficha cadastral e caneta</li></ul></div>
+        <div class="card"><h3>🏠 Durante a Visita</h3><ul><li>Chegue 5–10 min antes para organizar</li><li>Vista-se profissionalmente</li><li>Deixe o cliente andar com calma</li><li>Faça perguntas: <em>"O que achou desse espaço?"</em></li><li>Seja honesto sobre eventuais problemas</li></ul></div>
+      </div>
+      <div class="card" style="margin-bottom:12px"><h3>🗣️ Linguagem de Apresentação</h3><div class="tbl-wrap"><table><thead><tr><th>Evite</th><th>Prefira</th></tr></thead><tbody><tr><td>"O imóvel é pequeno, mas…"</td><td>"O espaço é muito bem aproveitado"</td></tr><tr><td>"Não tem vaga de garagem"</td><td>"Há estacionamento rotativo ao lado a preço acessível"</td></tr><tr><td>"Precisa de reforma"</td><td>"O proprietário está aberto a negociar melhorias"</td></tr></tbody></table></div></div>
+      <div class="card"><h3>📲 Após a Visita</h3><ul><li>Envie agradecimento em até 1 hora</li><li>Pergunte a opinião do cliente</li><li>Entenda o motivo se não fechou</li><li>Tenha 2–3 opções reservas prontas</li></ul><div class="script" style="margin-top:10px"><div class="script-lbl">Mensagem Pós-Visita</div><p>Olá [Nome], foi um prazer te receber hoje! Fico à disposição para esclarecer qualquer dúvida. Se quiser, posso também te mostrar mais opções que separei com base no que conversamos. É só me falar!</p></div></div>
+    </div>
+
+    <!-- S7 -->
+    <div class="page" id="s7">
+      <div class="sec-hdr"><h2>7. Documentação Exigida</h2><p>Tudo o que precisar dos envolvidos no processo de locação</p></div>
+      <div class="cols" style="margin-bottom:12px">
+        <div class="card"><h3>👤 Documentos do Inquilino</h3><div class="tbl-wrap"><table><thead><tr><th>Documento</th><th>Finalidade</th></tr></thead><tbody><tr><td>RG e CPF</td><td>Identificação</td></tr><tr><td>Comprovante de residência</td><td>Endereço atual</td></tr><tr><td>Comprovante de renda</td><td>Últimos 3 contracheques</td></tr><tr><td>Declaração de IR</td><td>Renda complementar</td></tr><tr><td>Extrato bancário</td><td>3 últimos meses</td></tr><tr><td>Certidão de estado civil</td><td>Composição familiar</td></tr></tbody></table></div></div>
+        <div><div class="card" style="margin-bottom:12px"><h3>🤝 Documentos do Fiador</h3><ul><li>RG, CPF e comprovante de residência</li><li>Renda (dobro do exigido ao inquilino)</li><li>Matrícula do imóvel dado em garantia (quitado)</li><li>Certidão negativa de ônus reais</li></ul></div><div class="card"><h3>🏘️ Imóvel e Proprietário</h3><ul><li>Matrícula atualizada (últimos 30 dias)</li><li>Certidão negativa de IPTU</li><li>Última conta de condomínio quitada</li><li>Laudo de vistoria com fotos</li><li>AVCB para prédios</li></ul></div></div>
+      </div>
+      <div class="tip tip-gold"><div class="ti">📋</div><div><strong>Vistoria de Entrada é Fundamental</strong>Documente TUDO: riscos, manchas, falhas, torneiras, portas, pisos. Sem vistoria detalhada, você não tem como cobrar reparos na saída.</div></div>
+    </div>
+
+    <!-- S8 -->
+    <div class="page" id="s8">
+      <div class="sec-hdr"><h2>8. Garantias Locatícias</h2><p>Lei 8.245/91 — o proprietário escolhe apenas um tipo (Art. 37)</p></div>
+      <div class="card" style="margin-bottom:12px"><h3>🛡️ Comparativo de Garantias</h3><div class="tbl-wrap"><table><thead><tr><th>Garantia</th><th>Como Funciona</th><th>Vantagem</th><th>Desvantagem</th></tr></thead><tbody><tr><td>Fiador</td><td>Terceiro assume a dívida</td><td>Custo zero ao inquilino</td><td>Difícil de conseguir</td></tr><tr><td>Caução</td><td>Depósito de 3 meses em poupança</td><td>Simples e rápido</td><td>Preso por 3 meses</td></tr><tr><td>Seguro-Fiança</td><td>Seguradora garante o pagamento</td><td>Fácil aprovação</td><td>Custo mensal extra</td></tr><tr><td>Título de Capitalização</td><td>Valor depositado, retorna ao final</td><td>Recupera o valor</td><td>Burocracia para resgatar</td></tr></tbody></table></div></div>
+      <div class="cols">
+        <div class="card"><h3>💡 Qual Recomendar?</h3><ul><li><strong>Para o proprietário:</strong> Seguro-fiança (cobertura ampla)</li><li><strong>Para o inquilino:</strong> Caução (mais econômica)</li><li><strong>Mais comum:</strong> Fiador</li><li><strong>Mercado premium:</strong> Seguro-fiança crescendo</li></ul></div>
+        <div class="tip tip-blue"><div class="ti">🔥</div><div><strong>Seguro Incêndio — Obrigatório</strong>Art. 22, XIII da Lei 8.245/91. Custo baixo (R$10–30/mês). Verifique se o condomínio já tem apólice coletiva.</div></div>
+      </div>
+    </div>
+
+    <!-- S9 -->
+    <div class="page" id="s9">
+      <div class="sec-hdr"><h2>9. Contrato de Locação</h2><p>O documento mais importante — em conformidade com a Lei 8.245/91</p></div>
+      <div class="cols" style="margin-bottom:12px">
+        <div class="card"><h3>📜 Cláusulas Obrigatórias</h3><ul><li>Identificação completa das partes</li><li>Descrição do imóvel (endereço, metragem)</li><li>Valor do aluguel e data de vencimento</li><li>Índice de reajuste (IGPM, IPCA ou outro)</li><li>Prazo do contrato (tipicamente 30 meses)</li><li>Tipo de garantia escolhida</li><li>Destinação do imóvel</li><li>Responsabilidades de manutenção</li><li>Condições de rescisão e multas</li></ul></div>
+        <div><div class="card" style="margin-bottom:12px"><h3>📅 Prazos e Renovação</h3><div class="tbl-wrap"><table><thead><tr><th>Situação</th><th>Regra</th></tr></thead><tbody><tr><td>Contrato determinado</td><td>Vira indeterminado ao fim automaticamente</td></tr><tr><td>Rescisão pelo inquilino</td><td>Multa proporcional ao tempo restante</td></tr><tr><td>Aviso prévio</td><td>30 dias de antecedência</td></tr></tbody></table></div></div><div class="tip tip-red"><div class="ti">⚖️</div><div><strong>Atenção ao IGPM</strong>Pode ter variação agressiva. Oriente o proprietário a aceitar o IPCA como alternativa.</div></div></div>
+      </div>
+      <div class="card"><h3>✍️ Assinatura do Contrato</h3><ul><li>Pode ser físico (2 vias + cartório) ou digital</li><li>Plataformas: DocuSign, ClickSign, D4Sign</li><li>Todas as partes devem assinar + 2 testemunhas</li></ul></div>
+    </div>
+
+    <!-- S10 -->
+    <div class="page" id="s10">
+      <div class="sec-hdr"><h2>10. Negociação e Fechamento</h2><p>O bom negociador faz as duas partes sentirem que ganharam</p></div>
+      <div class="card" style="margin-bottom:12px"><h3>⚡ Os 5 Pilares da Negociação</h3><div class="cols"><div class="steps"><div class="step"><div class="step-n">1</div><div class="step-b"><strong>Escuta ativa:</strong> ouça mais do que fala</div></div><div class="step"><div class="step-n">2</div><div class="step-b"><strong>Ancoragem:</strong> a primeira proposta define o terreno</div></div><div class="step"><div class="step-n">3</div><div class="step-b"><strong>Concessões graduais:</strong> ceda aos poucos</div></div></div><div class="steps"><div class="step"><div class="step-n">4</div><div class="step-b"><strong>Crie valor:</strong> oferte limpeza ou reparo em vez de baixar o preço</div></div><div class="step"><div class="step-n">5</div><div class="step-b"><strong>Gere urgência:</strong> <em>"Tenho mais dois interessados…"</em></div></div></div></div></div>
+      <div class="cols">
+        <div class="card"><h3>🤔 Objeções e Respostas</h3><div class="tbl-wrap"><table><thead><tr><th>Objeção</th><th>Como responder</th></tr></thead><tbody><tr><td>"O aluguel está caro"</td><td>Compare com similares da região</td></tr><tr><td>"Não tenho fiador"</td><td>Seguro-fiança, caução ou título</td></tr><tr><td>"Preciso ver mais opções"</td><td>Pergunte o que falta e resolva no momento</td></tr><tr><td>"Vou pensar"</td><td>"O que te impede de decidir agora?"</td></tr><tr><td>"Precisa de reparos"</td><td>Negocie o que o proprietário faz antes da entrada</td></tr></tbody></table></div></div>
+        <div class="card"><h3>🎯 Frases de Fechamento</h3><div class="script"><div class="script-lbl">Use com naturalidade</div><p>"Posso já preparar a proposta formal para você?"<br><br>"Se o proprietário aceitar essa condição, você fecha hoje?"<br><br>"Qual seria o melhor dia para assinarmos?"</p></div><div class="tip tip-blue" style="margin-top:10px"><div class="ti">🤝</div><div>Seja o conselheiro, não o vendedor agressivo.</div></div></div>
+      </div>
+    </div>
+
+    <!-- S11 -->
+    <div class="page" id="s11">
+      <div class="sec-hdr"><h2>11. Rotinas Diárias do Corretor</h2><p>A consistência de rotina separa os corretores mediocres dos excepcionais</p></div>
+      <div class="card" style="margin-bottom:12px"><h3>📅 Rotina Diária Recomendada</h3><div class="tbl-wrap"><table><thead><tr><th>Horário</th><th>Atividade</th></tr></thead><tbody><tr><td>07h – 08h</td><td>Revisar mensagens, responder urgências, checar agenda</td></tr><tr><td>08h – 09h</td><td>Publicar/atualizar anúncios. Criar post para Instagram</td></tr><tr><td>09h – 12h</td><td>Atendimento a clientes (ligações, WhatsApp, visitas)</td></tr><tr><td>12h – 13h</td><td>Almoço. Revisar mensagens. Planejamento da tarde</td></tr><tr><td>13h – 17h</td><td>Visitas agendadas. Captação. Atendimento continuado</td></tr><tr><td>17h – 18h</td><td>Follow-up, propostas pendentes, organizar documentos</td></tr><tr><td>18h – 19h</td><td>Estudo: lei, negociação, mercado. Registro do dia</td></tr></tbody></table></div></div>
+      <div class="cols">
+        <div class="card"><h3>🎯 Metas Diárias</h3><ul><li>2 contatos novos de captação</li><li>5 respostas a leads de inquilinos</li><li>1 visita a imóvel realizada</li><li>1 post ou story no Instagram</li><li>Atualização do CRM/agenda</li></ul></div>
+        <div class="card"><h3>🗂️ Controle de Carteira</h3><div class="tbl-wrap"><table><thead><tr><th>Status</th><th>O que fazer</th></tr></thead><tbody><tr><td>Lead quente</td><td>Responder em até 15 min</td></tr><tr><td>Lead morno</td><td>Follow-up a cada 3 dias</td></tr><tr><td>Em negociação</td><td>Contato diário, agilizar documentos</td></tr><tr><td>Contrato assinado</td><td>Arquivar, pedir indicação</td></tr><tr><td>Imóvel vago 30+ dias</td><td>Revisar preço, melhorar anúncio</td></tr></tbody></table></div></div>
+      </div>
+    </div>
+
+    <!-- S12 -->
+    <div class="page" id="s12">
+      <div class="sec-hdr"><h2>12. Linguagem e Comunicação Profissional</h2><p>A forma como você se comunica define como você é percebido</p></div>
+      <div class="cols" style="margin-bottom:12px">
+        <div class="card"><h3>💬 WhatsApp e E-mail</h3><div class="tbl-wrap"><table><thead><tr><th>Evite</th><th>Prefira</th></tr></thead><tbody><tr><td>"oi!! to mandando o imovel"</td><td>"Olá [Nome], segue o link do imóvel."</td></tr><tr><td>"mto bom ne"</td><td>"Excelente custo-benefício para a região."</td></tr><tr><td>"nao sei"</td><td>"Vou verificar e retorno em breve."</td></tr><tr><td>"pode fechar logo?"</td><td>"Você tem alguma dúvida que eu esclareça?"</td></tr></tbody></table></div></div>
+        <div class="card"><h3>📞 Ligações e Visitas</h3><div class="script" style="margin-bottom:10px"><div class="script-lbl">Como atender ligações</div><p>"Boa tarde, [Seu nome], corretor de imóveis, em que posso ajudar?"</p></div><ul><li>Use o nome do cliente — cria conexão</li><li>Evite gírias e excesso de informalidade</li><li>Confirme o combinado ao final</li><li>Não fale mal de outros corretores</li></ul></div>
+      </div>
+      <div class="card"><h3>📡 Tom por Canal</h3><div class="tbl-wrap"><table><thead><tr><th>Canal</th><th>Tom Ideal</th><th>Exemplo prático</th></tr></thead><tbody><tr><td>WhatsApp</td><td>Informal-profissional</td><td>Objetivo, amigável, sem abreviações</td></tr><tr><td>E-mail</td><td>Formal</td><td>Prezado(a), atenciosamente, sem emojis</td></tr><tr><td>Instagram</td><td>Descontraído</td><td>Emojis moderados, bastidores, dicas</td></tr><tr><td>Visita presencial</td><td>Confiante e acolhedor</td><td>Postura aberta, sorriso, contato visual</td></tr></tbody></table></div></div>
+    </div>
+
+    <!-- S13 -->
+    <div class="page" id="s13">
+      <div class="sec-hdr"><h2>13. Erros Comuns e Como Evitar</h2><p>Conhecer os erros com antecedência é a melhor forma de não cometê-los</p></div>
+      <div class="card"><h3>🚫 Erros Frequentes do Iniciante</h3><div class="tbl-wrap"><table><thead><tr><th>Erro</th><th>Consequência</th><th>Como evitar</th></tr></thead><tbody><tr><td>Não fazer vistoria detalhada</td><td>Disputas ao final do contrato</td><td>Fotografe tudo, detalhe cada cômodo</td></tr><tr><td>Aceitar renda sem comprovação</td><td>Inquilino inadimplente</td><td>Sempre exija documentos oficiais</td></tr><tr><td>Prometer o que o proprietário não aprovou</td><td>Perda de credibilidade</td><td>Confirme tudo antes de informar</td></tr><tr><td>Não fazer follow-up</td><td>Perda de clientes quentes</td><td>Use CRM rigorosamente</td></tr><tr><td>Mostrar imóvel sem qualificar</td><td>Perde tempo de ambos</td><td>Qualifique antes de marcar visita</td></tr><tr><td>Ignorar o fiador no processo</td><td>Surpresas na aprovação</td><td>Avalie o fiador junto com o inquilino</td></tr><tr><td>Não ler o contrato com o cliente</td><td>Cliente assina sem entender</td><td>Reserve 30 min para as cláusulas</td></tr><tr><td>Depender só de um portal</td><td>Vulnerabilidade na captação</td><td>Diversifique canais sempre</td></tr><tr><td>Não pedir indicações</td><td>Perda de oportunidades gratuitas</td><td>Peça ao fim de toda locação fechada</td></tr></tbody></table></div></div>
+    </div>
+
+    <!-- S14 -->
+    <div class="page" id="s14">
+      <div class="sec-hdr"><h2>14. Lei do Inquilinato — Pontos Essenciais</h2><p>Lei 8.245/91 — a base legal de toda locação no Brasil</p></div>
+      <div class="cols" style="margin-bottom:12px">
+        <div class="card"><h3>⚖️ Direitos do Proprietário</h3><ul><li>Receber o aluguel na data combinada</li><li>Exigir garantia (apenas um tipo)</li><li>Pedir o imóvel ao fim do contrato determinado</li><li>Pedir para uso próprio com prazo legal</li><li>Entrar no imóvel com aviso prévio</li></ul></div>
+        <div class="card"><h3>📌 Obrigações do Proprietário</h3><ul><li>Entregar o imóvel em boas condições</li><li>Garantir a posse tranquila ao inquilino</li><li>Pagar IPTU (salvo cláusula contrária)</li><li>Arcar com reformas estruturais</li><li>Fornecer recibo de pagamento</li></ul></div>
+        <div class="card"><h3>🏡 Direitos do Inquilino</h3><ul><li>Usar o imóvel conforme o contrato</li><li>Exigir reparos estruturais do proprietário</li><li>Receber a caução ao fim com correção</li><li>Preferência de compra se à venda</li></ul></div>
+        <div class="card"><h3>📋 Obrigações do Inquilino</h3><ul><li>Pagar o aluguel na data combinada</li><li>Conservar o imóvel como se fosse seu</li><li>Comunicar problemas ao proprietário</li><li>Restituir nas mesmas condições recebidas</li><li>Não sublocar sem autorização</li></ul></div>
+      </div>
+      <div class="card" style="margin-bottom:12px"><h3>💥 Multas e Rescisão</h3><div class="tbl-wrap"><table><thead><tr><th>Situação</th><th>Regra Legal</th></tr></thead><tbody><tr><td>Rescisão pelo inquilino antes do prazo</td><td>Multa de 3 meses (proporcional ao tempo restante)</td></tr><tr><td>Rescisão por transferência de emprego</td><td>Isento de multa com aviso de 30 dias</td></tr><tr><td>Falta de pagamento</td><td>Ação de despejo (processo judicial)</td></tr><tr><td>Devolução sem aviso prévio</td><td>Proprietário pode cobrar 1 mês de aluguel</td></tr></tbody></table></div></div>
+      <div class="tip tip-green"><div class="ti">📚</div><div><strong>Leia a Lei Completa</strong>A Lei 8.245/91 tem apenas 88 artigos e pode ser lida em menos de 2 horas. Faça isso na primeira semana.</div></div>
+    </div>
+
+    <!-- S15 -->
+    <div class="page" id="s15">
+      <div class="sec-hdr"><h2>15. Ferramentas e Tecnologia</h2><p>O corretor moderno usa tecnologia a seu favor</p></div>
+      <div class="card" style="margin-bottom:12px"><h3>🛠️ Ferramentas Essenciais</h3><div class="tbl-wrap"><table><thead><tr><th>Categoria</th><th>Ferramenta</th><th>Para que usar</th></tr></thead><tbody><tr><td>Anúncios</td><td>Zap, Viva Real, OLX</td><td>Publicar e gerenciar imóveis</td></tr><tr><td>CRM</td><td>Bitrix24, Pipedrive</td><td>Acompanhar leads e negociações</td></tr><tr><td>Comunicação</td><td>WhatsApp Business</td><td>Catálogo e respostas automáticas</td></tr><tr><td>Fotos</td><td>Lightroom, Snapseed</td><td>Editar fotos de imóveis</td></tr><tr><td>Contratos</td><td>ClickSign, D4Sign</td><td>Assinatura digital</td></tr><tr><td>Design</td><td>Canva</td><td>Posts profissionais</td></tr><tr><td>Vistoria</td><td>Mango Vistoria, Ubsafe</td><td>Laudos fotográficos</td></tr></tbody></table></div></div>
+      <div class="cols">
+        <div class="card"><h3>📸 Instagram — O que Postar</h3><ul><li>Imóveis disponíveis com fotos e valor</li><li>Imóveis recém-alugados ("LOCADO")</li><li>Dicas para inquilinos: como negociar, checklist</li><li>Dicas para proprietários: precificação, vistoria</li><li>Bastidores: visitas, reuniões, conquistas</li><li>Depoimentos de clientes satisfeitos</li></ul></div>
+        <div class="card"><h3>💹 Precificação do Aluguel</h3><ul><li>Pesquise imóveis similares na mesma rua/bairro</li><li>Considere: metragem, quartos, andar, garagem</li><li>Regra: aluguel ≈ <strong>0,3% a 0,6%</strong> do valor de venda</li></ul><div class="tip tip-blue" style="margin-top:10px"><div class="ti">🧮</div><div><strong>Exemplo</strong>Imóvel de R$400.000 × 0,4% = <strong>R$1.600/mês</strong></div></div></div>
+      </div>
+    </div>
+
+    <!-- GLOSSÁRIO -->
+    <div class="page" id="glossario">
+      <div class="sec-hdr"><h2>Glossário do Mercado Imobiliário</h2><p>25 termos essenciais da corretagem de locação explicados de forma clara</p></div>
+      <div class="gloss-grid">
+        <div class="gi"><div class="gi-ic">⚖️</div><div><div class="term">Ação de Despejo</div><div class="def">Processo judicial para retirar o inquilino do imóvel em caso de inadimplência, término de contrato ou violação prevista na Lei do Inquilinato.</div></div></div>
+        <div class="gi"><div class="gi-ic">🚒</div><div><div class="term">AVCB — Auto de Vistoria do Corpo de Bombeiros</div><div class="def">Certificado que atesta que o imóvel atende às normas de segurança contra incêndio e pânico. Obrigatório especialmente em prédios.</div></div></div>
+        <div class="gi"><div class="gi-ic">🔨</div><div><div class="term">Benfeitorias</div><div class="def">Melhorias feitas no imóvel pelo inquilino: <strong>necessárias</strong> (indenizáveis), <strong>úteis</strong> (indenizáveis se autorizadas) ou <strong>voluptuárias</strong> (estéticas, não indenizáveis).</div></div></div>
+        <div class="gi"><div class="gi-ic">🎯</div><div><div class="term">Captação</div><div class="def">Processo de identificar e obter imóveis para locação. O corretor que capta tem autorização formal do proprietário para anunciar e apresentar o imóvel.</div></div></div>
+        <div class="gi"><div class="gi-ic">🏦</div><div><div class="term">Caução</div><div class="def">Garantia em que o inquilino deposita até 3 aluguéis em conta poupança vinculada ao contrato. Devolvido ao final com correção, se não houver débitos.</div></div></div>
+        <div class="gi"><div class="gi-ic">🔄</div><div><div class="term">Cessão</div><div class="def">Transferência do contrato de locação para um terceiro. Só é válida com autorização expressa do proprietário. O cessionário assume todas as obrigações.</div></div></div>
+        <div class="gi"><div class="gi-ic">🏛️</div><div><div class="term">CRECI</div><div class="def">Conselho Regional de Corretores de Imóveis — órgão regulador da profissão. O registro ativo é obrigatório para exercer a corretagem legalmente.</div></div></div>
+        <div class="gi"><div class="gi-ic">💻</div><div><div class="term">CRM</div><div class="def">Customer Relationship Management — software de gestão de clientes. Registra interações, acompanha leads, agenda follow-ups e mede conversões.</div></div></div>
+        <div class="gi"><div class="gi-ic">📣</div><div><div class="term">Denunciação</div><div class="def">Notificação formal comunicando a intenção de encerrar o contrato. O prazo mínimo para o inquilino é de 30 dias.</div></div></div>
+        <div class="gi"><div class="gi-ic">🤝</div><div><div class="term">Fiador</div><div class="def">Pessoa que se responsabiliza pelas obrigações do inquilino. Geralmente precisa ter renda comprovada e imóvel próprio quitado no mesmo estado da locação.</div></div></div>
+        <div class="gi"><div class="gi-ic">📲</div><div><div class="term">Follow-up</div><div class="def">Contato de acompanhamento após uma interação anterior. Fundamental para manter relacionamento e não perder negócios por falta de continuidade.</div></div></div>
+        <div class="gi"><div class="gi-ic">📈</div><div><div class="term">IGPM</div><div class="def">Índice Geral de Preços do Mercado (FGV), muito usado para reajustar aluguel. Pode apresentar variações elevadas em anos de instabilidade econômica.</div></div></div>
+        <div class="gi"><div class="gi-ic">📊</div><div><div class="term">IPCA</div><div class="def">Índice oficial de inflação do Brasil (IBGE). Tende a ser mais estável que o IGPM e vem sendo cada vez mais adotado nos contratos de locação.</div></div></div>
+        <div class="gi"><div class="gi-ic">🔥</div><div><div class="term">Lead</div><div class="def">Potencial cliente que demonstrou interesse em um imóvel. Podem ser "quentes" (alta intenção) ou "mornos" (sem urgência imediata).</div></div></div>
+        <div class="gi"><div class="gi-ic">🏠</div><div><div class="term">Locação</div><div class="def">Contrato pelo qual o proprietário (locador) cede o uso de um imóvel ao inquilino (locatário) mediante pagamento de aluguel. Regida pela Lei 8.245/91.</div></div></div>
+        <div class="gi"><div class="gi-ic">👤</div><div><div class="term">Locador</div><div class="def">O proprietário do imóvel disponibilizado para locação. É quem recebe o aluguel e estabelece as condições do contrato.</div></div></div>
+        <div class="gi"><div class="gi-ic">🧳</div><div><div class="term">Locatário</div><div class="def">O inquilino — quem ocupa o imóvel alugado e paga o aluguel. Tem obrigações como conservação e pagamento pontual.</div></div></div>
+        <div class="gi"><div class="gi-ic">🚫</div><div><div class="term">Luvas</div><div class="def">Valor pago pelo inquilino ao proprietário para ter o direito de locar. <strong>Proibido em locações residenciais</strong>. Pode ocorrer em locações comerciais.</div></div></div>
+        <div class="gi"><div class="gi-ic">📋</div><div><div class="term">Matrícula do Imóvel</div><div class="def">Documento do Cartório de Registro de Imóveis que comprova a propriedade e histórico jurídico. Indispensável para confirmar que o locador é o proprietário.</div></div></div>
+        <div class="gi"><div class="gi-ic">🛡️</div><div><div class="term">Seguro-Fiança</div><div class="def">Garantia em que uma seguradora garante o pagamento do aluguel. O inquilino paga um prêmio mensal. Considerada a mais segura para o proprietário.</div></div></div>
+        <div class="gi"><div class="gi-ic">🔐</div><div><div class="term">Sublocação</div><div class="def">Quando o inquilino aluga o imóvel para terceiros. Geralmente proibida pelo contrato e pela lei, salvo autorização expressa do proprietário.</div></div></div>
+        <div class="gi"><div class="gi-ic">💼</div><div><div class="term">Taxa de Administração</div><div class="def">Percentual mensal (8%–12% do aluguel) cobrado pela imobiliária para administrar o imóvel: cobrança, repasse, manutenção e relação entre as partes.</div></div></div>
+        <div class="gi"><div class="gi-ic">🎰</div><div><div class="term">Título de Capitalização</div><div class="def">Produto financeiro usado como garantia locatícia. O inquilino deposita um valor (≈12 aluguéis) que fica bloqueado durante o contrato e é devolvido ao final.</div></div></div>
+        <div class="gi"><div class="gi-ic">🎓</div><div><div class="term">TTI — Curso de Transações Imobiliárias</div><div class="def">Curso técnico obrigatório para obter o CRECI. Aborda direito imobiliário, avaliação de imóveis, técnicas de corretagem, ética e legislação.</div></div></div>
+        <div class="gi"><div class="gi-ic">🔎</div><div><div class="term">Vistoria</div><div class="def">Inspeção detalhada do estado do imóvel na entrada e saída do inquilino. O laudo fotográfico é o instrumento principal para identificar danos e cobrar reparos.</div></div></div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<script>
+const SECTIONS=['s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11','s12','s13','s14','s15'];
+const TITLES={home:'Visão Geral',glossario:'Glossário',s1:'1. Mercado de Locação',s2:'2. Registro e Habilitação',s3:'3. Captação de Imóveis',s4:'4. Captação de Clientes',s5:'5. Qualificação',s6:'6. Visitas',s7:'7. Documentação',s8:'8. Garantias',s9:'9. Contrato',s10:'10. Negociação',s11:'11. Rotinas',s12:'12. Linguagem',s13:'13. Erros Comuns',s14:'14. Lei do Inquilinato',s15:'15. Ferramentas'};
+
+let READ={};
+try{READ=JSON.parse(localStorage.getItem('guia_read')||'{}')}catch(e){}
+
+let currentPage='home';
+let navHistory=[];
+
+const backBtn=document.getElementById('back-btn');
+const readBtn=document.getElementById('read-btn');
+const rbIco=document.getElementById('rb-ico');
+const rbTxt=document.getElementById('rb-txt');
+const topTitle=document.getElementById('topbar-title');
+const progFill=document.getElementById('prog-fill');
+const progLbl=document.getElementById('prog-lbl');
+
+function updateBottomNav(id){
+  document.querySelectorAll('.bn-item[data-s]').forEach(i=>{
+    i.classList.toggle('active', i.dataset.s===id);
+  });
+}
+
+function navigate(id,pushHist=true){
+  if(id===currentPage)return;
+  if(pushHist)navHistory.push(currentPage);
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.getElementById('content').scrollTop=0;
+  topTitle.textContent=TITLES[id]||id;
+  currentPage=id;
+  backBtn.classList.toggle('visible',navHistory.length>0);
+  const showRead=SECTIONS.includes(id);
+  readBtn.classList.toggle('visible',showRead);
+  if(showRead)updateReadBtn(id);
+  updateProgress();
+  updateBottomNav(id);
+  window.history.pushState({page:id,hist:navHistory.slice()},'',`#${id}`);
+}
+
+function goBack(){
+  if(!navHistory.length){if(currentPage!=='home')navigate('home');return;}
+  const prev=navHistory.pop();
+  const showRead=SECTIONS.includes(prev);
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(prev).classList.add('active');
+  document.getElementById('content').scrollTop=0;
+  topTitle.textContent=TITLES[prev]||prev;
+  currentPage=prev;
+  backBtn.classList.toggle('visible',navHistory.length>0);
+  readBtn.classList.toggle('visible',showRead);
+  if(showRead)updateReadBtn(prev);
+  updateProgress();
+  updateBottomNav(prev);
+}
+
+backBtn.addEventListener('click',goBack);
+
+// Hardware back button (Android/iOS PWA)
+window.addEventListener('popstate',function(e){
+  if(navHistory.length>0){
+    goBack();
+    window.history.pushState({page:currentPage},'',`#${currentPage}`);
+  } else if(currentPage!=='home'){
+    navigate('home',false);
+    window.history.pushState({page:'home'},'','#home');
+  }
+});
+
+// Push initial state
+window.history.replaceState({page:'home'},'','#home');
+
+function updateReadBtn(id){
+  const r=!!READ[id];
+  readBtn.classList.toggle('read',r);
+  rbIco.textContent=r?'✓':'○';
+  rbTxt.textContent=r?'Marcado como lido':'Marcar como lido';
+}
+readBtn.addEventListener('click',function(){
+  const id=currentPage;
+  if(!SECTIONS.includes(id))return;
+  READ[id]=!READ[id];
+  if(!READ[id])delete READ[id];
+  try{localStorage.setItem('guia_read',JSON.stringify(READ))}catch(e){}
+  updateReadBtn(id);
+  updateProgress();
+  updateChCards();
+});
+
+function updateProgress(){
+  const count=SECTIONS.filter(s=>READ[s]).length;
+  const pct=Math.round((count/SECTIONS.length)*100);
+  if(progFill)progFill.style.width=pct+'%';
+  if(progLbl)progLbl.textContent=`${count} de ${SECTIONS.length} capítulos lidos`;
+}
+function updateChCards(){
+  document.querySelectorAll('.ch-card[data-goto]').forEach(c=>{
+    c.classList.toggle('ch-read',!!READ[c.dataset.goto]);
+  });
+}
+
+// Sidebar toggle (stub - sidebar hidden)
+const sbToggle=document.getElementById('sb-toggle');
+if(sbToggle)sbToggle.addEventListener('click',function(){});
+
+// Sidebar nav (stub)
+document.querySelectorAll('.sb-item[data-s]').forEach(item=>{
+  item.addEventListener('click',()=>navigate(item.dataset.s));
+});
+
+// Home cards
+document.querySelectorAll('.ch-card[data-goto]').forEach(card=>{
+  card.addEventListener('click',()=>navigate(card.dataset.goto));
+});
+
+// Search
+const searchOverlay=document.getElementById('search-overlay');
+const si=document.getElementById('si');
+const srEl=document.getElementById('sr');
+function openSearch(){searchOverlay.classList.add('open');si.value='';srEl.innerHTML='';setTimeout(()=>si.focus(),40)}
+function closeSearch(){searchOverlay.classList.remove('open')}
+document.getElementById('open-search-btn').addEventListener('click',openSearch);
+const sbSearchBtn=document.getElementById('sb-search-btn');
+if(sbSearchBtn)sbSearchBtn.addEventListener('click',openSearch);
+document.getElementById('close-search').addEventListener('click',closeSearch);
+searchOverlay.addEventListener('click',e=>{if(e.target===searchOverlay)closeSearch()});
+document.addEventListener('keydown',e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();openSearch()}
+  if(e.key==='Escape')closeSearch();
+});
+const IDX=[];
+document.querySelectorAll('.page').forEach(page=>{
+  const sid=page.id;
+  page.querySelectorAll('.card,.gi,.tip').forEach(el=>{
+    const h=el.querySelector('h3,.term');
+    if(!h)return;
+    IDX.push({s:sid,t:TITLES[sid]||sid,title:h.textContent.replace(/\s+/g,' ').trim(),text:el.textContent.replace(/\s+/g,' ').trim()});
+  });
+});
+function hl(t,q){return t.replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi'),'<mark>$1</mark>')}
+si.addEventListener('input',()=>{
+  const q=si.value.trim().toLowerCase();
+  if(q.length<2){srEl.innerHTML='';return}
+  const m=IDX.filter(i=>i.title.toLowerCase().includes(q)||i.text.toLowerCase().includes(q)).slice(0,10);
+  if(!m.length){srEl.innerHTML='<div class="sr-empty">Nenhum resultado encontrado.</div>';return}
+  srEl.innerHTML=m.map(x=>`<div class="sr-item" data-goto="${x.s}"><div class="sr-sec">${x.t}</div><div class="sr-title">${hl(x.title,q)}</div><div class="sr-excerpt">${hl(x.text.substring(0,100),q)}…</div></div>`).join('');
+  srEl.querySelectorAll('.sr-item').forEach(item=>{
+    item.addEventListener('click',()=>{closeSearch();navigate(item.dataset.goto)});
+  });
+});
+
+// Init
+updateProgress();
+updateChCards();
+updateBottomNav('home');
+</script>
+</body>
+</html>
