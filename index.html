@@ -3,696 +3,1188 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#1a2744">
-<meta name="description" content="Guia Completo do Corretor de Locação de Imóveis">
-<title>Guia do Corretor de Locação</title>
+<meta name="theme-color" content="#1A2B4A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Guia do Colaborador – França Imobiliária</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{
-  --navy:#1a2744;--navy2:#253461;--gold:#c8973a;--gold2:#e8b660;
-  --cream:#f9f5ef;--white:#fff;--g100:#f4f4f4;--g200:#e8e8e8;
-  --g400:#a0a0a0;--g700:#444;--text:#1e1e1e;
-  --green:#2a7a4b;--red:#b83232;--blue:#3a6fdc;
+:root {
+  --red: #C0392B;
+  --red-light: #e74c3c;
+  --red-bg: #FDF2F2;
+  --navy: #1A2B4A;
+  --navy-mid: #2C3E6B;
+  --navy-light: #EEF2F7;
+  --white: #FFFFFF;
+  --gray: #F7F8FA;
+  --text: #2D2D2D;
+  --text-light: #6B7280;
+  --border: #E5E9F0;
+  --shadow: 0 2px 16px rgba(26,43,74,0.10);
+  --shadow-lg: 0 8px 32px rgba(26,43,74,0.14);
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;overflow:hidden}
-body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);display:flex;flex-direction:column}
-
-/* ══ BOTTOM NAV ══ */
-#sidebar{display:none}
-#mob-overlay{display:none}
-
-#bottom-nav{
-  position:fixed;bottom:0;left:0;right:0;z-index:200;
-  background:var(--navy);border-top:1px solid rgba(255,255,255,.12);
-  display:flex;align-items:stretch;height:58px;
-  box-shadow:0 -4px 20px rgba(0,0,0,.18);
-}
-.bn-item{
-  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:3px;cursor:pointer;border:none;background:none;
-  padding:6px 4px;transition:background .15s;
-  border-top:2px solid transparent;
-}
-.bn-item:hover{background:rgba(255,255,255,.07)}
-.bn-item.active{border-top-color:var(--gold);background:rgba(200,151,58,.12)}
-.bn-ic{font-size:1.2rem;line-height:1}
-.bn-lbl{font-size:.65rem;color:rgba(255,255,255,.6);font-family:'DM Sans',sans-serif;font-weight:500;letter-spacing:.02em}
-.bn-item.active .bn-lbl{color:var(--gold2)}
-
-/* ══ MAIN ══ */
-#main{
-  flex:1;display:flex;flex-direction:column;
-  height:100vh;overflow:hidden;
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--white);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-/* ══ TOPBAR ══ */
-#topbar{
-  display:flex;align-items:center;gap:8px;padding:0 16px;
-  height:50px;background:white;border-bottom:1px solid var(--g200);
-  flex-shrink:0;z-index:50;
+/* ===== HEADER ===== */
+.header {
+  background: var(--white);
+  border-bottom: 2px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+  padding: 0 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 60px;
+  box-shadow: 0 2px 12px rgba(26,43,74,0.07);
 }
-#back-btn{
-  display:none;background:none;border:none;cursor:pointer;
-  width:32px;height:32px;border-radius:7px;align-items:center;justify-content:center;
-  color:var(--navy);font-size:1.05rem;transition:background .15s;flex-shrink:0;
+.header-logo {
+  display: flex; align-items: center; gap: 10px; cursor: pointer;
 }
-#back-btn:hover{background:var(--g100)}
-#back-btn.visible{display:flex}
-.topbar-title{
-  font-family:'Playfair Display',serif;font-size:.95rem;color:var(--navy);
-  flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+.logo-svg { width: 36px; height: 32px; }
+.logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 2px;
 }
-.tb-actions{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.header-right { display: flex; align-items: center; gap: 8px; }
+.btn-back {
+  display: none; align-items: center; gap: 6px;
+  background: var(--navy-light); border: none;
+  color: var(--navy); font-family: 'DM Sans', sans-serif;
+  font-size: 13px; font-weight: 500;
+  padding: 7px 14px; border-radius: 20px; cursor: pointer;
+  transition: all .2s;
+}
+.btn-back:hover { background: var(--navy); color: #fff; }
+.btn-back.visible { display: flex; }
+.btn-search {
+  background: none; border: 1.5px solid var(--border);
+  border-radius: 20px; padding: 6px 14px;
+  display: flex; align-items: center; gap: 6px;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text-light);
+  cursor: pointer; transition: all .2s;
+}
+.btn-search:hover { border-color: var(--red); color: var(--red); }
 
-#read-btn{
-  display:none;align-items:center;gap:5px;
-  background:var(--g100);border:1.5px solid var(--g200);
-  border-radius:20px;padding:4px 12px;cursor:pointer;
-  font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;
-  color:var(--g700);transition:all .2s;white-space:nowrap;
+/* ===== SEARCH OVERLAY ===== */
+.search-overlay {
+  display: none; position: fixed; inset: 0; z-index: 200;
+  background: rgba(26,43,74,0.55); backdrop-filter: blur(4px);
 }
-#read-btn:hover{border-color:var(--green);color:var(--green)}
-#read-btn.read{background:#edfaf3;border-color:var(--green);color:var(--green)}
-#read-btn.visible{display:flex}
+.search-overlay.visible { display: flex; align-items: flex-start; justify-content: center; padding-top: 80px; }
+.search-box {
+  background: #fff; border-radius: 16px; padding: 20px;
+  width: 90%; max-width: 560px;
+  box-shadow: var(--shadow-lg);
+  animation: fadeDown .2s ease;
+}
+@keyframes fadeDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
+.search-input-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.search-input-wrap svg { color: var(--text-light); flex-shrink:0; }
+.search-input {
+  flex: 1; border: none; outline: none;
+  font-family: 'DM Sans', sans-serif; font-size: 16px; color: var(--text);
+}
+.search-input::placeholder { color: var(--text-light); }
+.search-close { background: none; border: none; cursor: pointer; color: var(--text-light); font-size: 20px; line-height:1; }
+.search-results { max-height: 320px; overflow-y: auto; }
+.search-result-item {
+  padding: 10px 12px; border-radius: 8px; cursor: pointer;
+  transition: background .15s; display: flex; align-items: center; gap: 10px;
+}
+.search-result-item:hover { background: var(--navy-light); }
+.search-result-item .tag {
+  font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 10px;
+  background: var(--navy-light); color: var(--navy); white-space: nowrap;
+}
+.search-result-item .label { font-size: 14px; color: var(--text); }
+.search-empty { text-align: center; color: var(--text-light); font-size: 14px; padding: 20px 0; }
 
-#open-search-btn{
-  background:var(--g100);border:1.5px solid var(--g200);border-radius:7px;
-  padding:5px 11px;cursor:pointer;display:flex;align-items:center;gap:5px;
-  font-size:.76rem;color:var(--g400);font-family:'DM Sans',sans-serif;
-  transition:border-color .2s;
-}
-#open-search-btn:hover{border-color:var(--gold);color:var(--g700)}
+/* ===== HOME SCREEN ===== */
+.screen { display: none; padding: 20px; max-width: 900px; margin: 0 auto; }
+.screen.active { display: block; }
 
-/* ══ CONTENT ══ */
-#content{flex:1;overflow-y:auto;overflow-x:hidden;padding:20px 16px 80px}
-
-.page{display:none;animation:fadeUp .22s ease}
-.page.active{display:block}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-
-/* ══ HOME ══ */
-.hero{
-  background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 55%,#2a3f6e 100%);
-  border-radius:14px;padding:28px 24px;color:white;margin-bottom:20px;
-  position:relative;overflow:hidden;
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #1d3461 100%);
+  border-radius: 20px; padding: 36px 32px; margin-bottom: 28px;
+  position: relative; overflow: hidden;
 }
-.hero::after{
-  content:'';position:absolute;right:-30px;top:-30px;width:160px;height:160px;
-  border-radius:50%;background:radial-gradient(circle,rgba(200,151,58,.28),transparent 70%);
+.hero::before {
+  content: ''; position: absolute; top: -40px; right: -40px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: rgba(192,57,43,0.15);
 }
-.hero-tag{
-  display:inline-block;background:var(--gold);color:var(--navy);
-  font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  padding:3px 9px;border-radius:4px;margin-bottom:8px;
+.hero::after {
+  content: ''; position: absolute; bottom: -60px; left: 30%;
+  width: 140px; height: 140px; border-radius: 50%;
+  background: rgba(255,255,255,0.04);
 }
-.hero h2{font-family:'Playfair Display',serif;font-size:1.5rem;line-height:1.25;margin-bottom:6px}
-.hero p{color:rgba(255,255,255,.62);font-size:.82rem;line-height:1.6;max-width:500px}
-.prog-wrap{background:rgba(255,255,255,.14);border-radius:20px;height:5px;margin-top:14px;max-width:300px}
-.prog-fill{height:5px;border-radius:20px;background:var(--gold);transition:width .4s}
-.prog-lbl{font-size:.7rem;color:rgba(255,255,255,.5);margin-top:5px}
-
-.ch-head{
-  font-family:'Playfair Display',serif;font-size:1rem;color:var(--navy);
-  margin:16px 0 10px;display:flex;align-items:center;gap:8px;
+.hero-sub { font-size: 11px; font-weight: 600; letter-spacing: 3px; color: var(--red-light); text-transform: uppercase; margin-bottom: 8px; }
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px, 5vw, 34px); color: #fff;
+  line-height: 1.2; margin-bottom: 10px;
 }
-.ch-head::after{content:'';flex:1;height:1px;background:var(--g200)}
-
-.ch-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(175px,1fr));
-  gap:9px;
-}
-.ch-card{
-  background:white;border:1.5px solid var(--g200);border-radius:11px;
-  padding:12px 14px;cursor:pointer;transition:all .18s;
-  display:flex;flex-direction:column;gap:4px;position:relative;
-}
-.ch-card:hover{border-color:var(--gold);box-shadow:0 4px 14px rgba(0,0,0,.08);transform:translateY(-1px)}
-.ch-card.ch-read{border-color:#b6e4c8;background:#f5fdf8}
-.ch-num{font-size:.64rem;color:var(--gold);font-weight:700;letter-spacing:.07em;text-transform:uppercase}
-.ch-ico{font-size:1.2rem}
-.ch-title{font-weight:600;font-size:.83rem;color:var(--navy);line-height:1.3}
-.ch-desc{font-size:.72rem;color:var(--g400);line-height:1.4}
-.ch-badge{
-  position:absolute;top:8px;right:9px;width:16px;height:16px;
-  border-radius:50%;background:var(--green);display:none;
-  align-items:center;justify-content:center;font-size:.58rem;color:white;
-}
-.ch-card.ch-read .ch-badge{display:flex}
-
-/* ══ SECTION ══ */
-.sec-hdr{
-  margin-bottom:16px;padding-bottom:14px;border-bottom:2px solid var(--g200);
-}
-.sec-hdr h2{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--navy);line-height:1.2}
-.sec-hdr p{font-size:.82rem;color:var(--g400);margin-top:4px;line-height:1.5}
-
-.cols{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
-.cols.one{grid-template-columns:1fr}
-.cols.three{grid-template-columns:1fr 1fr 1fr}
-.cols.four{grid-template-columns:1fr 1fr 1fr 1fr}
-@media(max-width:680px){.cols,.cols.three,.cols.four{grid-template-columns:1fr}}
-@media(max-width:860px){.cols{grid-template-columns:1fr}}
-
-.card{
-  background:white;border-radius:11px;padding:16px 18px;
-  border:1px solid var(--g200);transition:box-shadow .18s;
-}
-.card:hover{box-shadow:0 3px 12px rgba(0,0,0,.06)}
-.card h3{
-  font-family:'Playfair Display',serif;font-size:.93rem;color:var(--navy);
-  margin-bottom:9px;display:flex;align-items:center;gap:6px;
-}
-.card p{font-size:.82rem;line-height:1.7;color:var(--g700)}
-.card ul,.card ol{padding-left:15px;margin-top:5px}
-.card li{font-size:.82rem;line-height:1.75;color:var(--g700)}
-.card li strong{color:var(--navy)}
-
-.tip{border-radius:9px;padding:11px 15px;display:flex;gap:10px;font-size:.82rem;line-height:1.65}
-.tip .ti{font-size:1.05rem;flex-shrink:0;margin-top:1px}
-.tip strong{display:block;margin-bottom:3px;font-weight:600}
-.tip-gold{background:#fdf6e8;border-left:4px solid var(--gold);color:#6b4e1a}
-.tip-blue{background:#edf2ff;border-left:4px solid var(--blue);color:#1e3a72}
-.tip-red{background:#fff0f0;border-left:4px solid var(--red);color:#7a1f1f}
-.tip-green{background:#edfaf3;border-left:4px solid var(--green);color:#1a4f32}
-
-.tbl-wrap{overflow-x:auto;border-radius:7px;border:1px solid var(--g200);max-width:100%}
-table{width:100%;min-width:360px;border-collapse:collapse;font-size:.8rem}
-thead th{background:var(--navy);color:white;padding:8px 10px;text-align:left;
-  font-weight:600;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;white-space:normal;word-break:break-word}
-tbody tr{border-bottom:1px solid var(--g200)}
-tbody tr:last-child{border-bottom:none}
-tbody tr:nth-child(even){background:#fafafa}
-tbody td{padding:8px 10px;color:var(--g700);vertical-align:top;word-break:break-word}
-tbody td:first-child{font-weight:500;color:var(--navy)}
-
-.script{
-  background:var(--navy);color:#c8e6ff;border-radius:9px;
-  padding:12px 16px;font-size:.82rem;line-height:1.7;position:relative;margin-top:4px;
-}
-.script-lbl{
-  position:absolute;top:-9px;left:12px;background:var(--gold);color:var(--navy);
-  font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;
-  padding:2px 9px;border-radius:20px;
+.hero h1 span { color: var(--red-light); }
+.hero p { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.6; max-width: 400px; }
+.hero-tagline {
+  margin-top: 18px; display: inline-block;
+  font-style: italic; font-size: 13px; color: rgba(255,255,255,0.5);
 }
 
-.steps{display:flex;flex-direction:column;gap:8px}
-.step{display:flex;gap:10px;align-items:flex-start}
-.step-n{
-  width:26px;height:26px;background:var(--navy);color:white;
-  border-radius:50%;display:flex;align-items:center;justify-content:center;
-  font-size:.73rem;font-weight:700;flex-shrink:0;margin-top:1px;
+/* Section grid */
+.section-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 2px; color: var(--text-light);
+  text-transform: uppercase; margin-bottom: 14px; padding-left: 2px;
 }
-.step-b{font-size:.82rem;line-height:1.7;color:var(--g700)}
-.step-b strong{color:var(--navy)}
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px; margin-bottom: 28px;
+}
+.card {
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: 14px; padding: 18px 18px 16px;
+  cursor: pointer; transition: all .22s; position: relative; overflow: hidden;
+}
+.card:hover { border-color: var(--navy); box-shadow: var(--shadow); transform: translateY(-2px); }
+.card-icon {
+  width: 42px; height: 42px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 12px; font-size: 20px;
+}
+.card-icon.navy { background: var(--navy-light); }
+.card-icon.red { background: var(--red-bg); }
+.card h3 { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+.card p { font-size: 12px; color: var(--text-light); line-height: 1.5; }
+.card-arrow {
+  position: absolute; right: 16px; bottom: 16px;
+  color: var(--border); font-size: 16px; transition: all .2s;
+}
+.card:hover .card-arrow { color: var(--navy); transform: translateX(3px); }
 
-/* ══ GLOSSARY ══ */
-.gloss-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-  gap:9px;
+/* ===== DETAIL SCREEN ===== */
+.detail-header {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 24px; padding-bottom: 18px;
+  border-bottom: 1.5px solid var(--border);
 }
-.gi{
-  background:white;border:1px solid var(--g200);border-radius:11px;
-  padding:13px 15px;display:flex;gap:12px;align-items:flex-start;
-  transition:box-shadow .18s;
+.detail-icon {
+  width: 50px; height: 50px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; flex-shrink: 0;
 }
-.gi:hover{box-shadow:0 3px 12px rgba(0,0,0,.07)}
-.gi-ic{
-  width:38px;height:38px;border-radius:9px;background:var(--navy);
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.1rem;flex-shrink:0;
-}
-.gi .term{font-weight:600;font-size:.85rem;color:var(--navy);margin-bottom:4px}
-.gi .def{font-size:.78rem;line-height:1.6;color:var(--g700)}
+.detail-icon.navy { background: var(--navy-light); }
+.detail-icon.red { background: var(--red-bg); }
+.detail-title { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--navy); line-height: 1.2; }
+.detail-subtitle { font-size: 12px; color: var(--text-light); margin-top: 3px; }
 
-/* ══ SEARCH ══ */
-#search-overlay{
-  display:none;position:fixed;inset:0;background:rgba(0,0,0,.48);
-  z-index:400;align-items:flex-start;justify-content:center;padding-top:60px;
+/* Read button */
+.btn-read {
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 1.5px solid var(--border); background: var(--white);
+  color: var(--text-light); font-family: 'DM Sans', sans-serif;
+  font-size: 12px; font-weight: 500; padding: 6px 14px;
+  border-radius: 20px; cursor: pointer; transition: all .2s; margin-left: auto;
 }
-#search-overlay.open{display:flex}
-.sp{
-  background:white;border-radius:13px;width:100%;max-width:560px;
-  max-height:72vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.25);
-}
-.sp-hd{
-  padding:12px 16px;border-bottom:1px solid var(--g200);
-  display:flex;align-items:center;gap:9px;
-  position:sticky;top:0;background:white;border-radius:13px 13px 0 0;
-}
-.sp-hd input{
-  flex:1;border:none;outline:none;font-family:'DM Sans',sans-serif;
-  font-size:.93rem;color:var(--text);
-}
-.sp-close{background:none;border:none;cursor:pointer;font-size:1.1rem;color:var(--g400);padding:2px 6px;border-radius:5px}
-.sp-close:hover{background:var(--g100);color:var(--navy)}
-.sr-item{padding:10px 16px;cursor:pointer;border-bottom:1px solid #f0f0f0;transition:background .12s}
-.sr-item:last-child{border-bottom:none}
-.sr-item:hover{background:var(--g100)}
-.sr-sec{font-size:.66rem;color:var(--gold);font-weight:600;text-transform:uppercase;margin-bottom:1px}
-.sr-title{font-size:.86rem;font-weight:600;color:var(--navy);margin-bottom:2px}
-.sr-excerpt{font-size:.76rem;color:var(--g400);line-height:1.4}
-mark{background:#fff3c4;border-radius:2px;padding:0 1px}
-.sr-empty{padding:26px 16px;text-align:center;color:var(--g400);font-size:.86rem}
+.btn-read:hover { border-color: var(--navy); color: var(--navy); }
+.btn-read.read { background: var(--navy); border-color: var(--navy); color: #fff; }
 
-/* Mobile overlay for sidebar */
-#mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:190}
-#mob-overlay.open{display:block}
-
-/* ══ RESPONSIVE ══ */
-@media(max-width:580px){
-  #content{padding:14px 12px 80px}
-  .hero{padding:20px 16px}
-  .hero h2{font-size:1.25rem}
-  .ch-grid{grid-template-columns:1fr 1fr}
-  #open-search-btn span{display:none}
-  .gloss-grid{grid-template-columns:1fr}
+/* Content blocks */
+.content-block { margin-bottom: 22px; }
+.content-block h2 {
+  font-size: 16px; font-weight: 600; color: var(--navy);
+  margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
 }
-@media(max-width:360px){.ch-grid{grid-template-columns:1fr}}
+.content-block h2::before {
+  content: ''; width: 3px; height: 16px; border-radius: 2px;
+  background: var(--red); display: block; flex-shrink: 0;
+}
+.content-block p { font-size: 14px; color: var(--text); line-height: 1.7; margin-bottom: 8px; }
+
+/* Pillars layout */
+.pillars-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;
+}
+.pillar-card {
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: 12px; padding: 16px; transition: all .2s;
+}
+.pillar-card:hover { border-color: var(--navy); box-shadow: var(--shadow); }
+.pillar-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; font-weight: 700; color: var(--red);
+  line-height: 1; margin-bottom: 6px;
+}
+.pillar-card h4 { font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+.pillar-card p { font-size: 12px; color: var(--text-light); line-height: 1.5; }
+
+/* Values grid */
+.values-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px;
+}
+.value-card {
+  background: var(--navy-light); border-radius: 12px; padding: 16px; text-align: center;
+}
+.value-icon { font-size: 24px; margin-bottom: 8px; }
+.value-card h4 { font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+.value-card p { font-size: 11px; color: var(--text-light); line-height: 1.5; }
+
+/* Org levels */
+.org-level {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 14px; background: var(--gray);
+  border-radius: 12px; margin-bottom: 10px; border-left: 3px solid var(--navy);
+}
+.org-level.red-border { border-left-color: var(--red); }
+.org-level-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+.org-level h4 { font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+.org-level p { font-size: 12px; color: var(--text-light); line-height: 1.5; }
+
+/* Goals */
+.goal-item {
+  border: 1.5px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 10px;
+}
+.goal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px; background: var(--navy);
+}
+.goal-header h4 { font-size: 13px; font-weight: 600; color: #fff; }
+.goal-weight {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; font-weight: 700; color: var(--red-light);
+}
+.goal-body { padding: 14px 16px; background: var(--white); }
+.goal-body p { font-size: 13px; color: var(--text); line-height: 1.6; margin-bottom: 6px; }
+.goal-indicator {
+  font-size: 11px; color: var(--text-light); font-style: italic;
+  padding-top: 8px; border-top: 1px solid var(--border); margin-top: 8px;
+  display: flex; gap: 6px; align-items: flex-start;
+}
+
+/* Competency list */
+.comp-list { display: flex; flex-direction: column; gap: 8px; }
+.comp-item {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 12px; background: var(--gray); border-radius: 10px;
+}
+.comp-num {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--navy); color: #fff;
+  font-size: 11px; font-weight: 700; display: flex;
+  align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+}
+.comp-item h5 { font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 2px; }
+.comp-item p { font-size: 12px; color: var(--text-light); line-height: 1.5; }
+
+/* Bonus table */
+.bonus-table { width: 100%; border-collapse: collapse; border-radius: 12px; overflow: hidden; }
+.bonus-table th {
+  background: var(--navy); color: #fff;
+  font-size: 12px; font-weight: 600;
+  padding: 10px 14px; text-align: left;
+}
+.bonus-table td {
+  padding: 10px 14px; font-size: 13px; border-bottom: 1px solid var(--border);
+}
+.bonus-table tr:last-child td { border-bottom: none; }
+.bonus-table tr:nth-child(even) td { background: var(--gray); }
+.bonus-tag {
+  display: inline-block; padding: 3px 10px; border-radius: 20px;
+  font-size: 11px; font-weight: 600;
+  background: var(--red-bg); color: var(--red);
+}
+
+/* ===== GLOSSARY ===== */
+.gloss-search {
+  width: 100%; border: 1.5px solid var(--border); border-radius: 10px;
+  padding: 10px 14px; font-family: 'DM Sans', sans-serif;
+  font-size: 14px; outline: none; margin-bottom: 18px;
+  transition: border-color .2s;
+}
+.gloss-search:focus { border-color: var(--navy); }
+.gloss-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px;
+}
+.gloss-item {
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: 14px; padding: 16px; transition: all .2s;
+}
+.gloss-item:hover { border-color: var(--navy); box-shadow: var(--shadow); }
+.gloss-top { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.gloss-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.gloss-icon.navy { background: var(--navy-light); }
+.gloss-icon.red { background: var(--red-bg); }
+.gloss-term { font-size: 13px; font-weight: 600; color: var(--navy); }
+.gloss-item p { font-size: 12px; color: var(--text-light); line-height: 1.6; }
+
+/* People grid */
+.people-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+.person-card {
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: 14px; padding: 20px 16px; text-align: center;
+}
+.person-avatar {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--navy); display: flex; align-items: center; justify-content: center;
+  font-size: 22px; margin: 0 auto 12px;
+}
+.person-card h4 { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
+.person-card .role { font-size: 11px; font-weight: 600; color: var(--red); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.person-card p { font-size: 12px; color: var(--text-light); line-height: 1.5; }
+
+/* Services */
+.services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.service-card {
+  border: 1.5px solid var(--border); border-radius: 14px; padding: 20px 16px;
+  border-top: 3px solid var(--red);
+}
+.service-card .svc-icon { font-size: 28px; margin-bottom: 10px; }
+.service-card h4 { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+.service-card p { font-size: 12px; color: var(--text-light); line-height: 1.5; }
+
+/* Badge read */
+.read-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 10px; font-weight: 600; padding: 3px 9px;
+  border-radius: 20px; background: #e6f9f0; color: #27ae60;
+}
+
+/* Tab bar for detail */
+.tab-bar {
+  display: flex; gap: 0; margin-bottom: 22px;
+  border-bottom: 1.5px solid var(--border); overflow-x: auto;
+  scrollbar-width: none;
+}
+.tab-bar::-webkit-scrollbar { display: none; }
+.tab-btn {
+  background: none; border: none; padding: 10px 16px;
+  font-family: 'DM Sans', sans-serif; font-size: 13px;
+  font-weight: 500; color: var(--text-light); cursor: pointer;
+  white-space: nowrap; border-bottom: 2px solid transparent;
+  margin-bottom: -1.5px; transition: all .2s;
+}
+.tab-btn.active { color: var(--navy); border-bottom-color: var(--navy); font-weight: 600; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* Responsive */
+@media (max-width: 500px) {
+  .screen { padding: 14px; }
+  .hero { padding: 24px 20px; }
+  .cards-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .pillars-grid, .values-grid { grid-template-columns: 1fr 1fr; }
+  .gloss-grid { grid-template-columns: 1fr; }
+  .people-grid { grid-template-columns: 1fr 1fr; }
+  .services-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* Animations */
+.screen.active { animation: fadeIn .25s ease; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
 </style>
 </head>
 <body>
 
-<div id="search-overlay">
-  <div class="sp">
-    <div class="sp-hd">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input id="si" type="text" placeholder="Pesquisar no guia… (Ctrl+K)" autocomplete="off">
-      <button class="sp-close" id="close-search">✕</button>
+<!-- HEADER -->
+<header class="header">
+  <div class="header-logo" onclick="goHome()">
+    <svg class="logo-svg" viewBox="0 0 60 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M30 4L4 26H12V50H26V36H34V50H48V26H56L30 4Z" fill="#1A2B4A"/>
+      <path d="M30 4L4 26H12V50H26V36H34V50H48V26H56L30 4Z" fill="none" stroke="#C0392B" stroke-width="0"/>
+      <polygon points="16,8 30,4 44,8 44,26 56,26 30,4 4,26 16,26" fill="#C0392B"/>
+    </svg>
+    <span class="logo-text">FRANÇA</span>
+  </div>
+  <div class="header-right">
+    <button class="btn-back" id="btnBack" onclick="goHome()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+      Início
+    </button>
+    <button class="btn-search" onclick="openSearch()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      Pesquisar
+    </button>
+  </div>
+</header>
+
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay" onclick="closeSearchIfOut(event)">
+  <div class="search-box">
+    <div class="search-input-wrap">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input class="search-input" id="searchInput" placeholder="Pesquise por cargo, competência, meta..." oninput="doSearch()" autofocus>
+      <button class="search-close" onclick="closeSearch()">✕</button>
     </div>
-    <div id="sr"></div>
+    <div class="search-results" id="searchResults">
+      <div class="search-empty">Digite para pesquisar conteúdo do guia</div>
+    </div>
   </div>
 </div>
 
-<div id="mob-overlay"></div>
+<!-- ========================= HOME ========================= -->
+<div class="screen active" id="screenHome">
+  <div class="hero">
+    <div class="hero-sub">França Imobiliária</div>
+    <h1>Guia do <span>Colaborador</span></h1>
+    <p>Tudo o que você precisa saber sobre nossa cultura, valores e responsabilidades em um só lugar.</p>
+    <span class="hero-tagline">A gente facilita, você realiza!</span>
+  </div>
 
-<!-- BOTTOM NAV -->
-<nav id="bottom-nav">
-  <button class="bn-item active" data-s="home" onclick="navigate('home')">
-    <span class="bn-ic">🏛️</span>
-    <span class="bn-lbl">Início</span>
-  </button>
-  <button class="bn-item" data-s="glossario" onclick="navigate('glossario')">
-    <span class="bn-ic">📖</span>
-    <span class="bn-lbl">Glossário</span>
-  </button>
-</nav>
-
-<aside id="sidebar"></aside>
-
-<div id="main">
-  <header id="topbar">
-    <button id="back-btn" aria-label="Voltar">←</button>
-    <div class="topbar-title" id="topbar-title">Visão Geral</div>
-    <div class="tb-actions">
-      <button id="read-btn"><span id="rb-ico">○</span> <span id="rb-txt">Marcar como lido</span></button>
-      <button id="open-search-btn">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <span>Pesquisar</span>
-      </button>
+  <div class="section-label">Institucional</div>
+  <div class="cards-grid">
+    <div class="card" onclick="openScreen('screenHistory')">
+      <div class="card-icon navy">👥</div>
+      <h3>Nossa História</h3>
+      <p>Conheça os fundadores e a trajetória da França</p>
+      <span class="card-arrow">→</span>
     </div>
-  </header>
+    <div class="card" onclick="openScreen('screenWhatWeDo')">
+      <div class="card-icon red">🏢</div>
+      <h3>O Que Fazemos</h3>
+      <p>Vendas, locação e administração de imóveis</p>
+      <span class="card-arrow">→</span>
+    </div>
+    <div class="card" onclick="openScreen('screenMVV')">
+      <div class="card-icon navy">🎯</div>
+      <h3>Missão, Visão e Valores</h3>
+      <p>Propósito e princípios que nos guiam</p>
+      <span class="card-arrow">→</span>
+    </div>
+    <div class="card" onclick="openScreen('screenCulture')">
+      <div class="card-icon red">🌟</div>
+      <h3>Cultura e Pilares</h3>
+      <p>Nossa cultura e metodologia dos 5 pilares</p>
+      <span class="card-arrow">→</span>
+    </div>
+    <div class="card" onclick="openScreen('screenOrg')">
+      <div class="card-icon navy">🏛️</div>
+      <h3>Estrutura Organizacional</h3>
+      <p>Hierarquia e organograma da empresa</p>
+      <span class="card-arrow">→</span>
+    </div>
+    <div class="card" onclick="openScreen('screenGoals')">
+      <div class="card-icon red">📊</div>
+      <h3>Sistema de Metas</h3>
+      <p>Modelo de metas trimestrais e bonificações</p>
+      <span class="card-arrow">→</span>
+    </div>
+  </div>
 
-  <div id="content">
+  <div class="section-label">Cargos e Funções</div>
+  <div class="cards-grid">
+    <div class="card" onclick="openScreen('screenMotoboy')">
+      <div class="card-icon red">🏍️</div>
+      <h3>Motoboy</h3>
+      <p>Entregas, documentos e suporte operacional externo</p>
+      <span class="card-arrow">→</span>
+    </div>
+    <div class="card" onclick="openScreen('screenCaptadorExt')">
+      <div class="card-icon navy">🗺️</div>
+      <h3>Captador Externo</h3>
+      <p>Prospecção ativa de imóveis em campo</p>
+      <span class="card-arrow">→</span>
+    </div>
+    <div class="card" onclick="openScreen('screenAssistente')">
+      <div class="card-icon red">📋</div>
+      <h3>Assistente de Captação</h3>
+      <p>Cadastro, avaliação e qualificação de imóveis</p>
+      <span class="card-arrow">→</span>
+    </div>
+    <div class="card" onclick="openScreen('screenSupervisor')">
+      <div class="card-icon navy">👔</div>
+      <h3>Supervisor de Captação</h3>
+      <p>Liderança da equipe e gestão do portfólio</p>
+      <span class="card-arrow">→</span>
+    </div>
+  </div>
 
-    <!-- HOME -->
-    <div class="page active" id="home">
-      <div class="hero">
-        <div class="hero-tag">Guia Completo</div>
-        <h2>Do Primeiro Contato ao<br>Contrato Assinado</h2>
-        <p>Rotinas · Linguagem · Regras · Documentação para corretores iniciantes. 15 capítulos + glossário.</p>
-        <div class="prog-wrap"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
-        <div class="prog-lbl" id="prog-lbl">0 de 15 capítulos lidos</div>
+  <div class="section-label">Referência</div>
+  <div class="cards-grid">
+    <div class="card" onclick="openScreen('screenGlossary')">
+      <div class="card-icon navy">📖</div>
+      <h3>Glossário</h3>
+      <p>Termos, siglas e ferramentas explicados</p>
+      <span class="card-arrow">→</span>
+    </div>
+    <div class="card" onclick="openScreen('screenTerm')">
+      <div class="card-icon red">✍️</div>
+      <h3>Termo de Compromisso</h3>
+      <p>Declaração de ciência e comprometimento</p>
+      <span class="card-arrow">→</span>
+    </div>
+  </div>
+</div>
+
+<!-- ========================= HISTÓRIA ========================= -->
+<div class="screen" id="screenHistory">
+  <div class="detail-header">
+    <div class="detail-icon navy">👥</div>
+    <div><div class="detail-title">Nossa História</div><div class="detail-subtitle">Quem conduz a França Imobiliária</div></div>
+    <button class="btn-read" id="readHistory" onclick="toggleRead('readHistory','screenHistory')">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      Marcar como lido
+    </button>
+  </div>
+  <div class="people-grid">
+    <div class="person-card">
+      <div class="person-avatar">👨‍💼</div>
+      <h4>Carlos França</h4>
+      <div class="role">Idealizador & Founder</div>
+      <p>Nascido no Rio de Janeiro, fundou a Imobiliária França em 1994 com o propósito de ajudar pessoas a realizarem seus sonhos por meio do imóvel ideal. Construiu uma trajetória de confiança, excelência no atendimento e impacto positivo nas cidades onde atua.</p>
+    </div>
+    <div class="person-card">
+      <div class="person-avatar">👩‍💼</div>
+      <h4>Carla França</h4>
+      <div class="role">CEO</div>
+      <p>Presente desde a fundação, Carla lidera a gestão financeira e os processos operacionais. Com visão estratégica, comprometimento e zelo, assegura o equilíbrio, a saúde financeira e a eficiência da empresa.</p>
+    </div>
+    <div class="person-card">
+      <div class="person-avatar">👨‍💼</div>
+      <h4>Rodrigo França</h4>
+      <div class="role">Expansão e Novos Negócios</div>
+      <p>Responsável por impulsionar o crescimento da Imobiliária França. Com visão estratégica e espírito empreendedor, lidera a expansão da marca, desenvolve novos negócios e fortalece parcerias alinhadas aos valores da empresa.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ========================= O QUE FAZEMOS ========================= -->
+<div class="screen" id="screenWhatWeDo">
+  <div class="detail-header">
+    <div class="detail-icon red">🏢</div>
+    <div><div class="detail-title">O Que Fazemos</div><div class="detail-subtitle">Nossos serviços e áreas de atuação</div></div>
+    <button class="btn-read" id="readWhatWeDo" onclick="toggleRead('readWhatWeDo','screenWhatWeDo')">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      Marcar como lido
+    </button>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="svc-icon">🏠</div>
+      <h4>Vendas</h4>
+      <p>Realizamos sonhos, conectamos investidores a boas oportunidades e empresas aos seus espaços ideais. Atuamos com lançamentos, imóveis prontos e de terceiros, sempre com segurança, transparência e foco no melhor negócio.</p>
+    </div>
+    <div class="service-card">
+      <div class="svc-icon">🔑</div>
+      <h4>Locação</h4>
+      <p>Conectamos proprietários e inquilinos com agilidade, segurança e responsabilidade. Facilitamos a locação de imóveis residenciais e comerciais com atendimento humanizado e suporte em cada etapa.</p>
+    </div>
+    <div class="service-card">
+      <div class="svc-icon">📂</div>
+      <h4>Administração de Imóveis</h4>
+      <p>Gerenciamos imóveis para locação com eficiência, segurança e tranquilidade. Cuidamos de contratos, recebimentos, manutenções e do relacionamento com inquilinos, garantindo a valorização do patrimônio.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ========================= MVV ========================= -->
+<div class="screen" id="screenMVV">
+  <div class="detail-header">
+    <div class="detail-icon navy">🎯</div>
+    <div><div class="detail-title">Missão, Visão e Valores</div><div class="detail-subtitle">Nosso propósito e princípios</div></div>
+    <button class="btn-read" id="readMVV" onclick="toggleRead('readMVV','screenMVV')">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      Marcar como lido
+    </button>
+  </div>
+  <div class="content-block">
+    <h2>Missão</h2>
+    <p>Ajudar as pessoas a realizarem seus sonhos com soluções imobiliárias seguras, simples e humanas, promovendo excelência nos processos, inovação constante e relacionamentos genuínos, para que cada conquista seja motivo de orgulho compartilhado.</p>
+  </div>
+  <div class="content-block">
+    <h2>Visão</h2>
+    <p>Ser referência em atendimento humanizado e em processos eficientes, reconhecida como a imobiliária que mais valoriza pessoas, cresce de forma sustentável e inspira confiança em cada relação construída.</p>
+  </div>
+  <div class="content-block">
+    <h2>Valores</h2>
+    <div class="values-grid">
+      <div class="value-card"><div class="value-icon">🤝</div><h4>Gente</h4><p>Empatia, respeito e reconhecimento. O sucesso começa com quem está ao nosso lado todos os dias.</p></div>
+      <div class="value-card"><div class="value-icon">⭐</div><h4>Excelência</h4><p>Qualidade, consistência e integração entre setores em tudo o que fazemos.</p></div>
+      <div class="value-card"><div class="value-icon">💡</div><h4>Inovação</h4><p>Melhoria contínua, tecnologia e troca de ideias que transformam nossos processos.</p></div>
+      <div class="value-card"><div class="value-icon">😊</div><h4>Satisfação</h4><p>Cliente no centro de cada decisão, com excelência, agilidade e empatia.</p></div>
+      <div class="value-card"><div class="value-icon">📈</div><h4>Resultado</h4><p>Crescimento sustentável com eficiência, equilíbrio e responsabilidade.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================= CULTURA ========================= -->
+<div class="screen" id="screenCulture">
+  <div class="detail-header">
+    <div class="detail-icon red">🌟</div>
+    <div><div class="detail-title">Cultura e Pilares</div><div class="detail-subtitle">Jeito França de Ser e Metodologia dos 5 Pilares</div></div>
+    <button class="btn-read" id="readCulture" onclick="toggleRead('readCulture','screenCulture')">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      Marcar como lido
+    </button>
+  </div>
+  <div class="content-block">
+    <h2>Nossa Cultura</h2>
+    <p>A cultura da França Imobiliária é guiada por pessoas que acreditam no poder da conexão, da disciplina e do crescimento contínuo. Valorizamos o equilíbrio entre resultados e bem-estar, estimulando um ambiente saudável, colaborativo e focado em evolução.</p>
+    <p>Aqui, metas e métricas claras, além de hábitos positivos, nos impulsionam a transformar objetivos em conquistas coletivas.</p>
+    <p>Nossa cultura reflete quem somos: um time que busca excelência, inova com propósito, coloca a satisfação das pessoas no centro de tudo e celebra cada resultado alcançado com orgulho e gratidão.</p>
+  </div>
+  <div class="content-block">
+    <h2>Metodologia – 5 Pilares</h2>
+    <p style="margin-bottom:14px;font-size:13px;color:var(--text-light)">Princípios que orientam nossas decisões e refletem nosso propósito de realizar sonhos com confiança, humanidade e excelência.</p>
+    <div class="pillars-grid">
+      <div class="pillar-card"><div class="pillar-number">01</div><h4>Gente</h4><p>Fortalecer o engajamento, o orgulho de fazer parte da França e o desenvolvimento contínuo das pessoas.</p></div>
+      <div class="pillar-card"><div class="pillar-number">02</div><h4>Excelência</h4><p>Assegurar qualidade, consistência e integração em todos os processos, com cuidado e propósito em cada detalhe.</p></div>
+      <div class="pillar-card"><div class="pillar-number">03</div><h4>Inovação</h4><p>Estimular a melhoria contínua com uso inteligente da tecnologia e incentivo à proposição de novas ideias.</p></div>
+      <div class="pillar-card"><div class="pillar-number">04</div><h4>Satisfação</h4><p>Garantir excelência no relacionamento e na experiência de cada cliente, com atendimento ágil e humanizado.</p></div>
+      <div class="pillar-card"><div class="pillar-number">05</div><h4>Resultado</h4><p>Promover o crescimento sustentável com eficiência, controle de custos e rentabilidade equilibrada entre as áreas.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================= ESTRUTURA ORGANIZACIONAL ========================= -->
+<div class="screen" id="screenOrg">
+  <div class="detail-header">
+    <div class="detail-icon navy">🏛️</div>
+    <div><div class="detail-title">Estrutura Organizacional</div><div class="detail-subtitle">Pilares e hierarquia da empresa</div></div>
+    <button class="btn-read" id="readOrg" onclick="toggleRead('readOrg','screenOrg')">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      Marcar como lido
+    </button>
+  </div>
+  <div class="content-block">
+    <h2>Níveis da Estrutura</h2>
+    <div class="org-level">
+      <div class="org-level-icon">👑</div>
+      <div><h4>Conselho</h4><p>Papel estratégico e institucional. Atua como guardião da cultura, reputação e expansão da empresa. Toma decisões de alto impacto e apoia diretamente a CEO.</p></div>
+    </div>
+    <div class="org-level">
+      <div class="org-level-icon">🎯</div>
+      <div><h4>Liderança Estratégica</h4><p>Ponte entre o Conselho e as áreas da empresa. Responsável por desdobrar a visão organizacional em planos claros e mensuráveis, com foco em resultados sustentáveis.</p></div>
+    </div>
+    <div class="org-level red-border">
+      <div class="org-level-icon">⚙️</div>
+      <div><h4>Liderança Tática</h4><p>Transforma a estratégia em ação. Coordena equipes, alinha metas e garante que os processos estejam orientados à entrega de resultados.</p></div>
+    </div>
+    <div class="org-level red-border">
+      <div class="org-level-icon">🔧</div>
+      <div><h4>Liderança Operacional</h4><p>Garante o funcionamento eficiente das rotinas e a organização das equipes em campo. Monitora fluxos, resolve gargalos e assegura a excelência nos atendimentos.</p></div>
+    </div>
+    <div class="org-level">
+      <div class="org-level-icon">💼</div>
+      <div><h4>Especialistas</h4><p>Responsáveis pela execução técnica e prática das atividades. Atuam com foco no cliente e nos processos, garantindo a fluidez das operações em cada etapa da jornada.</p></div>
+    </div>
+    <div class="org-level">
+      <div class="org-level-icon">🛠️</div>
+      <div><h4>Especialistas Operacionais</h4><p>Limpeza, Motoboy, Jovem Aprendiz, Consumos, Recepção, Contas a Pagar, Vistoria, França Repara – suporte essencial ao funcionamento da empresa.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================= SISTEMA DE METAS ========================= -->
+<div class="screen" id="screenGoals">
+  <div class="detail-header">
+    <div class="detail-icon red">📊</div>
+    <div><div class="detail-title">Sistema de Metas</div><div class="detail-subtitle">Modelo de metas trimestrais e bonificações</div></div>
+    <button class="btn-read" id="readGoals" onclick="toggleRead('readGoals','screenGoals')">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      Marcar como lido
+    </button>
+  </div>
+  <div class="content-block">
+    <h2>Metas Trimestrais</h2>
+    <p>A França Imobiliária adota, a partir de 2026, um modelo de metas trimestrais para todos os setores. O ano é dividido em quatro períodos de 90 dias, e a performance de cada área e colaborador é medida a cada trimestre.</p>
+    <p>Em cada ciclo, serão estabelecidas novas metas e prioridades, ajustadas conforme o momento e os objetivos estratégicos da empresa, garantindo agilidade, foco e capacidade de adaptação.</p>
+    <p>Cada gestor conduzirá feedbacks trimestrais – coletivos e individuais –, assegurando acompanhamento próximo, reconhecimento dos resultados e direcionamento para o desenvolvimento contínuo.</p>
+  </div>
+  <div class="content-block">
+    <h2>Critério de Bonificação</h2>
+    <div style="overflow-x:auto">
+    <table class="bonus-table">
+      <thead><tr><th>% Atingimento</th><th>Classificação</th><th>Bonificação</th></tr></thead>
+      <tbody>
+        <tr><td>70% a 80%</td><td>Cumprimento Parcial</td><td><span class="bonus-tag">70% do bônus</span></td></tr>
+        <tr><td>81% a 90%</td><td>Atingimento Satisfatório</td><td><span class="bonus-tag">85% do bônus</span></td></tr>
+        <tr><td>91% a 95%</td><td>Atingimento Elevado</td><td><span class="bonus-tag">95% do bônus</span></td></tr>
+        <tr><td>96% a 100%</td><td>Atingimento Pleno</td><td><span class="bonus-tag">100% do bônus</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- ========================= MOTOBOY ========================= -->
+<div class="screen" id="screenMotoboy">
+  <div class="detail-header">
+    <div class="detail-icon red">🏍️</div>
+    <div><div class="detail-title">Motoboy</div><div class="detail-subtitle">Especialista Operacional</div></div>
+    <button class="btn-read" id="readMotoboy" onclick="toggleRead('readMotoboy','screenMotoboy')">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      Marcar como lido
+    </button>
+  </div>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab(this,'tab-moto-desc')">Descrição</button>
+    <button class="tab-btn" onclick="switchTab(this,'tab-moto-comp')">Competências</button>
+    <button class="tab-btn" onclick="switchTab(this,'tab-moto-meta')">Metas</button>
+  </div>
+  <div id="tab-moto-desc" class="tab-content active">
+    <div class="content-block">
+      <h2>O Cargo</h2>
+      <p>O Motoboy é o profissional responsável por executar serviços externos essenciais para o funcionamento da Imobiliária França, garantindo agilidade, segurança e organização no transporte de documentos, chaves, contratos e materiais institucionais.</p>
+      <p>Realiza coletas e entregas externas, auxilia em demandas bancárias e administrativas e apoia a logística de eventos e ações promocionais. Atua com rigoroso controle do que é retirado e entregue, assegurando rastreabilidade e organização.</p>
+      <p>Além disso, realiza visitas a imóveis acompanhando clientes quando necessário, efetua a colocação e retirada de placas de aluguel e venda, e realiza registros fotográficos dos imóveis, contribuindo para a atualização de anúncios e controle do portfólio.</p>
+    </div>
+  </div>
+  <div id="tab-moto-comp" class="tab-content">
+    <div class="comp-list">
+      <div class="comp-item"><div class="comp-num">1</div><div><h5>Agilidade e Organização</h5><p>Executa múltiplas entregas com rapidez, planejamento e controle de rotas.</p></div></div>
+      <div class="comp-item"><div class="comp-num">2</div><div><h5>Discrição e Responsabilidade</h5><p>Cuidado no transporte de documentos e chaves, garantindo sigilo e segurança.</p></div></div>
+      <div class="comp-item"><div class="comp-num">3</div><div><h5>Pontualidade e Cumprimento de Prazos</h5><p>Compromisso com horários, roteiros e entregas dentro dos prazos estabelecidos.</p></div></div>
+      <div class="comp-item"><div class="comp-num">4</div><div><h5>Boa Comunicação</h5><p>Clareza ao receber instruções, reportar entregas e interagir com equipes internas e externas.</p></div></div>
+      <div class="comp-item"><div class="comp-num">5</div><div><h5>Proatividade e Disponibilidade</h5><p>Prontidão para atender demandas emergenciais e apoiar diferentes setores quando necessário.</p></div></div>
+      <div class="comp-item"><div class="comp-num">6</div><div><h5>Atenção aos Detalhes</h5><p>Conferência correta de itens retirados e entregues, evitando extravios ou erros.</p></div></div>
+      <div class="comp-item"><div class="comp-num">7</div><div><h5>Respeito às Normas de Trânsito</h5><p>Condução responsável, segura e alinhada às leis e protocolos de segurança.</p></div></div>
+      <div class="comp-item"><div class="comp-num">8</div><div><h5>Espírito Colaborativo</h5><p>Atuação integrada com os times administrativo, comercial e operacional.</p></div></div>
+      <div class="comp-item"><div class="comp-num">9</div><div><h5>Zelo pelo Veículo e Equipamentos</h5><p>Cuidado com a moto e comunicação preventiva sobre necessidades de manutenção.</p></div></div>
+      <div class="comp-item"><div class="comp-num">10</div><div><h5>Foco em Solução e Eficiência Operacional</h5><p>Capacidade de resolver imprevistos em campo, mantendo a continuidade dos processos.</p></div></div>
+    </div>
+  </div>
+  <div id="tab-moto-meta" class="tab-content">
+    <div class="goal-item"><div class="goal-header"><h4>🤝 Gente</h4><div class="goal-weight">20%</div></div><div class="goal-body"><p>Manter postura ética, profissional e transparente com proprietários, clientes e equipe. Cumprir horários e compromissos. Zelar pelos equipamentos de trabalho. Comunicar problemas imediatamente. Seguir normas de segurança no trânsito e no trabalho.</p><div class="goal-indicator">📌 Indicador: Índice de Conformidade Profissional e Operacional, avaliado através de checklist mensal.</div></div></div>
+    <div class="goal-item"><div class="goal-header"><h4>⭐ Excelência</h4><div class="goal-weight">10%</div></div><div class="goal-body"><p>Realizar fotos dos imóveis com boa iluminação, enquadramento e nitidez, respeitando o padrão visual da empresa. Instalar placas de forma segura, visível e padronizada.</p><div class="goal-indicator">📌 Indicador: Avaliação de qualidade e feedback interno e externo.</div></div></div>
+    <div class="goal-item"><div class="goal-header"><h4>💡 Inovação</h4><div class="goal-weight">10%</div></div><div class="goal-body"><p>Executar melhorias definidas no processo de captação e cadastro de imóveis, seguindo os padrões de fotos, instalação de placas e visitas, conforme orientação da liderança.</p><div class="goal-indicator">📌 Indicador: Aplicação prática das melhorias definidas.</div></div></div>
+    <div class="goal-item"><div class="goal-header"><h4>😊 Satisfação</h4><div class="goal-weight">10%</div></div><div class="goal-body"><p>Garantir atendimento cordial e profissional durante visitas e serviços externos. Apoiar corretores e a equipe interna com informações claras, completas e no tempo adequado.</p><div class="goal-indicator">📌 Indicador: Avaliação de qualidade e feedback interno e externo.</div></div></div>
+    <div class="goal-item"><div class="goal-header"><h4>📈 Resultado</h4><div class="goal-weight">50%</div></div><div class="goal-body"><p>Acompanhamento qualitativo. Manutenção do desempenho dentro dos padrões estabelecidos pela empresa em todos os pilares.</p><div class="goal-indicator">📌 Indicador: Desempenho qualitativo avaliado pela liderança.</div></div></div>
+    <div style="margin-top:16px;padding:14px;background:var(--red-bg);border-radius:10px;border-left:3px solid var(--red)">
+      <div style="font-size:11px;font-weight:700;color:var(--red);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Bônus Trimestral</div>
+      <div style="font-size:13px;color:var(--text)">A definir conforme política salarial vigente.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================= CAPTADOR EXTERNO ========================= -->
+<div class="screen" id="screenCaptadorExt">
+  <div class="detail-header">
+    <div class="detail-icon navy">🗺️</div>
+    <div><div class="detail-title">Captador Externo</div><div class="detail-subtitle">Prospecção ativa de imóveis em campo</div></div>
+    <button class="btn-read" id="readCaptadorExt" onclick="toggleRead('readCaptadorExt','screenCaptadorExt')">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      Marcar como lido
+    </button>
+  </div>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab(this,'tab-captext-desc')">Descrição</button>
+    <button class="tab-btn" onclick="switchTab(this,'tab-captext-comp')">Competências</button>
+    <button class="tab-btn" onclick="switchTab(this,'tab-captext-meta')">Metas</button>
+  </div>
+  <div id="tab-captext-desc" class="tab-content active">
+    <div class="content-block">
+      <h2>O Cargo</h2>
+      <p>O Captador Externo é o profissional responsável pela prospecção ativa e contínua de novos imóveis para venda e locação, atuando majoritariamente em campo, com foco em agilidade, presença territorial e geração constante de oportunidades para a Imobiliária França.</p>
+      <p>Atua predominantemente na rua, utilizando moto como meio de deslocamento para ampliar a cobertura geográfica e aumentar a produtividade. Realiza mapeamento de bairros estratégicos, identifica imóveis disponíveis e aborda proprietários de forma ética e profissional.</p>
+      <p>Responsável por reunir dados essenciais do imóvel, registrar fotos, alimentar o CRM e encaminhar as oportunidades qualificadas para o time de captação, vendas ou locação.</p>
+    </div>
+  </div>
+  <div id="tab-captext-comp" class="tab-content">
+    <div class="comp-list">
+      <div class="comp-item"><div class="comp-num">1</div><div><h5>Prospecção Ativa e Abordagem Comercial</h5><p>Identifica oportunidades em campo e aborda proprietários de forma ética, segura e estratégica.</p></div></div>
+      <div class="comp-item"><div class="comp-num">2</div><div><h5>Agilidade e Mobilidade em Campo</h5><p>Desloca-se rapidamente entre regiões, maximizando a produtividade diária de captação.</p></div></div>
+      <div class="comp-item"><div class="comp-num">3</div><div><h5>Comunicação Direta e Persuasiva</h5><p>Apresenta a proposta da imobiliária com clareza, objetividade e poder de convencimento.</p></div></div>
+      <div class="comp-item"><div class="comp-num">4</div><div><h5>Persistência e Resiliência</h5><p>Mantém constância e motivação mesmo diante de recusas e ciclos longos de prospecção.</p></div></div>
+      <div class="comp-item"><div class="comp-num">5</div><div><h5>Conhecimento Territorial e Leitura de Bairro</h5><p>Entendimento dos bairros, perfis de imóveis, dinâmica local e sinais de oportunidade.</p></div></div>
+      <div class="comp-item"><div class="comp-num">6</div><div><h5>Organização e Registro Rápido de Informações</h5><p>Coleta, registra e transmite dados de forma ágil e precisa, mesmo em campo.</p></div></div>
+      <div class="comp-item"><div class="comp-num">7</div><div><h5>Proatividade e Autonomia</h5><p>Atua com independência, iniciativa e foco em resultados, sem depender de demandas passivas.</p></div></div>
+      <div class="comp-item"><div class="comp-num">8</div><div><h5>Relacionamento e Construção de Confiança</h5><p>Cria vínculos rápidos e gera credibilidade junto a proprietários e contatos locais.</p></div></div>
+      <div class="comp-item"><div class="comp-num">9</div><div><h5>Postura Ética e Representação da Marca</h5><p>Atua alinhado aos valores da Imobiliária França, preservando a imagem e reputação da empresa.</p></div></div>
+      <div class="comp-item"><div class="comp-num">10</div><div><h5>Orientação para Resultado e Volume de Captação</h5><p>Foco em metas, constância de entregas e geração contínua de novos imóveis para o portfólio.</p></div></div>
+    </div>
+  </div>
+  <div id="tab-captext-meta" class="tab-content">
+    <div class="goal-item"><div class="goal-header"><h4>🤝 Gente</h4><div class="goal-weight">20%</div></div><div class="goal-body"><p>Manter postura ética, profissional e transparente. Cumprir horários e compromissos. Zelar pela imagem da imobiliária em visitas externas. Trabalhar em colaboração com corretores e equipe interna.</p><div class="goal-indicator">📌 Indicador: Desempenho comportamental e colaborativo mensurado por feedback interno e externo.</div></div></div>
+    <div class="goal-item"><div class="goal-header"><h4>⭐ Excelência</h4><div class="goal-weight">10%</div></div><div class="goal-body"><p>Captar imóveis dentro do perfil estratégico, garantindo informações completas e corretas – valores, condições, documentação, diferenciais e ciência do proprietário para divulgação.</p><div class="goal-indicator">📌 Indicador: Imóveis captados com qualidade e sem retrabalho, mensurados via pesquisas com proprietários e cliente interno.</div></div></div>
+    <div class="goal-item"><div class="goal-header"><h4>💡 Inovação</h4><div class="goal-weight">10%</div></div><div class="goal-body"><p>Identificar novas regiões e oportunidades. Sugerir abordagens diferenciadas. Utilizar ferramentas digitais (CRM, WhatsApp, mapas, fotos, vídeos). Acompanhar tendências do mercado imobiliário.</p><div class="goal-indicator">📌 Indicador: Novas estratégias aplicadas e uso das ferramentas, conforme direcionamento da liderança.</div></div></div>
+    <div class="goal-item"><div class="goal-header"><h4>😊 Satisfação</h4><div class="goal-weight">10%</div></div><div class="goal-body"><p>Garantir atendimento cordial e consultivo ao proprietário, alinhando expectativas de valor e prazo, promovendo transparência sobre todo o processo de captação.</p><div class="goal-indicator">📌 Indicador: Pesquisa direcionada a clientes e corretores.</div></div></div>
+    <div class="goal-item"><div class="goal-header"><h4>📈 Resultado</h4><div class="goal-weight">50%</div></div><div class="goal-body"><p><strong>Vendas:</strong> 90 imóveis residenciais ou comerciais<br><strong>Locação:</strong> 150 imóveis residenciais ou comerciais</p><div class="goal-indicator">📌 Indicador: Relatório trimestral de captações por tipo.</div></div></div>
+    <div style="margin-top:16px;padding:14px;background:var(--red-bg);border-radius:10px;border-left:3px solid var(--red)">
+      <div style="font-size:11px;font-weight:700;color:var(--red);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Bônus Trimestral</div>
+      <div style="font-size:13px;color:var(--text)">A definir conforme política salarial vigente.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================= ASSISTENTE CAPTAÇÃO ========================= -->
+<div class="screen" id="screenAssistente">
+  <div class="detail-header">
+    <div class="detail-icon red">📋</div>
+    <div><div class="detail-title">Assistente de Captação</div><div class="detail-subtitle">Cadastro, avaliação e qualificação de imóveis</div></div>
+    <button class="btn-read" id="readAssistente" onclick="toggleRead('readAssistente','screenAssistente')">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      Marcar como lido
+    </button>
+  </div>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab(this,'tab-ass-desc')">Descrição</button>
+    <button class="tab-btn" onclick="switchTab(this,'tab-ass-comp')">Competências</button>
+    <button class="tab-btn" onclick="switchTab(this,'tab-ass-meta')">Metas</button>
+  </div>
+  <div id="tab-ass-desc" class="tab-content active">
+    <div class="content-block">
+      <h2>O Cargo</h2>
+      <p>O Assistente de Captação é o profissional responsável por identificar, avaliar e viabilizar novos imóveis para o portfólio da Imobiliária França, atuando de forma ativa no mercado para garantir a constante renovação e qualidade das ofertas de venda e locação.</p>
+      <p>Realiza pesquisas diárias em plataformas, redes sociais e indicações, agenda visitas com proprietários e investidores, e faz avaliações presenciais dos imóveis, reunindo informações completas como metragem, características, valores, estado de conservação e documentação disponível.</p>
+      <p>Orienta os proprietários quanto a valores, condições de mercado e diferenciais competitivos, com base em estudos comparativos e diretrizes internas. Alimenta o CRM e os sistemas de gestão com dados completos e atualizados.</p>
+      <p>Atua em parceria direta com o Supervisor de Captação, apoiando tarefas administrativas e operacionais do setor, e participando de reuniões de alinhamento com as áreas comerciais, locação e marketing.</p>
+    </div>
+  </div>
+  <div id="tab-ass-comp" class="tab-content">
+    <div class="comp-list">
+      <div class="comp-item"><div class="comp-num">1</div><div><h5>Pesquisa Ativa e Visão de Oportunidade</h5><p>Identifica imóveis com potencial comercial em diferentes canais e fontes.</p></div></div>
+      <div class="comp-item"><div class="comp-num">2</div><div><h5>Organização e Atenção aos Detalhes</h5><p>Cuidado na coleta, registro e validação de informações técnicas e cadastrais dos imóveis.</p></div></div>
+      <div class="comp-item"><div class="comp-num">3</div><div><h5>Comunicação Clara com Proprietários</h5><p>Orienta, negocia e alinha expectativas de forma profissional e respeitosa.</p></div></div>
+      <div class="comp-item"><div class="comp-num">4</div><div><h5>Conhecimento Básico em Avaliação de Imóveis</h5><p>Entendimento de valores de mercado, características relevantes e critérios de precificação.</p></div></div>
+      <div class="comp-item"><div class="comp-num">5</div><div><h5>Olhar Técnico e Analítico</h5><p>Avalia condições físicas, diferenciais e possíveis limitações do imóvel.</p></div></div>
+      <div class="comp-item"><div class="comp-num">6</div><div><h5>Proatividade e Perfil Investigativo</h5><p>Iniciativa para buscar oportunidades, solucionar pendências e apoiar o setor de forma ativa.</p></div></div>
+      <div class="comp-item"><div class="comp-num">7</div><div><h5>Disciplina no Uso de Sistemas (CRM)</h5><p>Registro correto e completo das informações para garantir fluidez no processo comercial.</p></div></div>
+      <div class="comp-item"><div class="comp-num">8</div><div><h5>Relacionamento Interpessoal e Trabalho em Equipe</h5><p>Integração com supervisão, comercial, locação e marketing para ativação eficiente dos imóveis.</p></div></div>
+      <div class="comp-item"><div class="comp-num">9</div><div><h5>Responsabilidade com Prazos e Processos</h5><p>Comprometimento com entregas, visitas agendadas e acompanhamento dos imóveis captados.</p></div></div>
+      <div class="comp-item"><div class="comp-num">10</div><div><h5>Postura Ética e Representação da Marca</h5><p>Atuação com discrição, ética e alinhamento aos valores da Imobiliária França em campo.</p></div></div>
+    </div>
+  </div>
+  <div id="tab-ass-meta" class="tab-content">
+    <div class="goal-item"><div class="goal-header"><h4>🤝 Gente</h4><div class="goal-weight">10%</div></div><div class="goal-body"><p>Atuar de forma alinhada aos padrões da empresa, garantindo engajamento, responsabilidade e participação ativa nas rotinas e treinamentos da área de captação.</p><div class="goal-indicator">📌 Indicador: Participação em no mínimo 10 dos 15 treinamentos realizados no trimestre (peso 8%) e avaliação da liderança (peso 2%).</div></div></div>
+    <div class="goal-item"><div class="goal-header"><h4>⭐ Excelência</h4><div class="goal-weight">10%</div></div><div class="goal-body"><p>Qualidade nos cadastros de imóveis, garantindo informações completas, corretas, claras e padronizadas.</p><div class="goal-indicator">📌 Indicador: Pesquisa de Qualidade do Cadastro após envio do link ao cliente. Meta: alcançar no mínimo 100 respostas.</div></div></div>
+    <div class="goal-item"><div class="goal-header"><h4>💡 Inovação</h4><div class="goal-weight">10%</div></div><div class="goal-body"><p>Implementar melhorias no processo de captação e cadastro conforme direcionamento da liderança. Realizar 50 avaliações técnicas para clientes com imóveis para venda há mais de 6 meses.</p><div class="goal-indicator">📌 Indicador: Registro no Google Forms.</div></div></div>
+    <div class="goal-item"><div class="goal-header"><h4>😊 Satisfação</h4><div class="goal-weight">10%</div></div><div class="goal-body"><p>Garantir alto nível de satisfação do cliente interno, entregando cadastros organizados, claros e confiáveis.</p><div class="goal-indicator">📌 Indicador: Pesquisa direcionada a corretores e ao time de contratos.</div></div></div>
+    <div class="goal-item"><div class="goal-header"><h4>📈 Resultado</h4><div class="goal-weight">60%</div></div><div class="goal-body"><p><strong>Locação (20%):</strong> 270 imóveis (220 residenciais + 50 comerciais), incluindo 30 captações externas<br><strong>Vendas (20%):</strong> 90 imóveis (75 aptos/casas + 15 outros), incluindo 5 captações externas<br><strong>Placas (10%):</strong> 70 placas<br><strong>Atualizações (10%):</strong> 700 atualizações</p><div class="goal-indicator">📌 Indicador: Relatório trimestral de captação por etapa.</div></div></div>
+    <div style="margin-top:16px;padding:14px;background:var(--red-bg);border-radius:10px;border-left:3px solid var(--red)">
+      <div style="font-size:11px;font-weight:700;color:var(--red);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Bônus Trimestral</div>
+      <div style="font-size:24px;font-weight:700;color:var(--navy);font-family:'Playfair Display',serif">R$ 550,00</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================= SUPERVISOR ========================= -->
+<div class="screen" id="screenSupervisor">
+  <div class="detail-header">
+    <div class="detail-icon navy">👔</div>
+    <div><div class="detail-title">Supervisor de Captação</div><div class="detail-subtitle">Liderança da equipe e gestão do portfólio</div></div>
+    <button class="btn-read" id="readSupervisor" onclick="toggleRead('readSupervisor','screenSupervisor')">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      Marcar como lido
+    </button>
+  </div>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab(this,'tab-sup-desc')">Descrição</button>
+    <button class="tab-btn" onclick="switchTab(this,'tab-sup-comp')">Competências</button>
+    <button class="tab-btn" onclick="switchTab(this,'tab-sup-meta')">Metas</button>
+  </div>
+  <div id="tab-sup-desc" class="tab-content active">
+    <div class="content-block">
+      <h2>O Cargo</h2>
+      <p>O Supervisor de Captação é responsável por coordenar todas as etapas do processo de captação de imóveis, assegurando que o portfólio da imobiliária esteja sempre atualizado, diversificado e competitivo.</p>
+      <p>Supervisiona a equipe de captação, formada por assistentes, estagiários e captadores, assegurando que cada imóvel incluído na base esteja alinhado ao perfil estratégico da empresa. Coordena o processo desde o primeiro contato com o proprietário até a publicação final do imóvel.</p>
+      <p>Atua em contato direto com proprietários, construindo relacionamentos estratégicos e visitando imóveis quando necessário para validar informações ou avaliar potencial comercial. Estabelece metas e acompanha indicadores de quantidade e qualidade das captações.</p>
+      <p>Trabalha de forma integrada com marketing para desenvolver campanhas de captação ativa. Revisa novos cadastros diariamente, realiza reuniões semanais com a equipe, acompanha a produtividade dos captadores e orienta melhorias individuais e coletivas.</p>
+    </div>
+  </div>
+  <div id="tab-sup-comp" class="tab-content">
+    <div class="comp-list">
+      <div class="comp-item"><div class="comp-num">1</div><div><h5>Comunicação Clara e Persuasiva</h5><p>Conduz conversas com proprietários e orienta a equipe com clareza, objetividade e influência positiva.</p></div></div>
+      <div class="comp-item"><div class="comp-num">2</div><div><h5>Habilidade de Negociação</h5><p>Negocia condições, valores, exclusividades e aproximações comerciais com equilíbrio estratégico.</p></div></div>
+      <div class="comp-item"><div class="comp-num">3</div><div><h5>Organização e Gestão de Processos</h5><p>Estrutura fluxos claros, padroniza rotinas e garante que cada etapa da captação aconteça de forma organizada.</p></div></div>
+      <div class="comp-item"><div class="comp-num">4</div><div><h5>Análise Técnica e Comercial de Imóveis</h5><p>Avalia características, viabilidade e potencial de retorno dos imóveis considerando demanda e região.</p></div></div>
+      <div class="comp-item"><div class="comp-num">5</div><div><h5>Atenção a Detalhes e Rigor nas Informações</h5><p>Valida documentos, descrições, fotos, valores e dados cadastrais com precisão e qualidade.</p></div></div>
+      <div class="comp-item"><div class="comp-num">6</div><div><h5>Liderança Operacional e Desenvolvimento de Equipe</h5><p>Orienta, acompanha e desenvolve captadores, assistentes e estagiários, promovendo disciplina e produtividade.</p></div></div>
+      <div class="comp-item"><div class="comp-num">7</div><div><h5>Relacionamento Interpessoal e Gestão de Proprietários</h5><p>Cria vínculos positivos e mantém comunicação contínua, estratégica e profissional com proprietários.</p></div></div>
+      <div class="comp-item"><div class="comp-num">8</div><div><h5>Gestão por Indicadores e Orientação a Metas</h5><p>Acompanha métricas de captação, produtividade e qualidade para planejar ações e tomar decisões assertivas.</p></div></div>
+      <div class="comp-item"><div class="comp-num">9</div><div><h5>Parceria com Setores Internos</h5><p>Integra informações com marketing, jurídico, contratos e comercial, garantindo fluidez e eficiência.</p></div></div>
+      <div class="comp-item"><div class="comp-num">10</div><div><h5>Alinhamento à Cultura e aos Valores França</h5><p>Representa o Jeito França de Ser em todas as entregas, com gente, excelência, inovação, satisfação e resultado.</p></div></div>
+    </div>
+  </div>
+  <div id="tab-sup-meta" class="tab-content">
+    <div class="goal-item"><div class="goal-header"><h4>🤝 Gente</h4><div class="goal-weight">10%</div></div><div class="goal-body"><p>Desenvolver a equipe de captação garantindo que 100% dos colaboradores recebam dois feedbacks individuais estruturados no trimestre e participem de pelo menos dois treinamentos técnicos ou comportamentais.</p><div class="goal-indicator">📌 Indicador: Registro de feedback e presença em treinamento.</div></div></div>
+    <div class="goal-item"><div class="goal-header"><h4>⭐ Excelência</h4><div class="goal-weight">10%</div></div><div class="goal-body"><p>Pesquisa de Qualidade do Cadastro implementada. Após o envio do link do imóvel ao cliente, ele avalia clareza, completude, precisão e facilidade de entendimento das informações. Meta: alcançar no mínimo 100 respostas.</p><div class="goal-indicator">📌 Indicador: Número de respostas e avaliação média da pesquisa.</div></div></div>
+    <div class="goal-item"><div class="goal-header"><h4>💡 Inovação</h4><div class="goal-weight">10%</div></div><div class="goal-body"><p>Implementar pelo menos uma melhoria relevante no processo de captação por trimestre: novo script de abordagem, sistema de acompanhamento, automação, checklist estruturado ou integração com marketing.</p><div class="goal-indicator">📌 Indicador: Melhoria implementada e mensurada por ganho de eficiência, aumento de conversão ou redução de erros.</div></div></div>
+    <div class="goal-item"><div class="goal-header"><h4>😊 Satisfação</h4><div class="goal-weight">10%</div></div><div class="goal-body"><p>Avaliação interna direcionada a corretores e ao time de contratos, considerando qualidade e agilidade na entrega, organização das informações, suporte oferecido e facilidade de comunicação.</p><div class="goal-indicator">📌 Indicador: Pesquisa interna com corretores e time de contratos.</div></div></div>
+    <div class="goal-item"><div class="goal-header"><h4>📈 Resultado</h4><div class="goal-weight">60%</div></div><div class="goal-body"><p><strong>Locação (20%):</strong> 500 imóveis – 420 residenciais + 80 comerciais<br><strong>Vendas (20%):</strong> 150 imóveis – 130 aptos/casas + 20 outros<br><strong>Placas (10%):</strong> 130 placas<br><strong>Atualizações (10%):</strong> 1.200 atualizações</p><div class="goal-indicator">📌 Indicador: Relatório trimestral de captação por etapa.</div></div></div>
+    <div style="margin-top:16px;padding:14px;background:var(--red-bg);border-radius:10px;border-left:3px solid var(--red)">
+      <div style="font-size:11px;font-weight:700;color:var(--red);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Bônus Trimestral</div>
+      <div style="font-size:24px;font-weight:700;color:var(--navy);font-family:'Playfair Display',serif">R$ 1.000,00</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================= GLOSSÁRIO ========================= -->
+<div class="screen" id="screenGlossary">
+  <div class="detail-header">
+    <div class="detail-icon navy">📖</div>
+    <div><div class="detail-title">Glossário</div><div class="detail-subtitle">Termos, siglas e ferramentas da França Imobiliária</div></div>
+    <button class="btn-read" id="readGlossary" onclick="toggleRead('readGlossary','screenGlossary')">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      Marcar como lido
+    </button>
+  </div>
+  <input type="text" class="gloss-search" placeholder="🔍 Filtrar termos do glossário..." oninput="filterGlossary(this.value)">
+  <div class="gloss-grid" id="glossGrid">
+    <div class="gloss-item" data-term="crm">
+      <div class="gloss-top"><div class="gloss-icon navy">💻</div><div class="gloss-term">CRM</div></div>
+      <p><strong>Customer Relationship Management</strong> – Sistema de gestão de relacionamento com clientes. Na França, é utilizado o <strong>Kurole</strong> para registrar e acompanhar todos os atendimentos, leads e histórico de contatos de forma organizada.</p>
+    </div>
+    <div class="gloss-item" data-term="kurole">
+      <div class="gloss-top"><div class="gloss-icon red">🖥️</div><div class="gloss-term">Kurole</div></div>
+      <p>Plataforma de CRM utilizada pela França Imobiliária para registrar atendimentos, leads e processos comerciais. Todos os corretores devem manter 95% dos atendimentos registrados, completos e corretos nesta ferramenta.</p>
+    </div>
+    <div class="gloss-item" data-term="lais">
+      <div class="gloss-top"><div class="gloss-icon navy">🤖</div><div class="gloss-term">Laís</div></div>
+      <p>Ferramenta comercial utilizada pelos corretores de locação para apoio no atendimento e qualificação de leads. Faz parte do conjunto de ferramentas obrigatórias do setor comercial.</p>
+    </div>
+    <div class="gloss-item" data-term="sigafy">
+      <div class="gloss-top"><div class="gloss-icon red">📱</div><div class="gloss-term">Sigafy</div></div>
+      <p>Plataforma de gestão imobiliária utilizada pelo setor de locação para acompanhamento de processos, contratos e atendimentos. Integrada ao fluxo operacional da França.</p>
+    </div>
+    <div class="gloss-item" data-term="loft">
+      <div class="gloss-top"><div class="gloss-icon navy">🏗️</div><div class="gloss-term">Loft</div></div>
+      <p>Plataforma imobiliária utilizada como ferramenta de apoio comercial, principalmente para gestão de anúncios e captações. Parte do conjunto de ferramentas obrigatórias para corretores de locação.</p>
+    </div>
+    <div class="gloss-item" data-term="nps">
+      <div class="gloss-top"><div class="gloss-icon red">⭐</div><div class="gloss-term">NPS</div></div>
+      <p><strong>Net Promoter Score</strong> – Metodologia de pesquisa de satisfação que mede a lealdade dos clientes em uma escala de 0 a 10. Na França, o mínimo exigido é 10 pesquisas aplicadas por trimestre, com ao menos 80% de satisfação.</p>
+    </div>
+    <div class="gloss-item" data-term="lead">
+      <div class="gloss-top"><div class="gloss-icon navy">🎯</div><div class="gloss-term">Lead</div></div>
+      <p>Potencial cliente que demonstrou interesse em alugar ou comprar um imóvel. Os leads são recebidos e distribuídos pelos canais digitais da imobiliária e devem ser atendidos e registrados no CRM com agilidade.</p>
+    </div>
+    <div class="gloss-item" data-term="portfólio">
+      <div class="gloss-top"><div class="gloss-icon red">🏠</div><div class="gloss-term">Portfólio</div></div>
+      <p>Conjunto total de imóveis disponíveis para venda e locação na França Imobiliária. Manter o portfólio atualizado, diversificado e competitivo é responsabilidade direta da equipe de captação.</p>
+    </div>
+    <div class="gloss-item" data-term="captação">
+      <div class="gloss-top"><div class="gloss-icon navy">🔎</div><div class="gloss-term">Captação</div></div>
+      <p>Processo de identificar, prospectar e incluir novos imóveis no portfólio da imobiliária para venda ou locação. Envolve contato com proprietários, visitas técnicas, registro fotográfico e cadastro no sistema.</p>
+    </div>
+    <div class="gloss-item" data-term="oferta ativa">
+      <div class="gloss-top"><div class="gloss-icon red">📣</div><div class="gloss-term">Oferta Ativa</div></div>
+      <p>Estratégia proativa onde os corretores oferecem imóveis disponíveis diretamente a potenciais clientes, sem aguardar consultas espontâneas. O projeto <strong>Oferta Ativa 30</strong> é uma iniciativa estruturada para este fim.</p>
+    </div>
+    <div class="gloss-item" data-term="5 pilares">
+      <div class="gloss-top"><div class="gloss-icon navy">🏛️</div><div class="gloss-term">5 Pilares</div></div>
+      <p>Metodologia da França Imobiliária baseada em cinco valores fundamentais: <strong>Gente, Excelência, Inovação, Satisfação e Resultado</strong>. As metas trimestrais são distribuídas e ponderadas conforme esses pilares.</p>
+    </div>
+    <div class="gloss-item" data-term="meta trimestral">
+      <div class="gloss-top"><div class="gloss-icon red">📊</div><div class="gloss-term">Meta Trimestral</div></div>
+      <p>Sistema adotado a partir de 2026 onde o desempenho de cada colaborador é avaliado a cada 90 dias. Cada trimestre tem novas metas definidas por pilar, com pesos percentuais específicos para cada cargo.</p>
+    </div>
+    <div class="gloss-item" data-term="bônus">
+      <div class="gloss-top"><div class="gloss-icon navy">💰</div><div class="gloss-term">Bônus Trimestral</div></div>
+      <p>Remuneração variável paga ao final de cada trimestre, proporcional ao percentual de atingimento das metas. Varia de 70% a 100% do valor total do bônus, conforme as faixas de desempenho estabelecidas.</p>
+    </div>
+    <div class="gloss-item" data-term="feedback">
+      <div class="gloss-top"><div class="gloss-icon red">💬</div><div class="gloss-term">Feedback</div></div>
+      <p>Processo formal de retorno sobre o desempenho do colaborador, conduzido pelos gestores. Na França, cada colaborador deve receber no mínimo dois feedbacks individuais por trimestre, registrados em sistema.</p>
+    </div>
+    <div class="gloss-item" data-term="locatário inquilino">
+      <div class="gloss-top"><div class="gloss-icon navy">🤝</div><div class="gloss-term">Locatário / Inquilino</div></div>
+      <p>Pessoa física ou jurídica que aluga um imóvel. O corretor de locação é responsável por atender, qualificar e conduzir o processo do locatário até a assinatura do contrato de locação.</p>
+    </div>
+    <div class="gloss-item" data-term="locador proprietário">
+      <div class="gloss-top"><div class="gloss-icon red">🏡</div><div class="gloss-term">Locador / Proprietário</div></div>
+      <p>Pessoa física ou jurídica dona do imóvel que o disponibiliza para locação ou venda. A França atua como intermediária entre o proprietário e o inquilino/comprador, administrando toda a relação contratual.</p>
+    </div>
+    <div class="gloss-item" data-term="vistoria">
+      <div class="gloss-top"><div class="gloss-icon navy">🔍</div><div class="gloss-term">Vistoria</div></div>
+      <p>Inspeção detalhada do imóvel realizada antes da entrada e saída do inquilino, documentando o estado de conservação. É fundamental para evitar conflitos e proteger os interesses de ambas as partes.</p>
+    </div>
+    <div class="gloss-item" data-term="placa">
+      <div class="gloss-top"><div class="gloss-icon red">🪧</div><div class="gloss-term">Placa</div></div>
+      <p>Sinalizador físico instalado nos imóveis disponíveis para venda ou locação, indicando o contato da imobiliária. A instalação e retirada de placas é uma das responsabilidades do Motoboy e do Captador Externo.</p>
+    </div>
+    <div class="gloss-item" data-term="recadastro atualização">
+      <div class="gloss-top"><div class="gloss-icon navy">🔄</div><div class="gloss-term">Recadastro / Atualização</div></div>
+      <p>Revisão e atualização dos dados de imóveis já cadastrados no sistema, garantindo que as informações (preço, disponibilidade, fotos, condições) estejam sempre corretas e atualizadas nos portais e plataformas.</p>
+    </div>
+    <div class="gloss-item" data-term="jeito franca de ser">
+      <div class="gloss-top"><div class="gloss-icon red">💙</div><div class="gloss-term">Jeito França de Ser</div></div>
+      <p>Expressão que resume a identidade cultural da empresa: a forma como os colaboradores agem, se relacionam e entregam valor. Baseia-se nos 5 pilares e reflete o comprometimento com pessoas, excelência e resultado.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ========================= TERMO ========================= -->
+<div class="screen" id="screenTerm">
+  <div class="detail-header">
+    <div class="detail-icon red">✍️</div>
+    <div><div class="detail-title">Termo de Compromisso</div><div class="detail-subtitle">Declaração de ciência do colaborador</div></div>
+    <button class="btn-read" id="readTerm" onclick="toggleRead('readTerm','screenTerm')">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      Marcar como lido
+    </button>
+  </div>
+  <div style="background:var(--gray);border-radius:14px;padding:24px;border:1.5px solid var(--border)">
+    <p style="font-size:14px;line-height:1.8;color:var(--text);margin-bottom:16px">
+      Eu, <span style="border-bottom:1px solid var(--navy);padding:0 60px;display:inline-block"> </span>, colaborador(a) da França Imobiliária, declaro que recebi, li atentamente e compreendi todas as informações contidas no Guia Institucional do Colaborador França Imobiliária.
+    </p>
+    <p style="font-size:14px;line-height:1.8;color:var(--text);margin-bottom:16px">
+      Reconheço que este guia reúne as diretrizes que orientam nossa cultura organizacional, missão, visão, valores, responsabilidades, metas e padrões de conduta profissional. Estou ciente de que ele reflete o propósito da França Imobiliária de realizar sonhos com confiança, humanidade e excelência, e que cada colaborador tem papel essencial na consolidação desse propósito.
+    </p>
+    <div style="margin-bottom:16px">
+      <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:10px">Comprometo-me a:</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;gap:10px;align-items:flex-start;background:#fff;padding:10px;border-radius:8px;font-size:13px;color:var(--text)"><span style="color:var(--red);font-weight:700;flex-shrink:0">→</span>Agir de acordo com os valores institucionais – Gente, Excelência, Inovação, Satisfação e Resultado – aplicando-os nas minhas decisões, atitudes e relacionamentos diários.</div>
+        <div style="display:flex;gap:10px;align-items:flex-start;background:#fff;padding:10px;border-radius:8px;font-size:13px;color:var(--text)"><span style="color:var(--red);font-weight:700;flex-shrink:0">→</span>Cumprir as responsabilidades e rotinas da minha função, buscando constantemente o desenvolvimento pessoal e profissional.</div>
+        <div style="display:flex;gap:10px;align-items:flex-start;background:#fff;padding:10px;border-radius:8px;font-size:13px;color:var(--text)"><span style="color:var(--red);font-weight:700;flex-shrink:0">→</span>Utilizar as ferramentas e processos da empresa de forma ética, eficiente e padronizada, respeitando as normas e procedimentos estabelecidos.</div>
+        <div style="display:flex;gap:10px;align-items:flex-start;background:#fff;padding:10px;border-radius:8px;font-size:13px;color:var(--text)"><span style="color:var(--red);font-weight:700;flex-shrink:0">→</span>Promover um ambiente de respeito, colaboração e aprendizado contínuo, contribuindo para a construção de uma equipe forte e engajada.</div>
+        <div style="display:flex;gap:10px;align-items:flex-start;background:#fff;padding:10px;border-radius:8px;font-size:13px;color:var(--text)"><span style="color:var(--red);font-weight:700;flex-shrink:0">→</span>Zelar pela imagem e reputação da empresa, agindo sempre com integridade, transparência e foco no cliente.</div>
       </div>
-      <div class="ch-head">Capítulos do Guia</div>
-      <div class="ch-grid">
-        <div class="ch-card" data-goto="s1"><div class="ch-num">Cap. 01</div><div class="ch-ico">📊</div><div class="ch-title">Mercado de Locação</div><div class="ch-desc">Por que trabalhar com locação e como ganhar dinheiro</div><div class="ch-badge">✓</div></div>
-        <div class="ch-card" data-goto="s2"><div class="ch-num">Cap. 02</div><div class="ch-ico">🏛️</div><div class="ch-title">Registro e Habilitação</div><div class="ch-desc">CRECI, modalidades e requisitos legais</div><div class="ch-badge">✓</div></div>
-        <div class="ch-card" data-goto="s3"><div class="ch-num">Cap. 03</div><div class="ch-ico">🔍</div><div class="ch-title">Captação de Imóveis</div><div class="ch-desc">Métodos ativos e abordagem com o proprietário</div><div class="ch-badge">✓</div></div>
-        <div class="ch-card" data-goto="s4"><div class="ch-num">Cap. 04</div><div class="ch-ico">📢</div><div class="ch-title">Captação de Clientes</div><div class="ch-desc">Portais, anúncios eficientes e presença digital</div><div class="ch-badge">✓</div></div>
-        <div class="ch-card" data-goto="s5"><div class="ch-num">Cap. 05</div><div class="ch-ico">✅</div><div class="ch-title">Qualificação</div><div class="ch-desc">As 4 perguntas essenciais e critério de renda</div><div class="ch-badge">✓</div></div>
-        <div class="ch-card" data-goto="s6"><div class="ch-num">Cap. 06</div><div class="ch-ico">🚪</div><div class="ch-title">Visitas e Apresentação</div><div class="ch-desc">Postura, linguagem e follow-up</div><div class="ch-badge">✓</div></div>
-        <div class="ch-card" data-goto="s7"><div class="ch-num">Cap. 07</div><div class="ch-ico">📁</div><div class="ch-title">Documentação Exigida</div><div class="ch-desc">Inquilino, fiador, imóvel e proprietário</div><div class="ch-badge">✓</div></div>
-        <div class="ch-card" data-goto="s8"><div class="ch-num">Cap. 08</div><div class="ch-ico">🛡️</div><div class="ch-title">Garantias Locatícias</div><div class="ch-desc">Fiador, caução, seguro-fiança, capitalização</div><div class="ch-badge">✓</div></div>
-        <div class="ch-card" data-goto="s9"><div class="ch-num">Cap. 09</div><div class="ch-ico">📜</div><div class="ch-title">Contrato de Locação</div><div class="ch-desc">Cláusulas obrigatórias, reajuste e assinatura</div><div class="ch-badge">✓</div></div>
-        <div class="ch-card" data-goto="s10"><div class="ch-num">Cap. 10</div><div class="ch-ico">🤝</div><div class="ch-title">Negociação e Fechamento</div><div class="ch-desc">Os 5 pilares, objeções e frases de fechamento</div><div class="ch-badge">✓</div></div>
-        <div class="ch-card" data-goto="s11"><div class="ch-num">Cap. 11</div><div class="ch-ico">📅</div><div class="ch-title">Rotinas Diárias</div><div class="ch-desc">Agenda, metas e controle de carteira</div><div class="ch-badge">✓</div></div>
-        <div class="ch-card" data-goto="s12"><div class="ch-num">Cap. 12</div><div class="ch-ico">💬</div><div class="ch-title">Linguagem Profissional</div><div class="ch-desc">WhatsApp, e-mail e vocabulário do mercado</div><div class="ch-badge">✓</div></div>
-        <div class="ch-card" data-goto="s13"><div class="ch-num">Cap. 13</div><div class="ch-ico">🚫</div><div class="ch-title">Erros Comuns</div><div class="ch-desc">Os erros mais frequentes e como evitá-los</div><div class="ch-badge">✓</div></div>
-        <div class="ch-card" data-goto="s14"><div class="ch-num">Cap. 14</div><div class="ch-ico">⚖️</div><div class="ch-title">Lei do Inquilinato</div><div class="ch-desc">Direitos, obrigações e multas (Lei 8.245/91)</div><div class="ch-badge">✓</div></div>
-        <div class="ch-card" data-goto="s15"><div class="ch-num">Cap. 15</div><div class="ch-ico">🛠️</div><div class="ch-title">Ferramentas e Tecnologia</div><div class="ch-desc">Apps, CRM, Instagram e precificação</div><div class="ch-badge">✓</div></div>
-        <div class="ch-card" data-goto="glossario" style="border-color:#d4b896;background:#fffbf5"><div class="ch-num" style="color:#a06820">Glossário</div><div class="ch-ico">📖</div><div class="ch-title">Termos do Mercado</div><div class="ch-desc">25 termos essenciais explicados</div></div>
-      </div>
     </div>
-
-    <!-- S1 -->
-    <div class="page" id="s1">
-      <div class="sec-hdr"><h2>1. O Mercado de Locação</h2><p>Entenda o segmento, perfis de clientes e como o corretor ganha dinheiro</p></div>
-      <div class="cols" style="margin-bottom:12px">
-        <div class="card"><h3>📊 Por que trabalhar com locação?</h3><ul><li>Demanda constante e previsível ao longo do ano</li><li>Ciclo de fechamento mais rápido que na venda (dias vs. meses)</li><li>Comissão recorrente se você administrar o imóvel</li><li>Menor ticket de entrada — menos objeções financeiras</li><li>Excelente porta de entrada para iniciantes</li></ul></div>
-        <div class="card"><h3>👥 Perfis de Clientes</h3><ul><li><strong>Proprietário (locador):</strong> quer segurança, pontualidade e cuidado</li><li><strong>Inquilino (locatário):</strong> quer praticidade, preço justo e rapidez</li><li><strong>Fiador:</strong> precisa de respeito — é um facilitador importante</li><li><strong>Administradora:</strong> pode ser parceira ou empregadora</li></ul></div>
-      </div>
-      <div class="tip tip-gold" style="margin-bottom:12px"><div class="ti">💡</div><div><strong>Dica de Ouro</strong>Sempre busque também a administração do imóvel. A comissão de locação é única, mas a taxa de administração é recorrente e constrói renda passiva mensal.</div></div>
-      <div class="card"><h3>💰 Como o Corretor Ganha Dinheiro</h3><div class="tbl-wrap"><table><thead><tr><th>Tipo de Ganho</th><th>Quando Ocorre</th><th>Valor Típico</th></tr></thead><tbody><tr><td>Comissão de Locação</td><td>Na assinatura do contrato</td><td>1 aluguel (do proprietário)</td></tr><tr><td>Taxa de Administração</td><td>Todo mês (se administrar)</td><td>8% a 12% do aluguel</td></tr><tr><td>Honorário de Vistoria</td><td>Entrada e saída do inquilino</td><td>Varia por imobiliária</td></tr><tr><td>Renovação de Contrato</td><td>Após 30 meses</td><td>Negociável</td></tr></tbody></table></div></div>
+    <div style="display:grid;gap:12px;margin-top:24px">
+      <div style="font-size:13px;color:var(--text)">Nome do Colaborador: <span style="border-bottom:1px solid var(--navy);display:inline-block;width:200px"> </span></div>
+      <div style="font-size:13px;color:var(--text)">Cargo: <span style="border-bottom:1px solid var(--navy);display:inline-block;width:220px"> </span></div>
+      <div style="font-size:13px;color:var(--text)">Assinatura: <span style="border-bottom:1px solid var(--navy);display:inline-block;width:200px"> </span></div>
+      <div style="font-size:13px;color:var(--text)">Data: <span style="border-bottom:1px solid var(--navy);display:inline-block;width:120px"> </span></div>
     </div>
-
-    <!-- S2 -->
-    <div class="page" id="s2">
-      <div class="sec-hdr"><h2>2. Registro e Habilitação Profissional</h2><p>Requisitos legais para exercer a corretagem no Brasil</p></div>
-      <div class="tip tip-red" style="margin-bottom:12px"><div class="ti">⚠️</div><div><strong>Atenção Legal</strong>Trabalhar sem registro é crime de exercício ilegal de profissão. Anuncie sempre com seu CRECI. Corretores sem CRECI não podem cobrar comissão judicialmente.</div></div>
-      <div class="cols">
-        <div class="card"><h3>🏛️ Como Obter o CRECI</h3><div class="steps"><div class="step"><div class="step-n">1</div><div class="step-b"><strong>Faça o curso TTI</strong> em instituição credenciada</div></div><div class="step"><div class="step-n">2</div><div class="step-b"><strong>Solicite o CRECI-J</strong> (registro de estagiário)</div></div><div class="step"><div class="step-n">3</div><div class="step-b"><strong>Cumpra o estágio</strong> supervisionado (mín. 6 meses)</div></div><div class="step"><div class="step-n">4</div><div class="step-b"><strong>Solicite o CRECI-F</strong> (registro definitivo)</div></div><div class="step"><div class="step-n">5</div><div class="step-b"><strong>Pague a anuidade</strong> anual para manter ativo</div></div></div></div>
-        <div class="card"><h3>⚡ Modalidades de Atuação</h3><div class="tbl-wrap"><table><thead><tr><th>Modalidade</th><th>Vantagens</th><th>Desvantagens</th></tr></thead><tbody><tr><td>Autônomo</td><td>100% da comissão</td><td>Sem suporte</td></tr><tr><td>Parceiro Imobiliária</td><td>Suporte, marca, leads</td><td>Divisão de comissão</td></tr><tr><td>Funcionário CLT</td><td>Salário fixo</td><td>Menor comissão</td></tr><tr><td>Franquia</td><td>Marca forte</td><td>Alto investimento</td></tr></tbody></table></div><div class="tip tip-blue" style="margin-top:10px"><div class="ti">💡</div><div>Para iniciantes: ser parceiro de imobiliária oferece suporte jurídico e aprendizado com experientes.</div></div></div>
-      </div>
-    </div>
-
-    <!-- S3 -->
-    <div class="page" id="s3">
-      <div class="sec-hdr"><h2>3. Captação de Imóveis</h2><p>Métodos, abordagens e documentos para captar com sucesso</p></div>
-      <div class="tip tip-gold" style="margin-bottom:12px"><div class="ti">🎯</div><div><strong>A Regra dos 3 Nãos</strong>Todo proprietário que diz NÃO para o primeiro contato pode dizer SIM na terceira abordagem. Persistência qualificada é a chave.</div></div>
-      <div class="cols" style="margin-bottom:12px">
-        <div class="card"><h3>🔍 Prospecção por Placas</h3><p>Percorra bairros identificando imóveis com placas de aluguel direto — esses ainda não têm representação.</p><ul style="margin-top:8px"><li>Anote endereço e telefone</li><li>Aborde pessoalmente sempre que possível</li><li>Leve cartão de visitas profissional</li></ul><div class="script" style="margin-top:10px"><div class="script-lbl">Frase de Abordagem</div><p>"Bom dia! Sou corretor especializado nessa região e tenho clientes procurando exatamente esse tipo de imóvel. Posso te apresentar meu trabalho?"</p></div></div>
-        <div class="card"><h3>📱 Portais e Redes Sociais</h3><ul><li>OLX, Zap Imóveis, Viva Real, Imóvel Web</li><li>Facebook Marketplace e grupos locais</li><li>Instagram com hashtags do bairro</li></ul><div style="margin-top:12px"></div><h3 style="margin-top:12px">🤝 Síndicos e Zeladores</h3><p>Eles sabem antes de todos quando uma unidade vai desocupar. Visite condomínios mensalmente e cultive essas parcerias.</p></div>
-      </div>
-      <div class="card" style="margin-bottom:12px"><h3>📋 O que o Proprietário Quer Ouvir</h3><div class="tbl-wrap"><table><thead><tr><th>O que ele quer</th><th>O que enfatizar</th></tr></thead><tbody><tr><td>Imóvel bem anunciado</td><td>Fotos profissionais e anúncio em vários portais</td></tr><tr><td>Receber pontualmente</td><td>Seleção rigorosa de inquilino</td></tr><tr><td>Imóvel cuidado</td><td>Vistorias de entrada e saída</td></tr><tr><td>Sem dor de cabeça</td><td>Você cuida de tudo</td></tr></tbody></table></div></div>
-      <div class="tip tip-gold"><div class="ti">📸</div><div><strong>Foto vende imóvel</strong>Imóveis com fotos profissionais recebem até 3× mais contatos. Fotografe com luz natural e faça fotos amplas.</div></div>
-    </div>
-
-    <!-- S4 -->
-    <div class="page" id="s4">
-      <div class="sec-hdr"><h2>4. Captação de Clientes (Inquilinos)</h2><p>Portais, anúncios eficientes e como construir presença digital</p></div>
-      <div class="cols" style="margin-bottom:12px">
-        <div class="card"><h3>🌐 Onde Anunciar</h3><div class="tbl-wrap"><table><thead><tr><th>Portal</th><th>Perfil</th><th>Custo</th></tr></thead><tbody><tr><td>Zap Imóveis</td><td>Classe média-alta</td><td>Pago</td></tr><tr><td>Viva Real</td><td>Amplo público</td><td>Grátis/Pago</td></tr><tr><td>OLX</td><td>Várias classes</td><td>Grátis/Pago</td></tr><tr><td>Instagram</td><td>Jovens digitais</td><td>Grátis/Impuls.</td></tr><tr><td>Facebook Mkt</td><td>Amplo/local</td><td>Gratuito</td></tr></tbody></table></div></div>
-        <div class="card"><h3>✍️ Anúncio Eficiente</h3><div class="tip tip-blue" style="margin-bottom:10px"><div class="ti">📌</div><div><strong>Fórmula do título:</strong> [Tipo] [Quartos] para alugar em [Bairro] — [Diferencial]</div></div><ul><li>Metragem e área útil</li><li>Quartos, banheiros, vagas</li><li>Diferenciais: varanda, armários, AC</li><li>Aluguel + condomínio + IPTU</li><li>Condições: pets, fumantes, garantia</li></ul></div>
-      </div>
-      <div class="tip tip-green" style="margin-bottom:12px"><div class="ti">📱</div><div><strong>A Velocidade Decide o Negócio</strong>Responda em até 15 minutos nos horários comerciais. Clientes consultam vários imóveis ao mesmo tempo.</div></div>
-      <div class="card"><h3>💬 Script de Primeiro Contato</h3><div class="script"><div class="script-lbl">WhatsApp — Modelo Inicial</div><p>Olá [Nome]! Que bom que se interessou pelo imóvel. Para te ajudar melhor, me diz: qual é a sua data prevista de mudança? Quantas pessoas vão morar? E você já tem a documentação básica (comprovante de renda e RG)? Assim preparo tudo para sua visita!</p></div></div>
-    </div>
-
-    <!-- S5 -->
-    <div class="page" id="s5">
-      <div class="sec-hdr"><h2>5. Qualificação de Clientes</h2><p>Evite visitas desnecessárias e aumente sua taxa de fechamento</p></div>
-      <div class="cols" style="margin-bottom:12px">
-        <div class="card"><h3>❓ 4 Perguntas Essenciais</h3><div class="tbl-wrap"><table><thead><tr><th>Pergunta</th><th>Por que importa</th></tr></thead><tbody><tr><td>Qual o seu orçamento mensal?</td><td>Define quais imóveis mostrar</td></tr><tr><td>Quando precisa se mudar?</td><td>Define urgência</td></tr><tr><td>Qual a sua renda comprovada?</td><td>Critério dos 3×</td></tr><tr><td>Você tem garantia disponível?</td><td>Fiador, seguro ou caução?</td></tr></tbody></table></div></div>
-        <div class="card"><h3>💵 Critério de Renda</h3><p>A maioria exige renda de pelo menos <strong>3× o valor total</strong> (aluguel + condomínio + IPTU).</p><div class="tip tip-blue" style="margin-top:10px"><div class="ti">🧮</div><div><strong>Exemplo</strong>Aluguel R$2.000 + Cond. R$600 + IPTU R$200 = R$2.800<br>Renda mínima: <strong>R$8.400/mês</strong></div></div></div>
-      </div>
-      <div class="card"><h3>🧩 Perfis e Como Tratar Cada Um</h3><div class="cols"><ul><li><strong>Urgente:</strong> priorize, facilite a documentação</li><li><strong>Indeciso:</strong> seja paciente, elimine medos</li></ul><ul><li><strong>Exigente:</strong> ouça muito antes de falar</li><li><strong>Econômico:</strong> apresente custo total com honestidade</li></ul></div></div>
-    </div>
-
-    <!-- S6 -->
-    <div class="page" id="s6">
-      <div class="sec-hdr"><h2>6. Visitas e Apresentação de Imóveis</h2><p>Postura, linguagem e o que fazer antes, durante e após a visita</p></div>
-      <div class="cols" style="margin-bottom:12px">
-        <div class="card"><h3>🕐 Antes da Visita</h3><ul><li>Releia o anúncio e especificações</li><li>Verifique disponibilidade das chaves</li><li>Confirme a visita no dia anterior e no dia</li><li>Pesquise transporte, comércio e escolas da região</li><li>Leve cartão de visitas, ficha cadastral e caneta</li></ul></div>
-        <div class="card"><h3>🏠 Durante a Visita</h3><ul><li>Chegue 5–10 min antes para organizar</li><li>Vista-se profissionalmente</li><li>Deixe o cliente andar com calma</li><li>Faça perguntas: <em>"O que achou desse espaço?"</em></li><li>Seja honesto sobre eventuais problemas</li></ul></div>
-      </div>
-      <div class="card" style="margin-bottom:12px"><h3>🗣️ Linguagem de Apresentação</h3><div class="tbl-wrap"><table><thead><tr><th>Evite</th><th>Prefira</th></tr></thead><tbody><tr><td>"O imóvel é pequeno, mas…"</td><td>"O espaço é muito bem aproveitado"</td></tr><tr><td>"Não tem vaga de garagem"</td><td>"Há estacionamento rotativo ao lado a preço acessível"</td></tr><tr><td>"Precisa de reforma"</td><td>"O proprietário está aberto a negociar melhorias"</td></tr></tbody></table></div></div>
-      <div class="card"><h3>📲 Após a Visita</h3><ul><li>Envie agradecimento em até 1 hora</li><li>Pergunte a opinião do cliente</li><li>Entenda o motivo se não fechou</li><li>Tenha 2–3 opções reservas prontas</li></ul><div class="script" style="margin-top:10px"><div class="script-lbl">Mensagem Pós-Visita</div><p>Olá [Nome], foi um prazer te receber hoje! Fico à disposição para esclarecer qualquer dúvida. Se quiser, posso também te mostrar mais opções que separei com base no que conversamos. É só me falar!</p></div></div>
-    </div>
-
-    <!-- S7 -->
-    <div class="page" id="s7">
-      <div class="sec-hdr"><h2>7. Documentação Exigida</h2><p>Tudo o que precisar dos envolvidos no processo de locação</p></div>
-      <div class="cols" style="margin-bottom:12px">
-        <div class="card"><h3>👤 Documentos do Inquilino</h3><div class="tbl-wrap"><table><thead><tr><th>Documento</th><th>Finalidade</th></tr></thead><tbody><tr><td>RG e CPF</td><td>Identificação</td></tr><tr><td>Comprovante de residência</td><td>Endereço atual</td></tr><tr><td>Comprovante de renda</td><td>Últimos 3 contracheques</td></tr><tr><td>Declaração de IR</td><td>Renda complementar</td></tr><tr><td>Extrato bancário</td><td>3 últimos meses</td></tr><tr><td>Certidão de estado civil</td><td>Composição familiar</td></tr></tbody></table></div></div>
-        <div><div class="card" style="margin-bottom:12px"><h3>🤝 Documentos do Fiador</h3><ul><li>RG, CPF e comprovante de residência</li><li>Renda (dobro do exigido ao inquilino)</li><li>Matrícula do imóvel dado em garantia (quitado)</li><li>Certidão negativa de ônus reais</li></ul></div><div class="card"><h3>🏘️ Imóvel e Proprietário</h3><ul><li>Matrícula atualizada (últimos 30 dias)</li><li>Certidão negativa de IPTU</li><li>Última conta de condomínio quitada</li><li>Laudo de vistoria com fotos</li><li>AVCB para prédios</li></ul></div></div>
-      </div>
-      <div class="tip tip-gold"><div class="ti">📋</div><div><strong>Vistoria de Entrada é Fundamental</strong>Documente TUDO: riscos, manchas, falhas, torneiras, portas, pisos. Sem vistoria detalhada, você não tem como cobrar reparos na saída.</div></div>
-    </div>
-
-    <!-- S8 -->
-    <div class="page" id="s8">
-      <div class="sec-hdr"><h2>8. Garantias Locatícias</h2><p>Lei 8.245/91 — o proprietário escolhe apenas um tipo (Art. 37)</p></div>
-      <div class="card" style="margin-bottom:12px"><h3>🛡️ Comparativo de Garantias</h3><div class="tbl-wrap"><table><thead><tr><th>Garantia</th><th>Como Funciona</th><th>Vantagem</th><th>Desvantagem</th></tr></thead><tbody><tr><td>Fiador</td><td>Terceiro assume a dívida</td><td>Custo zero ao inquilino</td><td>Difícil de conseguir</td></tr><tr><td>Caução</td><td>Depósito de 3 meses em poupança</td><td>Simples e rápido</td><td>Preso por 3 meses</td></tr><tr><td>Seguro-Fiança</td><td>Seguradora garante o pagamento</td><td>Fácil aprovação</td><td>Custo mensal extra</td></tr><tr><td>Título de Capitalização</td><td>Valor depositado, retorna ao final</td><td>Recupera o valor</td><td>Burocracia para resgatar</td></tr></tbody></table></div></div>
-      <div class="cols">
-        <div class="card"><h3>💡 Qual Recomendar?</h3><ul><li><strong>Para o proprietário:</strong> Seguro-fiança (cobertura ampla)</li><li><strong>Para o inquilino:</strong> Caução (mais econômica)</li><li><strong>Mais comum:</strong> Fiador</li><li><strong>Mercado premium:</strong> Seguro-fiança crescendo</li></ul></div>
-        <div class="tip tip-blue"><div class="ti">🔥</div><div><strong>Seguro Incêndio — Obrigatório</strong>Art. 22, XIII da Lei 8.245/91. Custo baixo (R$10–30/mês). Verifique se o condomínio já tem apólice coletiva.</div></div>
-      </div>
-    </div>
-
-    <!-- S9 -->
-    <div class="page" id="s9">
-      <div class="sec-hdr"><h2>9. Contrato de Locação</h2><p>O documento mais importante — em conformidade com a Lei 8.245/91</p></div>
-      <div class="cols" style="margin-bottom:12px">
-        <div class="card"><h3>📜 Cláusulas Obrigatórias</h3><ul><li>Identificação completa das partes</li><li>Descrição do imóvel (endereço, metragem)</li><li>Valor do aluguel e data de vencimento</li><li>Índice de reajuste (IGPM, IPCA ou outro)</li><li>Prazo do contrato (tipicamente 30 meses)</li><li>Tipo de garantia escolhida</li><li>Destinação do imóvel</li><li>Responsabilidades de manutenção</li><li>Condições de rescisão e multas</li></ul></div>
-        <div><div class="card" style="margin-bottom:12px"><h3>📅 Prazos e Renovação</h3><div class="tbl-wrap"><table><thead><tr><th>Situação</th><th>Regra</th></tr></thead><tbody><tr><td>Contrato determinado</td><td>Vira indeterminado ao fim automaticamente</td></tr><tr><td>Rescisão pelo inquilino</td><td>Multa proporcional ao tempo restante</td></tr><tr><td>Aviso prévio</td><td>30 dias de antecedência</td></tr></tbody></table></div></div><div class="tip tip-red"><div class="ti">⚖️</div><div><strong>Atenção ao IGPM</strong>Pode ter variação agressiva. Oriente o proprietário a aceitar o IPCA como alternativa.</div></div></div>
-      </div>
-      <div class="card"><h3>✍️ Assinatura do Contrato</h3><ul><li>Pode ser físico (2 vias + cartório) ou digital</li><li>Plataformas: DocuSign, ClickSign, D4Sign</li><li>Todas as partes devem assinar + 2 testemunhas</li></ul></div>
-    </div>
-
-    <!-- S10 -->
-    <div class="page" id="s10">
-      <div class="sec-hdr"><h2>10. Negociação e Fechamento</h2><p>O bom negociador faz as duas partes sentirem que ganharam</p></div>
-      <div class="card" style="margin-bottom:12px"><h3>⚡ Os 5 Pilares da Negociação</h3><div class="cols"><div class="steps"><div class="step"><div class="step-n">1</div><div class="step-b"><strong>Escuta ativa:</strong> ouça mais do que fala</div></div><div class="step"><div class="step-n">2</div><div class="step-b"><strong>Ancoragem:</strong> a primeira proposta define o terreno</div></div><div class="step"><div class="step-n">3</div><div class="step-b"><strong>Concessões graduais:</strong> ceda aos poucos</div></div></div><div class="steps"><div class="step"><div class="step-n">4</div><div class="step-b"><strong>Crie valor:</strong> oferte limpeza ou reparo em vez de baixar o preço</div></div><div class="step"><div class="step-n">5</div><div class="step-b"><strong>Gere urgência:</strong> <em>"Tenho mais dois interessados…"</em></div></div></div></div></div>
-      <div class="cols">
-        <div class="card"><h3>🤔 Objeções e Respostas</h3><div class="tbl-wrap"><table><thead><tr><th>Objeção</th><th>Como responder</th></tr></thead><tbody><tr><td>"O aluguel está caro"</td><td>Compare com similares da região</td></tr><tr><td>"Não tenho fiador"</td><td>Seguro-fiança, caução ou título</td></tr><tr><td>"Preciso ver mais opções"</td><td>Pergunte o que falta e resolva no momento</td></tr><tr><td>"Vou pensar"</td><td>"O que te impede de decidir agora?"</td></tr><tr><td>"Precisa de reparos"</td><td>Negocie o que o proprietário faz antes da entrada</td></tr></tbody></table></div></div>
-        <div class="card"><h3>🎯 Frases de Fechamento</h3><div class="script"><div class="script-lbl">Use com naturalidade</div><p>"Posso já preparar a proposta formal para você?"<br><br>"Se o proprietário aceitar essa condição, você fecha hoje?"<br><br>"Qual seria o melhor dia para assinarmos?"</p></div><div class="tip tip-blue" style="margin-top:10px"><div class="ti">🤝</div><div>Seja o conselheiro, não o vendedor agressivo.</div></div></div>
-      </div>
-    </div>
-
-    <!-- S11 -->
-    <div class="page" id="s11">
-      <div class="sec-hdr"><h2>11. Rotinas Diárias do Corretor</h2><p>A consistência de rotina separa os corretores mediocres dos excepcionais</p></div>
-      <div class="card" style="margin-bottom:12px"><h3>📅 Rotina Diária Recomendada</h3><div class="tbl-wrap"><table><thead><tr><th>Horário</th><th>Atividade</th></tr></thead><tbody><tr><td>07h – 08h</td><td>Revisar mensagens, responder urgências, checar agenda</td></tr><tr><td>08h – 09h</td><td>Publicar/atualizar anúncios. Criar post para Instagram</td></tr><tr><td>09h – 12h</td><td>Atendimento a clientes (ligações, WhatsApp, visitas)</td></tr><tr><td>12h – 13h</td><td>Almoço. Revisar mensagens. Planejamento da tarde</td></tr><tr><td>13h – 17h</td><td>Visitas agendadas. Captação. Atendimento continuado</td></tr><tr><td>17h – 18h</td><td>Follow-up, propostas pendentes, organizar documentos</td></tr><tr><td>18h – 19h</td><td>Estudo: lei, negociação, mercado. Registro do dia</td></tr></tbody></table></div></div>
-      <div class="cols">
-        <div class="card"><h3>🎯 Metas Diárias</h3><ul><li>2 contatos novos de captação</li><li>5 respostas a leads de inquilinos</li><li>1 visita a imóvel realizada</li><li>1 post ou story no Instagram</li><li>Atualização do CRM/agenda</li></ul></div>
-        <div class="card"><h3>🗂️ Controle de Carteira</h3><div class="tbl-wrap"><table><thead><tr><th>Status</th><th>O que fazer</th></tr></thead><tbody><tr><td>Lead quente</td><td>Responder em até 15 min</td></tr><tr><td>Lead morno</td><td>Follow-up a cada 3 dias</td></tr><tr><td>Em negociação</td><td>Contato diário, agilizar documentos</td></tr><tr><td>Contrato assinado</td><td>Arquivar, pedir indicação</td></tr><tr><td>Imóvel vago 30+ dias</td><td>Revisar preço, melhorar anúncio</td></tr></tbody></table></div></div>
-      </div>
-    </div>
-
-    <!-- S12 -->
-    <div class="page" id="s12">
-      <div class="sec-hdr"><h2>12. Linguagem e Comunicação Profissional</h2><p>A forma como você se comunica define como você é percebido</p></div>
-      <div class="cols" style="margin-bottom:12px">
-        <div class="card"><h3>💬 WhatsApp e E-mail</h3><div class="tbl-wrap"><table><thead><tr><th>Evite</th><th>Prefira</th></tr></thead><tbody><tr><td>"oi!! to mandando o imovel"</td><td>"Olá [Nome], segue o link do imóvel."</td></tr><tr><td>"mto bom ne"</td><td>"Excelente custo-benefício para a região."</td></tr><tr><td>"nao sei"</td><td>"Vou verificar e retorno em breve."</td></tr><tr><td>"pode fechar logo?"</td><td>"Você tem alguma dúvida que eu esclareça?"</td></tr></tbody></table></div></div>
-        <div class="card"><h3>📞 Ligações e Visitas</h3><div class="script" style="margin-bottom:10px"><div class="script-lbl">Como atender ligações</div><p>"Boa tarde, [Seu nome], corretor de imóveis, em que posso ajudar?"</p></div><ul><li>Use o nome do cliente — cria conexão</li><li>Evite gírias e excesso de informalidade</li><li>Confirme o combinado ao final</li><li>Não fale mal de outros corretores</li></ul></div>
-      </div>
-      <div class="card"><h3>📡 Tom por Canal</h3><div class="tbl-wrap"><table><thead><tr><th>Canal</th><th>Tom Ideal</th><th>Exemplo prático</th></tr></thead><tbody><tr><td>WhatsApp</td><td>Informal-profissional</td><td>Objetivo, amigável, sem abreviações</td></tr><tr><td>E-mail</td><td>Formal</td><td>Prezado(a), atenciosamente, sem emojis</td></tr><tr><td>Instagram</td><td>Descontraído</td><td>Emojis moderados, bastidores, dicas</td></tr><tr><td>Visita presencial</td><td>Confiante e acolhedor</td><td>Postura aberta, sorriso, contato visual</td></tr></tbody></table></div></div>
-    </div>
-
-    <!-- S13 -->
-    <div class="page" id="s13">
-      <div class="sec-hdr"><h2>13. Erros Comuns e Como Evitar</h2><p>Conhecer os erros com antecedência é a melhor forma de não cometê-los</p></div>
-      <div class="card"><h3>🚫 Erros Frequentes do Iniciante</h3><div class="tbl-wrap"><table><thead><tr><th>Erro</th><th>Consequência</th><th>Como evitar</th></tr></thead><tbody><tr><td>Não fazer vistoria detalhada</td><td>Disputas ao final do contrato</td><td>Fotografe tudo, detalhe cada cômodo</td></tr><tr><td>Aceitar renda sem comprovação</td><td>Inquilino inadimplente</td><td>Sempre exija documentos oficiais</td></tr><tr><td>Prometer o que o proprietário não aprovou</td><td>Perda de credibilidade</td><td>Confirme tudo antes de informar</td></tr><tr><td>Não fazer follow-up</td><td>Perda de clientes quentes</td><td>Use CRM rigorosamente</td></tr><tr><td>Mostrar imóvel sem qualificar</td><td>Perde tempo de ambos</td><td>Qualifique antes de marcar visita</td></tr><tr><td>Ignorar o fiador no processo</td><td>Surpresas na aprovação</td><td>Avalie o fiador junto com o inquilino</td></tr><tr><td>Não ler o contrato com o cliente</td><td>Cliente assina sem entender</td><td>Reserve 30 min para as cláusulas</td></tr><tr><td>Depender só de um portal</td><td>Vulnerabilidade na captação</td><td>Diversifique canais sempre</td></tr><tr><td>Não pedir indicações</td><td>Perda de oportunidades gratuitas</td><td>Peça ao fim de toda locação fechada</td></tr></tbody></table></div></div>
-    </div>
-
-    <!-- S14 -->
-    <div class="page" id="s14">
-      <div class="sec-hdr"><h2>14. Lei do Inquilinato — Pontos Essenciais</h2><p>Lei 8.245/91 — a base legal de toda locação no Brasil</p></div>
-      <div class="cols" style="margin-bottom:12px">
-        <div class="card"><h3>⚖️ Direitos do Proprietário</h3><ul><li>Receber o aluguel na data combinada</li><li>Exigir garantia (apenas um tipo)</li><li>Pedir o imóvel ao fim do contrato determinado</li><li>Pedir para uso próprio com prazo legal</li><li>Entrar no imóvel com aviso prévio</li></ul></div>
-        <div class="card"><h3>📌 Obrigações do Proprietário</h3><ul><li>Entregar o imóvel em boas condições</li><li>Garantir a posse tranquila ao inquilino</li><li>Pagar IPTU (salvo cláusula contrária)</li><li>Arcar com reformas estruturais</li><li>Fornecer recibo de pagamento</li></ul></div>
-        <div class="card"><h3>🏡 Direitos do Inquilino</h3><ul><li>Usar o imóvel conforme o contrato</li><li>Exigir reparos estruturais do proprietário</li><li>Receber a caução ao fim com correção</li><li>Preferência de compra se à venda</li></ul></div>
-        <div class="card"><h3>📋 Obrigações do Inquilino</h3><ul><li>Pagar o aluguel na data combinada</li><li>Conservar o imóvel como se fosse seu</li><li>Comunicar problemas ao proprietário</li><li>Restituir nas mesmas condições recebidas</li><li>Não sublocar sem autorização</li></ul></div>
-      </div>
-      <div class="card" style="margin-bottom:12px"><h3>💥 Multas e Rescisão</h3><div class="tbl-wrap"><table><thead><tr><th>Situação</th><th>Regra Legal</th></tr></thead><tbody><tr><td>Rescisão pelo inquilino antes do prazo</td><td>Multa de 3 meses (proporcional ao tempo restante)</td></tr><tr><td>Rescisão por transferência de emprego</td><td>Isento de multa com aviso de 30 dias</td></tr><tr><td>Falta de pagamento</td><td>Ação de despejo (processo judicial)</td></tr><tr><td>Devolução sem aviso prévio</td><td>Proprietário pode cobrar 1 mês de aluguel</td></tr></tbody></table></div></div>
-      <div class="tip tip-green"><div class="ti">📚</div><div><strong>Leia a Lei Completa</strong>A Lei 8.245/91 tem apenas 88 artigos e pode ser lida em menos de 2 horas. Faça isso na primeira semana.</div></div>
-    </div>
-
-    <!-- S15 -->
-    <div class="page" id="s15">
-      <div class="sec-hdr"><h2>15. Ferramentas e Tecnologia</h2><p>O corretor moderno usa tecnologia a seu favor</p></div>
-      <div class="card" style="margin-bottom:12px"><h3>🛠️ Ferramentas Essenciais</h3><div class="tbl-wrap"><table><thead><tr><th>Categoria</th><th>Ferramenta</th><th>Para que usar</th></tr></thead><tbody><tr><td>Anúncios</td><td>Zap, Viva Real, OLX</td><td>Publicar e gerenciar imóveis</td></tr><tr><td>CRM</td><td>Bitrix24, Pipedrive</td><td>Acompanhar leads e negociações</td></tr><tr><td>Comunicação</td><td>WhatsApp Business</td><td>Catálogo e respostas automáticas</td></tr><tr><td>Fotos</td><td>Lightroom, Snapseed</td><td>Editar fotos de imóveis</td></tr><tr><td>Contratos</td><td>ClickSign, D4Sign</td><td>Assinatura digital</td></tr><tr><td>Design</td><td>Canva</td><td>Posts profissionais</td></tr><tr><td>Vistoria</td><td>Mango Vistoria, Ubsafe</td><td>Laudos fotográficos</td></tr></tbody></table></div></div>
-      <div class="cols">
-        <div class="card"><h3>📸 Instagram — O que Postar</h3><ul><li>Imóveis disponíveis com fotos e valor</li><li>Imóveis recém-alugados ("LOCADO")</li><li>Dicas para inquilinos: como negociar, checklist</li><li>Dicas para proprietários: precificação, vistoria</li><li>Bastidores: visitas, reuniões, conquistas</li><li>Depoimentos de clientes satisfeitos</li></ul></div>
-        <div class="card"><h3>💹 Precificação do Aluguel</h3><ul><li>Pesquise imóveis similares na mesma rua/bairro</li><li>Considere: metragem, quartos, andar, garagem</li><li>Regra: aluguel ≈ <strong>0,3% a 0,6%</strong> do valor de venda</li></ul><div class="tip tip-blue" style="margin-top:10px"><div class="ti">🧮</div><div><strong>Exemplo</strong>Imóvel de R$400.000 × 0,4% = <strong>R$1.600/mês</strong></div></div></div>
-      </div>
-    </div>
-
-    <!-- GLOSSÁRIO -->
-    <div class="page" id="glossario">
-      <div class="sec-hdr"><h2>Glossário do Mercado Imobiliário</h2><p>25 termos essenciais da corretagem de locação explicados de forma clara</p></div>
-      <div class="gloss-grid">
-        <div class="gi"><div class="gi-ic">⚖️</div><div><div class="term">Ação de Despejo</div><div class="def">Processo judicial para retirar o inquilino do imóvel em caso de inadimplência, término de contrato ou violação prevista na Lei do Inquilinato.</div></div></div>
-        <div class="gi"><div class="gi-ic">🚒</div><div><div class="term">AVCB — Auto de Vistoria do Corpo de Bombeiros</div><div class="def">Certificado que atesta que o imóvel atende às normas de segurança contra incêndio e pânico. Obrigatório especialmente em prédios.</div></div></div>
-        <div class="gi"><div class="gi-ic">🔨</div><div><div class="term">Benfeitorias</div><div class="def">Melhorias feitas no imóvel pelo inquilino: <strong>necessárias</strong> (indenizáveis), <strong>úteis</strong> (indenizáveis se autorizadas) ou <strong>voluptuárias</strong> (estéticas, não indenizáveis).</div></div></div>
-        <div class="gi"><div class="gi-ic">🎯</div><div><div class="term">Captação</div><div class="def">Processo de identificar e obter imóveis para locação. O corretor que capta tem autorização formal do proprietário para anunciar e apresentar o imóvel.</div></div></div>
-        <div class="gi"><div class="gi-ic">🏦</div><div><div class="term">Caução</div><div class="def">Garantia em que o inquilino deposita até 3 aluguéis em conta poupança vinculada ao contrato. Devolvido ao final com correção, se não houver débitos.</div></div></div>
-        <div class="gi"><div class="gi-ic">🔄</div><div><div class="term">Cessão</div><div class="def">Transferência do contrato de locação para um terceiro. Só é válida com autorização expressa do proprietário. O cessionário assume todas as obrigações.</div></div></div>
-        <div class="gi"><div class="gi-ic">🏛️</div><div><div class="term">CRECI</div><div class="def">Conselho Regional de Corretores de Imóveis — órgão regulador da profissão. O registro ativo é obrigatório para exercer a corretagem legalmente.</div></div></div>
-        <div class="gi"><div class="gi-ic">💻</div><div><div class="term">CRM</div><div class="def">Customer Relationship Management — software de gestão de clientes. Registra interações, acompanha leads, agenda follow-ups e mede conversões.</div></div></div>
-        <div class="gi"><div class="gi-ic">📣</div><div><div class="term">Denunciação</div><div class="def">Notificação formal comunicando a intenção de encerrar o contrato. O prazo mínimo para o inquilino é de 30 dias.</div></div></div>
-        <div class="gi"><div class="gi-ic">🤝</div><div><div class="term">Fiador</div><div class="def">Pessoa que se responsabiliza pelas obrigações do inquilino. Geralmente precisa ter renda comprovada e imóvel próprio quitado no mesmo estado da locação.</div></div></div>
-        <div class="gi"><div class="gi-ic">📲</div><div><div class="term">Follow-up</div><div class="def">Contato de acompanhamento após uma interação anterior. Fundamental para manter relacionamento e não perder negócios por falta de continuidade.</div></div></div>
-        <div class="gi"><div class="gi-ic">📈</div><div><div class="term">IGPM</div><div class="def">Índice Geral de Preços do Mercado (FGV), muito usado para reajustar aluguel. Pode apresentar variações elevadas em anos de instabilidade econômica.</div></div></div>
-        <div class="gi"><div class="gi-ic">📊</div><div><div class="term">IPCA</div><div class="def">Índice oficial de inflação do Brasil (IBGE). Tende a ser mais estável que o IGPM e vem sendo cada vez mais adotado nos contratos de locação.</div></div></div>
-        <div class="gi"><div class="gi-ic">🔥</div><div><div class="term">Lead</div><div class="def">Potencial cliente que demonstrou interesse em um imóvel. Podem ser "quentes" (alta intenção) ou "mornos" (sem urgência imediata).</div></div></div>
-        <div class="gi"><div class="gi-ic">🏠</div><div><div class="term">Locação</div><div class="def">Contrato pelo qual o proprietário (locador) cede o uso de um imóvel ao inquilino (locatário) mediante pagamento de aluguel. Regida pela Lei 8.245/91.</div></div></div>
-        <div class="gi"><div class="gi-ic">👤</div><div><div class="term">Locador</div><div class="def">O proprietário do imóvel disponibilizado para locação. É quem recebe o aluguel e estabelece as condições do contrato.</div></div></div>
-        <div class="gi"><div class="gi-ic">🧳</div><div><div class="term">Locatário</div><div class="def">O inquilino — quem ocupa o imóvel alugado e paga o aluguel. Tem obrigações como conservação e pagamento pontual.</div></div></div>
-        <div class="gi"><div class="gi-ic">🚫</div><div><div class="term">Luvas</div><div class="def">Valor pago pelo inquilino ao proprietário para ter o direito de locar. <strong>Proibido em locações residenciais</strong>. Pode ocorrer em locações comerciais.</div></div></div>
-        <div class="gi"><div class="gi-ic">📋</div><div><div class="term">Matrícula do Imóvel</div><div class="def">Documento do Cartório de Registro de Imóveis que comprova a propriedade e histórico jurídico. Indispensável para confirmar que o locador é o proprietário.</div></div></div>
-        <div class="gi"><div class="gi-ic">🛡️</div><div><div class="term">Seguro-Fiança</div><div class="def">Garantia em que uma seguradora garante o pagamento do aluguel. O inquilino paga um prêmio mensal. Considerada a mais segura para o proprietário.</div></div></div>
-        <div class="gi"><div class="gi-ic">🔐</div><div><div class="term">Sublocação</div><div class="def">Quando o inquilino aluga o imóvel para terceiros. Geralmente proibida pelo contrato e pela lei, salvo autorização expressa do proprietário.</div></div></div>
-        <div class="gi"><div class="gi-ic">💼</div><div><div class="term">Taxa de Administração</div><div class="def">Percentual mensal (8%–12% do aluguel) cobrado pela imobiliária para administrar o imóvel: cobrança, repasse, manutenção e relação entre as partes.</div></div></div>
-        <div class="gi"><div class="gi-ic">🎰</div><div><div class="term">Título de Capitalização</div><div class="def">Produto financeiro usado como garantia locatícia. O inquilino deposita um valor (≈12 aluguéis) que fica bloqueado durante o contrato e é devolvido ao final.</div></div></div>
-        <div class="gi"><div class="gi-ic">🎓</div><div><div class="term">TTI — Curso de Transações Imobiliárias</div><div class="def">Curso técnico obrigatório para obter o CRECI. Aborda direito imobiliário, avaliação de imóveis, técnicas de corretagem, ética e legislação.</div></div></div>
-        <div class="gi"><div class="gi-ic">🔎</div><div><div class="term">Vistoria</div><div class="def">Inspeção detalhada do estado do imóvel na entrada e saída do inquilino. O laudo fotográfico é o instrumento principal para identificar danos e cobrar reparos.</div></div></div>
-      </div>
-    </div>
-
-  </div><!-- /content -->
-</div><!-- /main -->
+  </div>
+  <div style="text-align:center;margin-top:24px;font-style:italic;color:var(--red);font-size:15px;font-family:'Playfair Display',serif">
+    A gente facilita, você realiza!
+  </div>
+</div>
 
 <script>
-const SECTIONS=['s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11','s12','s13','s14','s15'];
-const TITLES={home:'Visão Geral',glossario:'Glossário',s1:'1. Mercado de Locação',s2:'2. Registro e Habilitação',s3:'3. Captação de Imóveis',s4:'4. Captação de Clientes',s5:'5. Qualificação',s6:'6. Visitas',s7:'7. Documentação',s8:'8. Garantias',s9:'9. Contrato',s10:'10. Negociação',s11:'11. Rotinas',s12:'12. Linguagem',s13:'13. Erros Comuns',s14:'14. Lei do Inquilinato',s15:'15. Ferramentas'};
+// ===== NAVIGATION =====
+let currentScreen = 'screenHome';
+const readState = {};
 
-let READ={};
-try{READ=JSON.parse(localStorage.getItem('guia_read')||'{}')}catch(e){}
-
-let currentPage='home';
-let navHistory=[];
-
-const backBtn=document.getElementById('back-btn');
-const readBtn=document.getElementById('read-btn');
-const rbIco=document.getElementById('rb-ico');
-const rbTxt=document.getElementById('rb-txt');
-const topTitle=document.getElementById('topbar-title');
-const progFill=document.getElementById('prog-fill');
-const progLbl=document.getElementById('prog-lbl');
-
-function updateBottomNav(id){
-  document.querySelectorAll('.bn-item[data-s]').forEach(i=>{
-    i.classList.toggle('active', i.dataset.s===id);
-  });
-}
-
-function navigate(id,pushHist=true){
-  if(id===currentPage)return;
-  if(pushHist)navHistory.push(currentPage);
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+function openScreen(id) {
+  document.getElementById(currentScreen).classList.remove('active');
   document.getElementById(id).classList.add('active');
-  document.getElementById('content').scrollTop=0;
-  topTitle.textContent=TITLES[id]||id;
-  currentPage=id;
-  backBtn.classList.toggle('visible',navHistory.length>0);
-  const showRead=SECTIONS.includes(id);
-  readBtn.classList.toggle('visible',showRead);
-  if(showRead)updateReadBtn(id);
-  updateProgress();
-  updateBottomNav(id);
-  window.history.pushState({page:id,hist:navHistory.slice()},'',`#${id}`);
+  currentScreen = id;
+  window.scrollTo(0, 0);
+  document.getElementById('btnBack').classList.add('visible');
+  if (id === 'screenHome') document.getElementById('btnBack').classList.remove('visible');
 }
 
-function goBack(){
-  if(!navHistory.length){if(currentPage!=='home')navigate('home');return;}
-  const prev=navHistory.pop();
-  const showRead=SECTIONS.includes(prev);
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(prev).classList.add('active');
-  document.getElementById('content').scrollTop=0;
-  topTitle.textContent=TITLES[prev]||prev;
-  currentPage=prev;
-  backBtn.classList.toggle('visible',navHistory.length>0);
-  readBtn.classList.toggle('visible',showRead);
-  if(showRead)updateReadBtn(prev);
-  updateProgress();
-  updateBottomNav(prev);
+function goHome() {
+  openScreen('screenHome');
+  document.getElementById('btnBack').classList.remove('visible');
 }
 
-backBtn.addEventListener('click',goBack);
-
-// Hardware back button (Android/iOS PWA)
-window.addEventListener('popstate',function(e){
-  if(navHistory.length>0){
-    goBack();
-    window.history.pushState({page:currentPage},'',`#${currentPage}`);
-  } else if(currentPage!=='home'){
-    navigate('home',false);
-    window.history.pushState({page:'home'},'','#home');
+// Back button / browser back
+window.addEventListener('popstate', () => goHome());
+function openScreen(id) {
+  document.getElementById(currentScreen).classList.remove('active');
+  document.getElementById(id).classList.add('active');
+  currentScreen = id;
+  window.scrollTo(0, 0);
+  if (id !== 'screenHome') {
+    history.pushState({ screen: id }, '', '');
+    document.getElementById('btnBack').classList.add('visible');
+  } else {
+    document.getElementById('btnBack').classList.remove('visible');
   }
+}
+window.addEventListener('popstate', () => {
+  document.getElementById(currentScreen).classList.remove('active');
+  currentScreen = 'screenHome';
+  document.getElementById('screenHome').classList.add('active');
+  document.getElementById('btnBack').classList.remove('visible');
+  window.scrollTo(0, 0);
 });
 
-// Push initial state
-window.history.replaceState({page:'home'},'','#home');
-
-function updateReadBtn(id){
-  const r=!!READ[id];
-  readBtn.classList.toggle('read',r);
-  rbIco.textContent=r?'✓':'○';
-  rbTxt.textContent=r?'Marcado como lido':'Marcar como lido';
-}
-readBtn.addEventListener('click',function(){
-  const id=currentPage;
-  if(!SECTIONS.includes(id))return;
-  READ[id]=!READ[id];
-  if(!READ[id])delete READ[id];
-  try{localStorage.setItem('guia_read',JSON.stringify(READ))}catch(e){}
-  updateReadBtn(id);
-  updateProgress();
-  updateChCards();
-});
-
-function updateProgress(){
-  const count=SECTIONS.filter(s=>READ[s]).length;
-  const pct=Math.round((count/SECTIONS.length)*100);
-  if(progFill)progFill.style.width=pct+'%';
-  if(progLbl)progLbl.textContent=`${count} de ${SECTIONS.length} capítulos lidos`;
-}
-function updateChCards(){
-  document.querySelectorAll('.ch-card[data-goto]').forEach(c=>{
-    c.classList.toggle('ch-read',!!READ[c.dataset.goto]);
-  });
+// ===== READ TOGGLE =====
+function toggleRead(btnId, screenId) {
+  const btn = document.getElementById(btnId);
+  const isRead = readState[screenId];
+  readState[screenId] = !isRead;
+  if (!isRead) {
+    btn.classList.add('read');
+    btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Lido ✓';
+  } else {
+    btn.classList.remove('read');
+    btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Marcar como lido';
+  }
 }
 
-// Sidebar toggle (stub - sidebar hidden)
-const sbToggle=document.getElementById('sb-toggle');
-if(sbToggle)sbToggle.addEventListener('click',function(){});
+// ===== TABS =====
+function switchTab(btn, tabId) {
+  const tabBar = btn.closest('.tab-bar');
+  const screen = btn.closest('.screen');
+  tabBar.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  screen.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+}
 
-// Sidebar nav (stub)
-document.querySelectorAll('.sb-item[data-s]').forEach(item=>{
-  item.addEventListener('click',()=>navigate(item.dataset.s));
-});
+// ===== SEARCH =====
+const searchIndex = [
+  { label: 'Nossa História', tag: 'Institucional', screen: 'screenHistory' },
+  { label: 'O Que Fazemos', tag: 'Institucional', screen: 'screenWhatWeDo' },
+  { label: 'Missão, Visão e Valores', tag: 'Institucional', screen: 'screenMVV' },
+  { label: 'Cultura e Pilares', tag: 'Institucional', screen: 'screenCulture' },
+  { label: 'Estrutura Organizacional', tag: 'Institucional', screen: 'screenOrg' },
+  { label: 'Sistema de Metas', tag: 'Institucional', screen: 'screenGoals' },
+  { label: 'Motoboy', tag: 'Cargo', screen: 'screenMotoboy' },
+  { label: 'Captador Externo', tag: 'Cargo', screen: 'screenCaptadorExt' },
+  { label: 'Assistente de Captação', tag: 'Cargo', screen: 'screenAssistente' },
+  { label: 'Supervisor de Captação', tag: 'Cargo', screen: 'screenSupervisor' },
+  { label: 'Glossário', tag: 'Referência', screen: 'screenGlossary' },
+  { label: 'Termo de Compromisso', tag: 'Referência', screen: 'screenTerm' },
+  { label: 'CRM – Kurole', tag: 'Glossário', screen: 'screenGlossary' },
+  { label: 'NPS – Pesquisa de Satisfação', tag: 'Glossário', screen: 'screenGlossary' },
+  { label: 'Metas Trimestrais', tag: 'Glossário', screen: 'screenGoals' },
+  { label: 'Bônus Trimestral', tag: 'Glossário', screen: 'screenGoals' },
+  { label: 'Oferta Ativa 30', tag: 'Processo', screen: 'screenGlossary' },
+  { label: 'Portfólio de Imóveis', tag: 'Conceito', screen: 'screenGlossary' },
+  { label: 'Carlos França – Fundador', tag: 'Pessoas', screen: 'screenHistory' },
+  { label: 'Carla França – CEO', tag: 'Pessoas', screen: 'screenHistory' },
+  { label: 'Rodrigo França – Expansão', tag: 'Pessoas', screen: 'screenHistory' },
+  { label: 'Jeito França de Ser', tag: 'Cultura', screen: 'screenCulture' },
+  { label: '5 Pilares: Gente, Excelência, Inovação, Satisfação, Resultado', tag: 'Cultura', screen: 'screenCulture' },
+];
 
-// Home cards
-document.querySelectorAll('.ch-card[data-goto]').forEach(card=>{
-  card.addEventListener('click',()=>navigate(card.dataset.goto));
-});
+function openSearch() {
+  document.getElementById('searchOverlay').classList.add('visible');
+  setTimeout(() => document.getElementById('searchInput').focus(), 100);
+}
+function closeSearch() {
+  document.getElementById('searchOverlay').classList.remove('visible');
+  document.getElementById('searchInput').value = '';
+  document.getElementById('searchResults').innerHTML = '<div class="search-empty">Digite para pesquisar conteúdo do guia</div>';
+}
+function closeSearchIfOut(e) {
+  if (e.target === document.getElementById('searchOverlay')) closeSearch();
+}
+function doSearch() {
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  const res = document.getElementById('searchResults');
+  if (!q) { res.innerHTML = '<div class="search-empty">Digite para pesquisar conteúdo do guia</div>'; return; }
+  const matches = searchIndex.filter(i => i.label.toLowerCase().includes(q) || i.tag.toLowerCase().includes(q));
+  if (!matches.length) { res.innerHTML = '<div class="search-empty">Nenhum resultado encontrado</div>'; return; }
+  res.innerHTML = matches.map(m => `<div class="search-result-item" onclick="searchGo('${m.screen}')"><span class="tag">${m.tag}</span><span class="label">${m.label}</span></div>`).join('');
+}
+function searchGo(screen) {
+  closeSearch();
+  openScreen(screen);
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSearch(); });
 
-// Search
-const searchOverlay=document.getElementById('search-overlay');
-const si=document.getElementById('si');
-const srEl=document.getElementById('sr');
-function openSearch(){searchOverlay.classList.add('open');si.value='';srEl.innerHTML='';setTimeout(()=>si.focus(),40)}
-function closeSearch(){searchOverlay.classList.remove('open')}
-document.getElementById('open-search-btn').addEventListener('click',openSearch);
-const sbSearchBtn=document.getElementById('sb-search-btn');
-if(sbSearchBtn)sbSearchBtn.addEventListener('click',openSearch);
-document.getElementById('close-search').addEventListener('click',closeSearch);
-searchOverlay.addEventListener('click',e=>{if(e.target===searchOverlay)closeSearch()});
-document.addEventListener('keydown',e=>{
-  if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();openSearch()}
-  if(e.key==='Escape')closeSearch();
-});
-const IDX=[];
-document.querySelectorAll('.page').forEach(page=>{
-  const sid=page.id;
-  page.querySelectorAll('.card,.gi,.tip').forEach(el=>{
-    const h=el.querySelector('h3,.term');
-    if(!h)return;
-    IDX.push({s:sid,t:TITLES[sid]||sid,title:h.textContent.replace(/\s+/g,' ').trim(),text:el.textContent.replace(/\s+/g,' ').trim()});
+// ===== GLOSSARY FILTER =====
+function filterGlossary(q) {
+  const items = document.querySelectorAll('.gloss-item');
+  q = q.toLowerCase();
+  items.forEach(item => {
+    const term = item.dataset.term || '';
+    const text = item.textContent.toLowerCase();
+    item.style.display = (text.includes(q) || term.includes(q)) ? '' : 'none';
   });
-});
-function hl(t,q){return t.replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi'),'<mark>$1</mark>')}
-si.addEventListener('input',()=>{
-  const q=si.value.trim().toLowerCase();
-  if(q.length<2){srEl.innerHTML='';return}
-  const m=IDX.filter(i=>i.title.toLowerCase().includes(q)||i.text.toLowerCase().includes(q)).slice(0,10);
-  if(!m.length){srEl.innerHTML='<div class="sr-empty">Nenhum resultado encontrado.</div>';return}
-  srEl.innerHTML=m.map(x=>`<div class="sr-item" data-goto="${x.s}"><div class="sr-sec">${x.t}</div><div class="sr-title">${hl(x.title,q)}</div><div class="sr-excerpt">${hl(x.text.substring(0,100),q)}…</div></div>`).join('');
-  srEl.querySelectorAll('.sr-item').forEach(item=>{
-    item.addEventListener('click',()=>{closeSearch();navigate(item.dataset.goto)});
-  });
-});
-
-// Init
-updateProgress();
-updateChCards();
-updateBottomNav('home');
+}
 </script>
 </body>
 </html>
